@@ -1,11 +1,18 @@
+---@type LazySpec
 return {
   {
-    "catppuccin",
+    "astrotheme",
     opts = {
-      flavour = "frappe",
-      transparent_background = true,
-      styles = {
-        comments = {},
+      highlights = {
+        global = {
+          ---@param c AstroThemePalette
+          modify_hl_groups = function(hl, c)
+            hl.LeapBackdrop = { fg = c.syntax.mute }
+            hl.LeapMatch = { fg = c.ui.green, bold = true }
+            hl.LeapLabelPrimary = { fg = c.ui.red, bold = true }
+            hl.LeapLabelSecondary = { fg = c.ui.cyan, bold = true }
+          end,
+        },
       },
     },
   },

@@ -1,12 +1,18 @@
--- Disable some plugins when running as the backend of VSCode.
-
-local Util = require("deltavim.util")
+-- disable some plugins when running as the backend of VSCode.
+if not vim.g.vscode then return {} end
 
 local plugins = {
-  -- deltavim.plugins.coding
-  { "LuaSnip" },
+  -- coding
   { "nvim-cmp" },
-  { "mini.pairs" },
+  { "LuaSnip" },
+  { "nvim-autopairs" },
+  { "mini.comment" },
+  -- editor
+  { "nvim-colorizer.lua" },
+  -- colorscheme
+  { "astrotheme" },
+  -- utility
+  { "better-escape.nvim" },
   -- deltavim.plugins.colorshceme
   { "tokyonight.nvim" },
   { "catppuccin" },
@@ -45,16 +51,14 @@ local plugins = {
 }
 
 for _, name in ipairs(plugins) do
-  if not NOT_VSCODE then
-    name.cond = false
-  end
+  name.cond = false
 end
 
 ---@diagnostic disable-next-line:missing-parameter
-return Util.concat(plugins, {
-  -- Disable some treesitter modules
+return require("deltavim.utils").concat(plugins, {
+  -- disable some treesitter modules
   {
     "nvim-treesitter",
-    opts = { highlight = { enable = NOT_VSCODE } },
+    opts = { highlight = { enable = false } },
   },
 })

@@ -1,51 +1,31 @@
-local Util = require("deltavim.util")
-
+---@type LazySpec
 return {
   {
     "nvim-cmp",
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      local o = Util.deep_merge({}, opts, {
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer", keyword_length = 3 },
-          { name = "path", keyword_length = 3 },
-          { name = "crates" },
-        }),
-      })
-      return o
-    end,
+    opts = function(_, opts) table.insert(opts.sources, { name = "crates" }) end,
   },
-  {
-    "LuaSnip",
-    -- jsregexp is installed by nixpkgs
-    build = {},
-    opts = {
-      region_check_events = "InsertEnter",
-      delete_check_events = "TextChanged",
-      history = false,
-    },
-  },
-  {
-    "mini.pairs",
-    config = function(_, opts)
-      local pairs = require("mini.pairs")
-      pairs.setup(opts)
-      pairs.unmap("i", "'", "'")
-    end,
-  },
-  ----------------
-  -- My plugins --
-  ----------------
+
   {
     "junegunn/vim-easy-align",
-    cmd = "EasyAlign",
+    cmd = { "EasyAlign" },
   },
+
   {
-    "max397574/better-escape.nvim",
-    cond = NOT_VSCODE,
-    opts = { mapping = { "jj", "jk" } },
-    event = "InsertEnter",
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    opts = function() return require "plugins.surround.opts" end,
+  },
+
+  {
+    "ggandor/leap.nvim",
+    event = "User AstroFile",
+    dependencies = {
+      { "tpope/vim-repeat", lazy = true },
+    },
+    opts = {
+      equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" },
+      special_keys = { prev_target = "<backspace>", prev_group = "<backspace>" },
+    },
+    config = function(...) require "plugins.leap.setup"(...) end,
   },
 }
