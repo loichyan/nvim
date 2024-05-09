@@ -1,19 +1,26 @@
 ---@type LazySpec
 return {
   {
-    "astrotheme",
+    "astroui",
+    ---@type AstroUIOpts
     opts = {
-      highlights = {
-        global = {
-          ---@param c AstroThemePalette
-          modify_hl_groups = function(hl, c)
-            hl.LeapBackdrop = { fg = c.syntax.mute }
-            hl.LeapMatch = { fg = c.ui.green, bold = true }
-            hl.LeapLabelPrimary = { fg = c.ui.red, bold = true }
-            hl.LeapLabelSecondary = { fg = c.ui.cyan, bold = true }
-          end,
-        },
-      },
+      colorscheme = "catppuccin",
+    },
+  },
+
+  {
+    "catppuccin",
+    lazy = true,
+    opts = {
+      flavour = "mocha",
+      custom_highlights = function(c)
+        return require("deltavim.utils").merge({
+          LeapMatch = { fg = c.lavender, bold = true },
+          LeapLabelPrimary = { fg = c.red, bold = true },
+          LeapLabelSecondary = { fg = c.peach, bold = true },
+          LeapBackdrop = { fg = c.overlay0 },
+        }, require "deltavim.plugins.catppuccin.opts_highlights"(c))
+      end,
     },
   },
 }

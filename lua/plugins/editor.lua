@@ -1,5 +1,19 @@
 ---@type LazySpec
 return {
+  {
+    "astroui",
+    ---@type AstroUIOpts
+    opts = {
+      status = {
+        separators = {
+          left = { "", "" },
+          right = { "", "" },
+          tab = { "", "" },
+        },
+      },
+    },
+  },
+
   -- diffview/merge tool
   {
     "sindrets/diffview.nvim",

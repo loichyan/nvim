@@ -46,7 +46,7 @@ require("lazy").setup {
   defaults = { lazy = true, version = false },
   install = {
     missing = not vim.g.vscode,
-    colorscheme = { "astrotheme", "habamax" },
+    colorscheme = { "catppuccin", "habamax" },
   },
   checker = { enabled = false },
   change_detection = { enabled = true },
