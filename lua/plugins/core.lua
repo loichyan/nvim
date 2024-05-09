@@ -21,7 +21,14 @@ return {
 
       local autocmd = opts.autocmds
       autocmd.ruler = {
-        { event = "FileType", command = "set cc=80" },
+        {
+          event = "FileType",
+          callback = function()
+            local o = vim.opt_local
+            ---@diagnostic disable-next-line: undefined-field
+            if o.buflisted:get() == true then o.colorcolumn = { 80 } end
+          end,
+        },
       }
 
       local map = assert(opts.mappings)
