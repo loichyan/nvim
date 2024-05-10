@@ -9,7 +9,6 @@ return {
       servers = vim.tbl_keys(servers),
       formatters = {
         black = {},
-        cue_fmt = {},
         fish_indent = {},
         nixfmt = {},
         prettierd = {},
@@ -17,7 +16,6 @@ return {
         stylua = {},
       },
       linters = {
-        cue_fmt = {},
         fish = {},
         hadolint = {},
       },
