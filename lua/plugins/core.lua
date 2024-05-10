@@ -34,6 +34,14 @@ return {
       local map = assert(opts.mappings)
       utils.make_mappings(map, {
         n = {
+          ["]x"] = "qf-helper.next_quickfix",
+          ["[x"] = "qf-helper.prev_quickfix",
+          ["<C-n>"] = "qf-helper.next_quickfix",
+          ["<C-p>"] = "qf-helper.prev_quickfix",
+
+          ["<C-x>"] = "qf-helper.toggle_quickfix",
+          ["<Leader>x"] = "qf-helper.toggle_quickfix",
+
           ["<Leader>fr"] = "spectre.find_replace",
           ["<Leader>fR"] = "spectre.find_replace_current",
 

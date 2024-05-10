@@ -41,4 +41,15 @@ return {
     opts = function() return require "plugins.iron.opts" end,
     config = function(_, opts) require("iron.core").setup(opts) end,
   },
+
+  {
+    "stevearc/qf_helper.nvim",
+    cmd = { "QFOpen", "QFToggle", "LLOpen", "LLToggle" },
+    ft = { "qf" },
+    opts = {
+      quickfix = { default_bindings = false },
+      loclist = { default_bindings = false },
+    },
+    config = function(...) return require "plugins.qf-helper.setup"(...) end,
+  },
 }
