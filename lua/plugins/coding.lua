@@ -18,7 +18,7 @@ return {
 
   {
     "ggandor/leap.nvim",
-    event = "User AstroFile",
+    keys = function() return require "plugins.leap.keys" end,
     dependencies = {
       { "tpope/vim-repeat", lazy = true },
     },
