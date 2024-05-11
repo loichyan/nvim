@@ -41,7 +41,6 @@ require("lazy").setup {
     { import = "deltavim.plugins" },
     { import = "deltavim.presets.mappings" },
     { import = "plugins" },
-    { import = "plugins.lang" },
   },
   defaults = { lazy = true, version = false },
   install = {
