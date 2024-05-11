@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 return {
   "sindrets/diffview.nvim",
+  cond = not vim.g.vscode,
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   opts = function()
     local actions = require "diffview.actions"

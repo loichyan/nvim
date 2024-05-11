@@ -1,7 +1,7 @@
----@type LazySpec
+---@type LazyPluginSpec
 return {
   "IndianBoy42/tree-sitter-just",
-  ft = "just",
   dependencies = { "nvim-treesitter" },
+  ft = "just",
   opts = {},
 }

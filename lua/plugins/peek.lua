@@ -2,8 +2,11 @@
 return {
   "toppair/peek.nvim",
   build = "deno task --quiet build:fast",
-  ft = { "markdown" },
-  cmd = { "Peek" },
+
+  cond = not vim.g.vscode,
+  ft = "markdown",
+  cmd = "Peek",
+
   opts = { app = "browser" },
   config = function(_, opts)
     require("peek").setup(opts)

@@ -1,8 +1,11 @@
+---@type LazyPluginSpec
 return {
   "stevearc/qf_helper.nvim",
+
   cond = not vim.g.vscode,
+  ft = "qf",
   cmd = { "QFOpen", "QFToggle", "LLOpen", "LLToggle" },
-  ft = { "qf" },
+
   opts = {
     quickfix = { default_bindings = false },
     loclist = { default_bindings = false },

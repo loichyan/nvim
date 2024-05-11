@@ -1,6 +1,8 @@
+---@type LazyPluginSpec
 return {
   "subnut/nvim-ghost.nvim",
-  lazy = false,
+  cond = not vim.g.vscode,
+  event = "VeryLazy",
   config = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "*.*",

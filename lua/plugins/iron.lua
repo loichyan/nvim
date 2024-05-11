@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
   "Vigemus/iron.nvim",
   cond = not vim.g.vscode,

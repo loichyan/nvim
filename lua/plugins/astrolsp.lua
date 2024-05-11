@@ -1,6 +1,7 @@
----@type LazySpec
+---@type LazyPluginSpec
 return {
   "astrolsp",
+  ---@param opts AstroLSPOpts
   opts = function(_, opts)
     ---@type lspconfig.options
     ---@diagnostic disable:missing-fields

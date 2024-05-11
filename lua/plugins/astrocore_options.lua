@@ -1,5 +1,5 @@
+---@type LazyPluginSpec
 return {
-
   "astrocore",
   ---@param opts AstroCoreOpts
   opts = function(_, opts)

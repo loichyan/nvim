@@ -1,8 +1,10 @@
+---@type LazyPluginSpec
 return {
   "mrcjkb/rustaceanvim",
+
   cond = not vim.g.vscode,
-  event = "User AstroFile",
-  ft = { "rust" },
+  ft = "rust",
+
   config = function()
     vim.g.rustaceanvim = {
       settings = {

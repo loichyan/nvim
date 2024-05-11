@@ -1,7 +1,7 @@
----@type LazySpec
+---@type LazyPluginSpec
 return {
   "Saecki/crates.nvim",
-  cond = vim.g.vscode,
+  cond = not vim.g.vscode,
   event = { "BufReadPre", "BufNewFile" },
   opts = {
     popup = { border = "rounded" },

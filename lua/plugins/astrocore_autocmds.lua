@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 return {
   "astrocore",
   ---@param opts AstroCoreOpts
