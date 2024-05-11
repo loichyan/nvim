@@ -41,6 +41,7 @@ require("lazy").setup {
     { import = "deltavim.plugins" },
     { import = "deltavim.presets.mappings" },
     { import = "pde.plugins" },
+    { import = "pde.vscode_fixup" },
   },
   defaults = { lazy = true, version = false },
   install = {
