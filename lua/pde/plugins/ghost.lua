@@ -2,7 +2,7 @@
 return {
   "subnut/nvim-ghost.nvim",
   cond = not vim.g.vscode,
-  event = "VeryLazy",
+  lazy = false,
   config = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "*.*",
