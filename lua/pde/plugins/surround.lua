@@ -4,8 +4,8 @@ return {
   event = "VeryLazy",
   opts = {
     keymaps = {
-      insert = "<C-g>z",
-      insert_line = "<C-g>Z",
+      insert = "<C-G>z",
+      insert_line = "<C-G>Z",
       normal = "yz",
       normal_cur = "yzz",
       normal_line = "yZ",

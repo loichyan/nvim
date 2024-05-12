@@ -8,10 +8,10 @@ return {
       n = {
         ["]x"] = "qf-helper.next_quickfix",
         ["[x"] = "qf-helper.prev_quickfix",
-        ["<C-n>"] = "qf-helper.next_quickfix",
-        ["<C-p>"] = "qf-helper.prev_quickfix",
+        ["<C-N>"] = "qf-helper.next_quickfix",
+        ["<C-P>"] = "qf-helper.prev_quickfix",
 
-        ["<C-x>"] = "qf-helper.toggle_quickfix",
+        ["<C-X>"] = "qf-helper.toggle_quickfix",
         ["<Leader>x"] = "qf-helper.toggle_quickfix",
 
         ["<Leader>fr"] = "spectre.find_replace",

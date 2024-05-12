@@ -10,8 +10,8 @@ return {
       keymaps = {
         file_panel = {
           close,
-          { "n", "<c-u>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
-          { "n", "<c-d>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
+          { "n", "<C-U>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
+          { "n", "<C-D>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
         },
         file_history_panel = {
           close,
