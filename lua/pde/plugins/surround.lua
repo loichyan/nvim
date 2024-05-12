@@ -1,20 +1,26 @@
 ---@type LazyPluginSpec
 return {
   "kylechui/nvim-surround",
-  event = "VeryLazy",
+  keys = {
+    { "yz", desc = "Add surrounding", mode = "n" },
+    { "yzz", desc = "Add surrounding around current line", mode = "n" },
+    { "z", desc = "Add surrounding", mode = "x" },
+    { "dz", desc = "Delete surrounding", mode = "n" },
+    { "cz", desc = "Change surrounding", mode = "n" },
+  },
   opts = {
     keymaps = {
-      insert = "<C-G>z",
-      insert_line = "<C-G>Z",
       normal = "yz",
       normal_cur = "yzz",
-      normal_line = "yZ",
-      normal_cur_line = "yZZ",
-      visual = "Z",
-      visual_line = "gZ",
+      visual = "z",
       delete = "dz",
       change = "cz",
-      change_line = "cZ",
+      insert = "<Nop>",
+      insert_line = "<Nop>",
+      visual_line = "<Nop>",
+      change_line = "<Nop>",
+      normal_line = "<Nop>",
+      normal_cur_line = "<Nop>",
     },
     aliases = {
       ["?"] = "i",
