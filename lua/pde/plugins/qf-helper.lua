@@ -4,7 +4,14 @@ return {
 
   cond = not vim.g.vscode,
   ft = "qf",
-  cmd = { "QFOpen", "QFToggle", "LLOpen", "LLToggle" },
+  cmd = {
+    "QFOpen",
+    "QFToggle",
+    "LLOpen",
+    "LLToggle",
+    "QFNext",
+    "QFPrev",
+  },
 
   opts = {
     quickfix = { default_bindings = false },
