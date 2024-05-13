@@ -8,8 +8,10 @@ return {
       pattern = "*.*",
       group = "nvim_ghost_user_autocommands",
       callback = function()
-        vim.bo.filetype = "markdown"
-        vim.bo.textwidth = 0
+        local opt = vim.opt_local
+        opt.filetype = "markdown"
+        opt.textwidth = 0
+        opt.wrap = true
       end,
     })
   end,
