@@ -21,6 +21,7 @@ local disabled = {
   "cmp-nvim-lsp",
   "cmp-path",
   "cmp_luasnip",
+  "conform.nvim",
   "dressing.nvim",
   "friendly-snippets",
   "heirline.nvim",

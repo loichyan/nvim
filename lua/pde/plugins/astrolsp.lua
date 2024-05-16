@@ -30,9 +30,6 @@ return {
               checkThirdParty = false,
               library = { "${3rd}/luv/library" },
             },
-            format = {
-              enable = false,
-            },
           },
         },
       },
@@ -58,14 +55,6 @@ return {
     require("deltavim.utils").merge(opts, {
       config = servers,
       servers = vim.tbl_keys(servers),
-      formatters = {
-        black = {},
-        fish_indent = {},
-        nixfmt = {},
-        prettierd = {},
-        shfmt = {},
-        stylua = {},
-      },
       linters = {
         fish = {},
         hadolint = {},
