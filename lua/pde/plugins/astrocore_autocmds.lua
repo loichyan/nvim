@@ -17,6 +17,18 @@ return {
           end,
         },
       },
+      polish = {
+        {
+          event = "VimEnter",
+          callback = function()
+            vim.filetype.add {
+              extension = {
+                json = "jsonc",
+              },
+            }
+          end,
+        },
+      },
     })
   end,
 }
