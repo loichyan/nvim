@@ -25,6 +25,9 @@ return {
               extension = {
                 json = "jsonc",
               },
+              filename = {
+                justfile = "just",
+              },
             }
           end,
         },
