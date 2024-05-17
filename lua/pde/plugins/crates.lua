@@ -2,9 +2,6 @@
 return {
   "Saecki/crates.nvim",
   cond = not vim.g.vscode,
-  event = { "BufReadPre", "BufNewFile" },
-  opts = {
-    popup = { border = "rounded" },
-    null_ls = { enabled = true },
-  },
+  ft = "toml",
+  opts = function() return { popup = { border = require("deltavim").get_border "popup_border" } } end,
 }
