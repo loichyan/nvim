@@ -5,6 +5,8 @@ return {
     local by_ft = {
       _ = { "trim_whitespace" },
       fish = { "fish_indent" },
+      go = { "gofumpt" },
+      just = { "just" },
       lua = { "stylua" },
       nix = { "nixfmt" },
       python = { "black" },
