@@ -52,13 +52,6 @@ return {
       },
     }
 
-    require("deltavim.utils").merge(opts, {
-      config = servers,
-      servers = vim.tbl_keys(servers),
-      linters = {
-        fish = {},
-        hadolint = {},
-      },
-    })
+    require("deltavim.utils").merge(opts, { config = servers, servers = vim.tbl_keys(servers) })
   end,
 }
