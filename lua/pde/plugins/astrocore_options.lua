@@ -11,6 +11,7 @@ return {
     opt.clipboard = "unnamed"
     opt.conceallevel = 0
     opt.guifont = "monospace:h11"
+    opt.guicursor = vim.opt.guicursor:append { "n-v-c:blinkon500-blinkoff500" }
     opt.swapfile = false
     if vim.g.vscode then
       opt.timeoutlen = 500
