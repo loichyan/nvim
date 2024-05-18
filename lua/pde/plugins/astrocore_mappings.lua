@@ -14,8 +14,8 @@ return {
         ["<C-X>"] = "qf-helper.toggle_quickfix",
         ["<Leader>x"] = "qf-helper.toggle_quickfix",
 
-        ["<Leader>fr"] = "spectre.find_replace",
-        ["<Leader>fR"] = "spectre.find_replace_current",
+        ["<Leader>fr"] = "grug-far.find_replace",
+        ["<Leader>fR"] = "grug-far.find_replace_current",
 
         ["<Leader>gd"] = "diffview.open",
         ["<Leader>gD"] = "diffview.open_last_commit",
