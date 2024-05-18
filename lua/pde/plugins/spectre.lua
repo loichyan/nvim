@@ -1,3 +1,4 @@
+-- TODO: replace with MagicDuck/grug-far.nvim?
 ---@type LazyPluginSpec
 return {
   "nvim-pack/nvim-spectre",
