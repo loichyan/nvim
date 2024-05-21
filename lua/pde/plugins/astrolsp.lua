@@ -5,7 +5,7 @@ return {
   opts = function(_, opts)
     ---@type lspconfig.options
     ---@diagnostic disable:missing-fields
-    local servers = {
+    local config = {
       bashls = {},
       clangd = {},
       cssls = {},
@@ -52,6 +52,21 @@ return {
       },
     }
 
-    require("deltavim.utils").merge(opts, { config = servers, servers = vim.tbl_keys(servers) })
+    -- rust-analyzer is set up by rustaceanvim
+    local servers = vim.tbl_keys(config)
+    config.rust_analyzer = {
+      settings = {
+        ["rust-analyzer"] = {
+          check = { command = "clippy" },
+          rustfmt = { overrideCommand = { "rustfmt-nightly" } },
+          procMacro = { enable = true, attributes = { enable = true } },
+          typing = { autoClosingAngleBrackets = { enable = true } },
+          imports = { granularity = { enforce = true } },
+          buildScripts = { rebuildOnSave = true },
+        },
+      },
+    }
+
+    require("deltavim.utils").merge(opts, { config = config, servers = servers })
   end,
 }
