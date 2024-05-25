@@ -36,6 +36,7 @@ require("lazy").setup {
         mapleader = " ",
         maplocalleader = "\\",
         icons_enabled = true,
+        pin_plugins = true,
       },
     },
     { import = "deltavim.plugins" },
