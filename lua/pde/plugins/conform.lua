@@ -31,7 +31,7 @@ return {
       "vue",
       "yaml",
     } do
-      by_ft[ft] = { { "prettierd", "prettier" } }
+      by_ft[ft] = { "prettierd" }
     end
 
     opts.formatters_by_ft = by_ft
