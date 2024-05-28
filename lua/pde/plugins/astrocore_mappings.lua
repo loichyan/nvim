@@ -6,6 +6,8 @@ return {
     local utils, map = require "deltavim.utils", assert(opts.mappings)
     utils.make_mappings(map, {
       n = {
+        ["<M-r>"] = { "<Cmd>checktime<CR>" },
+
         ["]x"] = "qf-helper.next_quickfix",
         ["[x"] = "qf-helper.prev_quickfix",
         ["<C-N>"] = "qf-helper.next_quickfix",
