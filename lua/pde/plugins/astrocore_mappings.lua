@@ -13,7 +13,6 @@ return {
         ["<C-N>"] = "qf-helper.next_quickfix",
         ["<C-P>"] = "qf-helper.prev_quickfix",
 
-        ["<C-X>"] = "qf-helper.toggle_quickfix",
         ["<Leader>x"] = "qf-helper.toggle_quickfix",
 
         ["<Leader>fr"] = "grug-far.find_replace",
