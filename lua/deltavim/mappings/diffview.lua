@@ -10,7 +10,7 @@ return {
     desc = "Open diffview with last commit",
   },
   open_file_history = {
-    function() require("diffview").file_history(nil, {}) end,
+    function() require("diffview").file_history(nil, { "%" }) end,
     desc = "Open current file history",
   },
 }
