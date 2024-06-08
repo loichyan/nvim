@@ -21,11 +21,17 @@ return {
         {
           event = "VimEnter",
           callback = function()
+            local caddy = function()
+              vim.bo.commentstring = "#%s"
+              return "caddy"
+            end
             vim.filetype.add {
               extension = {
+                caddyfile = caddy,
                 json = "jsonc",
               },
               filename = {
+                Caddyfile = caddy,
                 justfile = "just",
               },
             }
