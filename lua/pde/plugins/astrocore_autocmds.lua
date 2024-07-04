@@ -23,7 +23,7 @@ return {
           callback = function()
             local caddy = function()
               vim.bo.commentstring = "#%s"
-              return "caddy"
+              return "caddyfile"
             end
             vim.filetype.add {
               extension = {
