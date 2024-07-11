@@ -31,6 +31,7 @@ return {
               checkThirdParty = false,
               library = { "${3rd}/luv/library" },
             },
+            completion = { callSnippet = "Replace" },
           },
         },
       },
