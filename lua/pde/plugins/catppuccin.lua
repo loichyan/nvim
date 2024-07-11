@@ -9,8 +9,7 @@ return {
       custom_highlights = function(c)
         return utils.merge({
           LeapMatch = { fg = c.lavender, bold = true },
-          LeapLabelPrimary = { fg = c.red, bold = true },
-          LeapLabelSecondary = { fg = c.peach, bold = true },
+          LeapLabel = { fg = c.red, bold = true },
           LeapBackdrop = { fg = c.overlay0 },
         }, prev_highlights and prev_highlights(c) or {})
       end,
