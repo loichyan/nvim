@@ -3,6 +3,7 @@ return {
   "astrolsp",
   ---@param opts AstroLSPOpts
   opts = function(_, opts)
+    local lsputil = require "lspconfig.util"
     ---@type lspconfig.options
     ---@diagnostic disable:missing-fields
     local config = {
@@ -42,7 +43,10 @@ return {
       taplo = {},
       tailwindcss = {},
       texlab = {},
-      tsserver = {},
+      tsserver = {
+        root_dir = lsputil.root_pattern "package.json",
+        single_file_support = false,
+      },
       typos_lsp = {},
       yamlls = {
         settings = { yaml = { validate = true, keyOrdering = false } },
