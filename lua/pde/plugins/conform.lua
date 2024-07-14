@@ -3,7 +3,7 @@ return {
   "conform.nvim",
   opts = function(_, opts)
     local by_ft = {
-      _ = { "trim_whitespace" },
+      ["*"] = { "trim_whitespace" },
       fish = { "fish_indent" },
       go = { "gofumpt" },
       just = { "just" },
