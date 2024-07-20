@@ -20,22 +20,7 @@ return {
       polish = {
         {
           event = "VimEnter",
-          callback = function()
-            local caddy = function()
-              vim.bo.commentstring = "#%s"
-              return "caddyfile"
-            end
-            vim.filetype.add {
-              extension = {
-                caddyfile = caddy,
-                json = "jsonc",
-              },
-              filename = {
-                Caddyfile = caddy,
-                justfile = "just",
-              },
-            }
-          end,
+          callback = function() require "pde.polish" end,
         },
       },
     })
