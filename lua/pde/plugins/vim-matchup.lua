@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 return {
   "andymass/vim-matchup",
+  enabled = false,
   event = "User AstroFile",
   specs = {
     { "nvim-treesitter", opts = { matchup = { enable = true } } },
