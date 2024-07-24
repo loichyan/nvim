@@ -3,7 +3,6 @@ return {
   "astrolsp",
   ---@param opts AstroLSPOpts
   opts = function(_, opts)
-    local lsputil = require "lspconfig.util"
     ---@type lspconfig.options
     ---@diagnostic disable:missing-fields
     local config = {
@@ -45,7 +44,7 @@ return {
       tailwindcss = {},
       texlab = {},
       tsserver = {
-        root_dir = lsputil.root_pattern "package.json",
+        root_dir = function(...) require("lspconfig.util").root_pattern "package.json"(...) end,
         single_file_support = false,
       },
       typos_lsp = {},
