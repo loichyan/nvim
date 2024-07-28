@@ -9,7 +9,6 @@ return {
       just = { "just" },
       lua = { "stylua" },
       nix = { "nixfmt" },
-      python = { "black" },
       sh = { "shfmt" },
     }
 

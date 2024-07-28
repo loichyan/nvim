@@ -6,6 +6,7 @@ return {
     ---@type lspconfig.options
     ---@diagnostic disable:missing-fields
     local config = {
+      basedpyright = {},
       bashls = {},
       clangd = {},
       cssls = {},
@@ -39,7 +40,7 @@ return {
           ["nil"] = { nix = { flake = { autoArchive = true } } },
         },
       },
-      pyright = {},
+      ruff_lsp = {},
       taplo = {},
       tailwindcss = {},
       texlab = {},
