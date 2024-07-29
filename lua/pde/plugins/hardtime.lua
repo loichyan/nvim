@@ -4,13 +4,10 @@ return {
   event = "User AstroFile",
   dependencies = { "nui.nvim", "plenary.nvim" },
   opts = {
-    disabled_filetypes = {
-      "lazy",
-      "mason",
-      "neo-tree",
-      "netrw",
-      "oil",
-      "qf",
+    restricted_keys = {
+      -- we need these keys to jump among quickfix items
+      ["<C-N>"] = {},
+      ["<C-P>"] = {},
     },
   },
 }
