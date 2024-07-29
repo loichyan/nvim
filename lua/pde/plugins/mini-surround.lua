@@ -45,7 +45,6 @@ return {
       highlight = "",
       update_n_lines = "",
     },
-    n_lines = 500,
-    search_method = "cover",
+    search_method = "cover_or_next",
   },
 }
