@@ -70,7 +70,7 @@ return {
           rustfmt = { overrideCommand = { "rustfmt-nightly" } },
           procMacro = { enable = true, attributes = { enable = true } },
           typing = { autoClosingAngleBrackets = { enable = true } },
-          imports = { granularity = { enforce = true, group = "module" } },
+          imports = { granularity = { enforce = true, group = "module" }, prefix = "self" },
           buildScripts = { rebuildOnSave = true },
         },
       },

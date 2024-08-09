@@ -49,22 +49,53 @@ require("lazy").setup {
     missing = not vim.g.vscode,
     colorscheme = { "catppuccin", "habamax" },
   },
-  checker = { enabled = false },
-  change_detection = { enabled = true },
-  ui = { backdrop = 100 },
   performance = {
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
+        "2html_plugin",
+        "bugreport",
+        "ftplugin",
+        "getscriptPlugin",
+        "getscript",
         "gzip",
+        "health",
+        "logipat",
         "matchit",
         "matchparen",
+        "netrwFileHandlers",
         "netrwPlugin",
+        "netrwSettings",
+        "netrw",
+        "nvim",
+        "optwin",
+        "rplugin",
+        "rrhelper",
+        "spellfile",
+        "spellfile_plugin",
+        "synmenu",
+        "syntax",
         "tarPlugin",
+        "tar",
         "tohtml",
         "tutor",
+        "vimballPlugin",
+        "vimball",
         "zipPlugin",
+        "zip",
       },
     },
+  },
+
+  -- https://github.com/folke/lazy.nvim/issues/1008
+  change_detection = {
+    enabled = false,
+  },
+
+  readme = {
+    enabled = false,
+  },
+
+  ui = {
+    pills = false,
   },
 } --[[@as LazyConfig]]
