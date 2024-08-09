@@ -4,9 +4,30 @@ return {
   ---@param opts AstroCoreOpts
   opts = function(_, opts)
     local utils, map = require "deltavim.utils", assert(opts.mappings)
+    require "astrocore"
     utils.make_mappings(map, {
       n = {
         ["<M-r>"] = { "<Cmd>checktime<CR>" },
+
+        ["<C-H>"] = false,
+        ["<C-J>"] = false,
+        ["<C-K>"] = false,
+        ["<C-L>"] = false,
+
+        ["<C-S-h>"] = false,
+        ["<C-S-j>"] = false,
+        ["<C-S-k>"] = false,
+        ["<C-S-l>"] = false,
+
+        ["<M-h>"] = "smart-splits.left_window",
+        ["<M-j>"] = "smart-splits.down_window",
+        ["<M-k>"] = "smart-splits.up_window",
+        ["<M-l>"] = "smart-splits.right_window",
+
+        ["<M-H>"] = "smart-splits.resize_left",
+        ["<M-J>"] = "smart-splits.resize_down",
+        ["<M-K>"] = "smart-splits.resize_up",
+        ["<M-L>"] = "smart-splits.resize_right",
 
         ["]x"] = "qf-helper.next_quickfix",
         ["[x"] = "qf-helper.prev_quickfix",
