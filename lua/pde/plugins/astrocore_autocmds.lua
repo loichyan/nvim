@@ -11,8 +11,8 @@ return {
             local o = vim.opt_local
             ---@diagnostic disable-next-line: undefined-field
             if o.buflisted:get() == true then
-              o.textwidth = 100
-              o.colorcolumn = { 100 }
+              o.textwidth = 80
+              o.colorcolumn = { 80 }
             end
           end,
         },
