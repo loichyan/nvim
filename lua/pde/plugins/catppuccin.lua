@@ -6,6 +6,7 @@ return {
     utils.deep_merge(opts, {
       flavour = "mocha",
       integrations = { diffview = true },
+      transparent_background = true,
       custom_highlights = function(c)
         return utils.merge({
           LeapMatch = { fg = c.lavender, bold = true },
