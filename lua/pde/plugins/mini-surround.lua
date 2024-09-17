@@ -1,30 +1,3 @@
-_ = {
-  "kylechui/nvim-surround",
-  keys = {
-    { "yz", desc = "Add surrounding", mode = "n" },
-    { "dz", desc = "Delete surrounding", mode = "n" },
-    { "cz", desc = "Change surrounding", mode = "n" },
-  },
-  opts = {
-    keymaps = {
-      normal = "yz",
-      normal_cur = "yzz",
-      visual = "z",
-      delete = "dz",
-      change = "cz",
-      insert = false,
-      insert_line = false,
-      visual_line = false,
-      change_line = false,
-      normal_line = false,
-      normal_cur_line = false,
-    },
-    aliases = {
-      ["?"] = "i",
-    },
-  },
-}
-
 ---@type LazyPluginSpec
 return {
   "echasnovski/mini.surround",
@@ -45,6 +18,7 @@ return {
       highlight = "",
       update_n_lines = "",
     },
+    n_lines = 200,
     search_method = "cover_or_next",
   },
 }

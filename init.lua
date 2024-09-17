@@ -45,27 +45,23 @@ require("lazy").setup {
     { import = "pde.vscode_fixup" },
   },
   defaults = { lazy = true, version = false },
-  install = {
-    missing = not vim.g.vscode,
-    colorscheme = { "catppuccin", "habamax" },
-  },
   performance = {
     rtp = {
       disabled_plugins = {
         "2html_plugin",
         "bugreport",
         "ftplugin",
-        "getscriptPlugin",
         "getscript",
+        "getscriptPlugin",
         "gzip",
         "health",
         "logipat",
         "matchit",
         "matchparen",
+        "netrw",
         "netrwFileHandlers",
         "netrwPlugin",
         "netrwSettings",
-        "netrw",
         "nvim",
         "optwin",
         "rplugin",
@@ -74,28 +70,24 @@ require("lazy").setup {
         "spellfile_plugin",
         "synmenu",
         "syntax",
-        "tarPlugin",
         "tar",
+        "tarPlugin",
         "tohtml",
         "tutor",
-        "vimballPlugin",
         "vimball",
-        "zipPlugin",
+        "vimballPlugin",
         "zip",
+        "zipPlugin",
       },
     },
   },
 
+  install = {
+    missing = not vim.g.vscode,
+    colorscheme = { "catppuccin", "habamax" },
+  },
   -- https://github.com/folke/lazy.nvim/issues/1008
-  change_detection = {
-    enabled = false,
-  },
-
-  readme = {
-    enabled = false,
-  },
-
-  ui = {
-    pills = false,
-  },
+  change_detection = { enabled = false },
+  readme = { enabled = false },
+  pkg = { enabled = false },
 } --[[@as LazyConfig]]
