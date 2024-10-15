@@ -8,7 +8,10 @@ return {
     local config = {
       basedpyright = {},
       bashls = {},
-      clangd = {},
+      clangd = {
+        -- c.f. https://github.com/Alexis12119/nvim-config/blob/9efdf7bc943f/lua/plugins/lsp/settings/clangd.lua
+        cmd = { "clangd", "--offset-encoding=utf-16" },
+      },
       cssls = {},
       denols = {},
       eslint = {},
