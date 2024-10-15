@@ -44,7 +44,7 @@ return {
       taplo = {},
       tailwindcss = {},
       texlab = {},
-      tsserver = {
+      ts_ls = {
         root_dir = function(...) require("lspconfig.util").root_pattern "package.json"(...) end,
         single_file_support = false,
       },
