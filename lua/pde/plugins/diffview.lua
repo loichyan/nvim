@@ -8,13 +8,13 @@ return {
     local close = { "n", "q", "<Cmd>DiffviewClose<CR>", { desc = "Close diffview" } }
     return {
       keymaps = {
-        view = {
+        file_panel = {
           close,
           { "n", "<C-U>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
           { "n", "<C-D>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
         },
-        diff_view = { close },
         file_history_panel = { close },
+        view = { close },
       },
     }
   end,
