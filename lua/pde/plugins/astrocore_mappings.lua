@@ -36,8 +36,8 @@ return {
 
         ["<Leader>x"] = "quicker.toggle_quickfix",
 
-        ["<Leader>fr"] = "grug-far.find_replace_sg",
-        ["<Leader>fR"] = "grug-far.find_replace_rg",
+        ["<Leader>fr"] = "grug-far.find_replace_current",
+        ["<Leader>fR"] = "grug-far.find_replace_workspace",
 
         ["<Leader>gd"] = "diffview.open",
         ["<Leader>gD"] = "diffview.open_last_commit",

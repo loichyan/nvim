@@ -1,4 +1,5 @@
 ---@type LazyPluginSpec
+---
 return {
   "MagicDuck/grug-far.nvim",
   cmd = "GrugFar",
@@ -9,6 +10,7 @@ return {
       qflist = "<C-X>",
       syncLocations = "<C-S>",
       syncLine = "<C-L>",
+      swapEngine = "<C-E>",
       close = { n = "q", i = "<C-C>" },
       -- normal mode only
       gotoLocation = { n = "o" },
