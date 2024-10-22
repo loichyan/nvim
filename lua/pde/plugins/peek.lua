@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 return {
   "toppair/peek.nvim",
+  enabled = false,
   build = "deno task --quiet build:fast",
 
   cond = not vim.g.vscode,
