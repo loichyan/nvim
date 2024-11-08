@@ -43,7 +43,7 @@ return {
           ["nil"] = { nix = { flake = { autoArchive = true } } },
         },
       },
-      ruff_lsp = {},
+      ruff = {},
       taplo = {},
       tailwindcss = {},
       texlab = {},
