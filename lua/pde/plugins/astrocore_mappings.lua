@@ -7,7 +7,11 @@ return {
     require "astrocore"
     utils.make_mappings(map, {
       n = {
-        ["<M-r>"] = { "<Cmd>checktime<CR>" },
+        ["<C-.>"] = false,
+        ["<C-,>"] = false,
+
+        ["<S-h>"] = "buffer.prev",
+        ["<S-l>"] = "buffer.next",
 
         ["<C-H>"] = false,
         ["<C-J>"] = false,
@@ -54,10 +58,10 @@ return {
           ["]]"] = {
             function() vim.fn.VSCodeNotify "references-view.next" end,
           },
-          ["<C-,>"] = {
+          ["<S-h>"] = {
             function() vim.fn.VSCodeNotify "workbench.action.previousEditor" end,
           },
-          ["<C-.>"] = {
+          ["<S-l>"] = {
             function() vim.fn.VSCodeNotify "workbench.action.nextEditor" end,
           },
           ["<Leader>,"] = {
