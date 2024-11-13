@@ -3,23 +3,23 @@ return {
   "brianhuster/live-preview.nvim",
   cond = not vim.g.vscode,
   ft = "markdown",
+  cmd = "LivePreview",
 
   opts = {
-    commands = {
-      start = "LivePreview",
-      stop = "StopPreview",
-    },
+    cmd = "LivePreview",
+    port = 5555,
+    autokill = true,
   },
   config = function(_, opts)
     require("livepreview").setup(opts)
 
     local function toggle_preview()
-      if vim.g.livepreview_opened then
-        vim.cmd(opts.commands.stop)
-        vim.g.livepreview_opened = false
-      else
-        vim.cmd(opts.commands.start)
+      if vim.g.livepreview_opened == true then
+        vim.cmd { cmd = opts.cmd, args = { "close" } }
         vim.g.livepreview_opened = true
+      else
+        vim.cmd { cmd = opts.cmd, args = { "start" } }
+        vim.g.livepreview_opened = false
       end
     end
 
