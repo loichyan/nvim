@@ -9,8 +9,10 @@ return {
           event = "FileType",
           callback = function()
             local o = vim.opt_local
-            ---@diagnostic disable-next-line: undefined-field
-            if o.buflisted:get() == true then
+            if vim.bo.filetype == "gitcommit" then
+              o.textwidth = 72
+              o.colorcolumn = { 72 }
+            elseif vim.bo.buflisted then
               o.textwidth = 80
               o.colorcolumn = { 80 }
             end
