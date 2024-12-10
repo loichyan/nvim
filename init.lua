@@ -26,7 +26,7 @@ end
 
 require("lazy").setup {
   root = lazyroot,
-  dev = { path = "~/dev/nvim" },
+  dev = { path = "~/dev/projects" },
   spec = {
     {
       "loichyan/DeltaVim",
