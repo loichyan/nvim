@@ -9,5 +9,15 @@ return {
       ["<C-N>"] = {},
       ["<C-P>"] = {},
     },
+    disabled_filetypes = {
+      "grug-far",
+      "lazy",
+      "mason",
+      "netrw",
+      "neo-tree",
+      "NvimTree",
+      "oil",
+      "qf",
+    },
   },
 }
