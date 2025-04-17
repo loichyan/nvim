@@ -3,6 +3,7 @@ local trivial_files = {
     ["diff"] = true,
     ["fzf"] = true,
     ["git"] = true,
+    ["grug-far"] = true,
     ["help"] = true,
     ["lspinfo"] = true,
     ["man"] = true,
