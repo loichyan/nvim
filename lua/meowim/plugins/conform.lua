@@ -45,9 +45,8 @@ local config = function()
         desc = "Format on save",
         callback = function(ev)
             if not require("meowim.utils").get_toggled(ev.buf, "autoformat_disabled") then
-                local conform = require("conform")
-                conform.format({ async = false, formatters = { "trim_whitespace" } })
-                conform.format()
+                require("mini.trailspace").trim()
+                require("conform").format()
             end
         end,
     })
