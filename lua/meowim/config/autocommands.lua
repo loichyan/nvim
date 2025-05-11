@@ -56,3 +56,10 @@ autocmd("FileType", {
         end
     end,
 })
+-- See <https://stackoverflow.com/a/6728687>
+autocmd("FileType", {
+    group = group,
+    desc = "Move quickfix window to very bottom",
+    pattern = "qf",
+    command = "wincmd J",
+})
