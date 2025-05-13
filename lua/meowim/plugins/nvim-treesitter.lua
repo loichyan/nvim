@@ -1,4 +1,7 @@
 local config = function()
+    -- See <https://github.com/neovim/neovim/issues/32660>
+    vim.g._ts_force_sync_parsing = true
+
     ---@diagnostic disable-next-line:missing-fields
     require("nvim-treesitter.configs").setup({
         sync_install = false,
