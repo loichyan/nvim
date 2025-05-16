@@ -1,6 +1,5 @@
 return {
   ["SchemaStore.nvim"] = "386bdbf18abb6ca103495c5bdbab65e46f3c361d",
-  ["better-escape.nvim"] = "19a38aab94961016430905ebec30d272a01e9742",
   ["conform.nvim"] = "6feb2f28f9a9385e401857b21eeac3c1b66dd628",
   ["flash.nvim"] = "3c942666f115e2811e959eabbdd361a025db8b63",
   ["friendly-snippets"] = "572f5660cf05f8cd8834e096d7b4c921ba18e175",
