@@ -12,6 +12,7 @@ return {
             end,
             settings = {
                 ["rust-analyzer"] = {
+                    cachePriming = { enable = false },
                     check = { command = "clippy" },
                     rustfmt = { overrideCommand = { "rustfmt-nightly" } },
                     procMacro = { enable = true, attributes = { enable = true } },
