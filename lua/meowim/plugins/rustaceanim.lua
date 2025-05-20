@@ -3,6 +3,10 @@ return {
     "mrcjkb/rustaceanvim",
     event = "LazyFile",
     config = function()
+        local format_command
+        if vim.fn.executable("rustfmt-nightly") == 1 then
+            format_command = { "rustfmt-nightly" }
+        end
         local rust_analyzer = {
             on_attach = function(_, bufnr)
                 Meow.keyset(bufnr, {
@@ -14,7 +18,7 @@ return {
                 ["rust-analyzer"] = {
                     cachePriming = { enable = false },
                     check = { command = "clippy" },
-                    rustfmt = { overrideCommand = { "rustfmt-nightly" } },
+                    rustfmt = { overrideCommand = format_command },
                     procMacro = { enable = true, attributes = { enable = true } },
                     typing = { autoClosingAngleBrackets = { enable = true } },
                     imports = {
