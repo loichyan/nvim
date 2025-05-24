@@ -98,8 +98,8 @@ function Base16.colors_customizations(opts, colors)
 
         ["FlashBackdrop"]            = { fg = palette.base02 },
         ["FlashLabel"]               = { fg = palette.base08 },
-        ["FlashCurrent"]             = { fg = palette.base00, bg = palette.base09 },
-        ["FlashMatch"]               = { fg = palette.base00, bg = palette.base0B },
+        ["FlashCurrent"]             = { fg = palette.base0E },
+        ["FlashMatch"]               = { fg = palette.base0B },
 
         ["MiniCursorword"]           = { bg = palette.base01 },
         ["MiniCursorwordCurrent"]    = { bg = palette.base02 },
