@@ -36,6 +36,7 @@ end
 ---@type MeoSpec
 return {
     "nvim-treesitter/nvim-treesitter",
+    checkout="master",
     build = function() vim.cmd("TSUpdate") end,
     event = "LazyFile",
     config = config,
