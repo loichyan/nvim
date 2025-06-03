@@ -181,4 +181,12 @@ function Utils.cached_colorscheme(opts)
     end
 end
 
+---Increases the lightness of the specified color.
+---@param color string
+---@param delta integer
+---@return string
+function Utils.lighten(color, delta)
+    return require("mini.colors").modify_channel(color, "lightness", function(x) return x + delta end)
+end
+
 return Utils

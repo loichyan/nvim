@@ -49,6 +49,7 @@ function Base16.colors_customizations(opts, colors)
         colors = colors:add_transparency()
     end
 
+    local lighten = require("meowim.utils").lighten
     local palette = opts.palette
     local get = function(name)
         return colors.groups[name] --[[@as vim.api.keyset.highlight]]
@@ -105,6 +106,13 @@ function Base16.colors_customizations(opts, colors)
         ["MiniCursorwordCurrent"]    = { bg = palette.base02 },
         ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
         ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
+
+        ["GitConflictCurrent"]       = { bg = lighten(palette.base0D, -37) },
+        ["GitConflictCurrentLabel"]  = { bg = lighten(palette.base0D, -17) },
+        ["GitConflictAncestor"]      = { bg = lighten(palette.base0E, -37) },
+        ["GitConflictAncestorLabel"] = { bg = lighten(palette.base0E, -17) },
+        ["GitConflictIncoming"]      = { bg = lighten(palette.base0B, -37) },
+        ["GitConflictIncomingLabel"] = { bg = lighten(palette.base0B, -17) },
     }
     for name, hl in pairs(overrides) do
         colors.groups[name] = hl
