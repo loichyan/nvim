@@ -137,7 +137,7 @@ Meow.keyset({
     { "<Leader>fb", function() require("mini.pick").registry.buffers() end,                           desc = "Pick buffers"         },
     { "<Leader>fc", function() require("mini.pick").registry.commands() end,                          desc = "Pick commands"        },
     -- TODO: add autocommands picker
-    -- { "<Leader>fC", function() require("mini.pick").registry.autocmds() end,                          desc = "Pick autocommands"    },
+    -- { "<Leader>fC", function() require("mini.pick").registry.autocmds() end,                       desc = "Pick autocommands"    },
     { "<Leader>ff", function() require("meowim.utils").pick_files(false) end,                         desc = "Pick files"           },
     { "<Leader>fF", function() require("meowim.utils").pick_files(true) end,                          desc = "Pick all files"       },
     { "<Leader>fg", function() require("mini.pick").registry.grep_live() end,                         desc = "Grep files"           },
@@ -148,7 +148,8 @@ Meow.keyset({
     { "<Leader>fq", function() require("mini.pick").registry.list({ scope = "quickfix" }) end,        desc = "Pick quickfix"        },
     { "<Leader>ft", function() require("meowim.utils").pick_todo("current", { "TODO", "FIXME" }) end, desc = "Pick buffer TODOs"    },
     { "<Leader>fT", function() require("meowim.utils").pick_todo("all", { "TODO", "FIXME" }) end,     desc = "Pick workspace TODOs" },
-    { "<Leader>fU", function() require("mini.pick").registry.hl_groups() end,                         desc = "Grep highlights"      },
+    { "<Leader>fu", function() require("mini.pick").registry.hl_groups() end,                         desc = "Pick highlights"      },
+    { "<Leader>fU", function() require("mini.pick").registry.colorschemes() end,                      desc = "Pick colorschemes"    },
     { "<Leader>fr", function() require("mini.pick").builtin.resume() end,                             desc = "Resume picker"        },
     { "<Leader>fR", function() require("mini.pick").registry.registers() end,                         desc = "Pick registers"       },
 
