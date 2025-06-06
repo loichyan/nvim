@@ -1,7 +1,7 @@
 ---@type MeoSpec
 return {
     "neovim/nvim-lspconfig",
-    event = "LazyFile",
+    event = "VeryLazy",
     config = function()
         for name, config in pairs(require("meowim.lspconfig").servers()) do
             vim.lsp.config(name, config)
