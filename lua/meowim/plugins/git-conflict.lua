@@ -6,7 +6,7 @@ return {
         require("git-conflict").setup({
             default_mappings = false,
             default_commands = false,
-            disable_diagnostics = false,
+            disable_diagnostics = true,
         })
     end,
 }
