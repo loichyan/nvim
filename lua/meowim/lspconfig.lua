@@ -1,14 +1,7 @@
-local Lspconfig = {}
-
-local rustfmt
-if vim.fn.executable("rustfmt-nightly") == 1 then
-    rustfmt = { overrideCommand = { "rustfmt-nightly" } }
-end
-
 ---@module "lspconfig"
----@type lspconfig.Config|table<string,vim.lsp.Config>
+---@type lspconfig.Config|table<string,vim.lsp.Config|{enable:boolean}>
 ---@diagnostic disable-next-line:missing-fields
-local defaults = {
+local Lspconfig = {
     -- Common
     taplo = {},
     jsonls = {
@@ -77,7 +70,8 @@ local defaults = {
                 check = { command = "clippy" },
                 procMacro = { enable = true, attributes = { enable = true } },
                 typing = { autoClosingAngleBrackets = { enable = true } },
-                rustfmt = rustfmt,
+                -- stylua: ignore
+                rustfmt = vim.fn.executable("rustfmt-nightly") == 1 and { overrideCommand = { "rustfmt-nightly" } } or nil,
                 imports = {
                     granularity = { enforce = true, group = "module" },
                     prefix = "self",
@@ -94,16 +88,12 @@ local defaults = {
     },
 }
 
----@return table
-local function workspace_conf() return (require("neoconf").get("lspconfig") or {}) end
-
----@return table<string,table>
-function Lspconfig.servers() return vim.tbl_deep_extend("force", defaults, workspace_conf()) end
-
-setmetatable(Lspconfig, {
-    __index = function(_, name)
-        return vim.tbl_deep_extend("force", defaults[name] or {}, workspace_conf()[name] or {})
-    end,
-})
+-- Load workspace configurations
+for name, config in pairs((require("neoconf").get("lspconfig") or {})) do
+    if type(config) == "boolean" then
+        config = { enable = config }
+    end
+    Lspconfig[name] = vim.tbl_deep_extend("force", Lspconfig[name] or {}, config)
+end
 
 return Lspconfig
