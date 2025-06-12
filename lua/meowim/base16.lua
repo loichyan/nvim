@@ -102,8 +102,6 @@ function Base16.colors_customizations(opts, colors)
         ["FlashCurrent"]             = { fg = palette.base0E },
         ["FlashMatch"]               = { fg = palette.base0B },
 
-        ["MiniCursorword"]           = { bg = palette.base01 },
-        ["MiniCursorwordCurrent"]    = { bg = palette.base02 },
         ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
         ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
 
