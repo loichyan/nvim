@@ -7,7 +7,7 @@ return {
   ["grug-far.nvim"] = "6fd719634c529bfbfe031a03b7af9d728d849dc7",
   ["guess-indent.nvim"] = "84a4987ff36798c2fc1169cbaff67960aed9776f",
   ["lazydev.nvim"] = "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c",
-  ["meow.nvim"] = "730a8e748c8ba81d7bfde87a17ead5d2d2ca5a6f",
+  ["meow.nvim"] = "3ff86daf366a9128602f3cb6fdcfc0bc1bf5858f",
   ["mini.nvim"] = "c39f7f506939f065d0d1af237e2ea3f252edd3d4",
   ["neoconf.nvim"] = "5ebd6c29c88931fe7c603f087b4c32ac8157d901",
   ["nvim-lspconfig"] = "03bc581e05e81d33808b42b2d7e76d70adb3b595",
