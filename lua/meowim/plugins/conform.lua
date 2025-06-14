@@ -9,24 +9,30 @@ local config = function()
     }
 
     for _, ft in ipairs({
+        -- plugin-malva
         "css",
-        "graphql",
-        "handlebars",
-        "html",
+        "less",
+        "sass",
+        "scss",
+        -- plugin-biome
         "javascript",
         "javascriptreact",
-        "json",
-        "jsonc",
-        "less",
-        "markdown",
-        "markdown.mdx",
-        "scss",
         "typescript",
         "typescriptreact",
-        "vue",
+        "json",
+        "jsonc",
+        -- plugin-pretty_{yaml,graphql}
         "yaml",
+        "graphql",
+        -- plugin-markup_fmt
+        "handlebars",
+        "html",
+        "jinja",
+        "vue",
+        -- plugin-markdown
+        "markdown",
     }) do
-        by_ft[ft] = { "prettierd" }
+        by_ft[ft] = { "dprint" }
     end
 
     require("conform").setup({
@@ -37,7 +43,11 @@ local config = function()
             lsp_format = "fallback",
         },
         formatters = {
-            injected = { options = { ignore_errors = true } },
+            -- TODO: enable injected formatters
+            -- injected = { options = { ignore_errors = true } },
+            dprint = {
+                prepend_args = { "--config", vim.fn.expand("~/.config/dprint/config.json") },
+            },
         },
         formatters_by_ft = by_ft,
     })
