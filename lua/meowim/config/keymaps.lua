@@ -37,16 +37,16 @@ function H.toggle(key, global) require("meowim.utils").toggle(key, global) end
 
 -- stylua: ignore
 Meow.keyset({
-    -- common mappings
+    -- Common mappings
     { "<Esc>", "<Cmd>noh<CR>",              desc = "Clear highlights"       },
     { "<C-c>", function() H.clear_ui() end, desc = "Clear trivial UI items" },
 
-    -- toggles
+    -- Toggles
     { "<LocalLeader>f", function() H.toggle("autoformat_disabled", false) end, desc = "Toggle autoformat"          },
     { "<LocalLeader>F", function() H.toggle("autoformat_disabled", true) end,  desc = "Toggle autoformat globally" },
     { "<LocalLeader>q", function() require("quicker").toggle() end,            desc = "Toggle quickfix"            },
 
-    -- buffers/tabs/windows
+    -- Buffers/Tabs/Windows
     { "<Leader>n",  "<Cmd>enew<CR>",                                   desc = "New buffer"           },
     { "<Leader>N",  "<Cmd>tabnew<CR>",                                 desc = "New tab"              },
     { "<Leader>-",  "<Cmd>split<CR>",                                  desc = "Split horizontal"     },
@@ -71,8 +71,7 @@ Meow.keyset({
     { "<Leader>bl", function() H.buffer_close_others( 1) end, desc = "Close right buffers"  },
     { "<Leader>bo", function() H.buffer_close_others( 0) end, desc = "Close other buffers"  },
 
-
-    -- sessions
+    -- Sessions
     { "<Leader>qq",  "<Cmd>quitall<CR>",                                       desc = "Quit Neovim"              },
     { "<Leader>qr",  function() require("meowim.utils").session_restore() end, desc = "Restore current session"  },
     { "<Leader>qR",  function() require("mini.sessions").select("read") end,   desc = "Restore selected session" },
@@ -82,17 +81,20 @@ Meow.keyset({
     { "<Leader>qD",  function() require("mini.sessions").select("delete") end, desc = "Delete selected session"  },
     { "<Leader>qQ",  "<Cmd>let g:minisessions_disable=v:true | quitall<CR>",   desc = "Quit Neovim quietly"      },
 
-    -- git
-    { "<Leader>gb", "<Plug>(git-conflict-both)",                              desc = "Accept both changes"                   },
-    { "<Leader>gB", "<Plug>(git-conflict-none)",                              desc = "Accept base changes"                   },
-    { "<Leader>gc", "<Plug>(git-conflict-ours)",                              desc = "Accept current changes"                },
-    { "<Leader>gi", "<Plug>(git-conflict-theirs)",                            desc = "Accept incoming changes"               },
+    -- Git
+    { "<Leader>gb", "<Plug>(git-conflict-both)",                              desc = "Accept both changes"     },
+    { "<Leader>gB", "<Plug>(git-conflict-none)",                              desc = "Accept base changes"     },
+    { "<Leader>gc", "<Plug>(git-conflict-ours)",                              desc = "Accept current changes"  },
+    { "<Leader>gi", "<Plug>(git-conflict-theirs)",                            desc = "Accept incoming changes" },
+
     { "<Leader>gd", function() H.gitexec("diff", "HEAD", "--", "%") end,      desc = "Show buffer changes"                   },
-    { "<Leader>gh", function() H.gitexec("log", "-p", "--", "%") end,         desc = "Show buffer history"                   },
+    { "<Leader>gh", function() H.pick("git_hunks")   end,                     desc = "Pick buffer hunks" },
+    { "<Leader>gH", function() H.pick("git_commits") end,                     desc = "Pick Git commits" },
     { "<Leader>gl", function() require("mini.git").show_at_cursor() end,      desc = "Show cursor info", mode = { "n", "x" } },
+    { "<Leader>gL", function() H.gitexec("log", "-p", "--", "%") end,         desc = "Show buffer history"                   },
     { "<Leader>gs", function() require("mini.diff").do_hunks(0, "apply") end, desc = "State buffer hunks"                    },
 
-    -- utilities
+    -- Utilities
     { "<Leader>.", function() require("snacks.scratch").open() end,   desc = "Show scratch buffer" },
     { "<Leader>>", function() require("snacks.scratch").select() end, desc = "Pick scratch buffer" },
 })
@@ -138,7 +140,7 @@ function H.pick(picker, opts) require("mini.pick").registry[picker](opts) end
 
 -- stylua: ignore
 Meow.keyset({
-    -- diagnostics
+    -- Diagnostics
     { "<C-l>", function() vim.diagnostic.open_float() end,          desc = "Show current diagnostic" },
     { "<C-p>", function() H.jump_quickfix("backward", "<C-p>") end, desc = "Quickfix backward"       },
     { "<C-n>", function() H.jump_quickfix("forward", "<C-n>") end,  desc = "Quickfix forward"        },
@@ -163,7 +165,7 @@ Meow.keyset({
     { "<Leader>le", function() H.pick_diagnostics("current", "ERROR") end, desc = "Pick document errors"       },
     { "<Leader>lE", function() H.pick_diagnostics("all",     "ERROR") end, desc = "Pick workspace errors"      },
 
-    -- pickers
+    -- Pickers
     { "<C-q>",            function() H.pick_quickfix() end,                  desc = "Pick quickfix"        },
     { "<Leader><Leader>", function() H.pick("smart_files") end,              desc = "Pick files"           },
 
