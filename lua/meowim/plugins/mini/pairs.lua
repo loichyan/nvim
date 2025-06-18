@@ -37,9 +37,15 @@ return {
                 return "`\n```" .. vim.api.nvim_replace_termcodes("<Up>", true, true, true)
             end
 
-            -- Skip next if there's already a pair
-            if o == line:sub(col + 1, col + 1) then
+            -- Skip next if there's already a pair.
+            local next_ch = line:sub(col + 1, col + 1)
+            if o == next_ch then
                 return vim.api.nvim_replace_termcodes("<Right>", true, true, true)
+            end
+
+            -- Skip next it matches certain characters.
+            if next_ch:match([=[[%w%.%$%%]]=]) then
+                return o
             end
 
             -- Emit a opening only if unbalanced
