@@ -56,16 +56,6 @@ Meow.keyset({
     { "<Leader>W",  "<Cmd>close<CR>",                                  desc = "Close current window" },
     { "<Leader>Q",  "<Cmd>tabclose<CR>",                               desc = "Close current tab"    },
 
-    -- sessions
-    { "<Leader>qq",  "<Cmd>quitall<CR>",                                       desc = "Quit Neovim"              },
-    { "<Leader>qr",  function() require("meowim.utils").session_restore() end, desc = "Restore current session"  },
-    { "<Leader>qR",  function() require("mini.sessions").select("read") end,   desc = "Restore selected session" },
-    { "<Leader>qs",  function() require("meowim.utils").session_save() end,    desc = "Save current session"     },
-    { "<Leader>qS",  function() require("mini.sessions").select("write") end,  desc = "Save selected session"    },
-    { "<Leader>qd",  function() require("meowim.utils").session_delete() end,  desc = "Delete current session"   },
-    { "<Leader>qD",  function() require("mini.sessions").select("delete") end, desc = "Delete selected session"  },
-    { "<Leader>qQ",  "<Cmd>let g:minisessions_disable=v:true | quitall<CR>",   desc = "Quit Neovim quietly"      },
-
     { "[t",    "<Cmd>tabprevious<CR>",                                      desc = "Tab previous"     },
     { "[T",    "<Cmd>tabfirst<CR>",                                         desc = "Tab first"        },
     { "]t",    "<Cmd>tabnext<CR>",                                          desc = "Tab next"         },
@@ -81,6 +71,17 @@ Meow.keyset({
     { "<Leader>bl", function() H.buffer_close_others( 1) end, desc = "Close right buffers"  },
     { "<Leader>bo", function() H.buffer_close_others( 0) end, desc = "Close other buffers"  },
 
+
+    -- sessions
+    { "<Leader>qq",  "<Cmd>quitall<CR>",                                       desc = "Quit Neovim"              },
+    { "<Leader>qr",  function() require("meowim.utils").session_restore() end, desc = "Restore current session"  },
+    { "<Leader>qR",  function() require("mini.sessions").select("read") end,   desc = "Restore selected session" },
+    { "<Leader>qs",  function() require("meowim.utils").session_save() end,    desc = "Save current session"     },
+    { "<Leader>qS",  function() require("mini.sessions").select("write") end,  desc = "Save selected session"    },
+    { "<Leader>qd",  function() require("meowim.utils").session_delete() end,  desc = "Delete current session"   },
+    { "<Leader>qD",  function() require("mini.sessions").select("delete") end, desc = "Delete selected session"  },
+    { "<Leader>qQ",  "<Cmd>let g:minisessions_disable=v:true | quitall<CR>",   desc = "Quit Neovim quietly"      },
+
     -- git
     { "<Leader>gb", "<Plug>(git-conflict-both)",                              desc = "Accept both changes"                   },
     { "<Leader>gB", "<Plug>(git-conflict-none)",                              desc = "Accept base changes"                   },
@@ -90,6 +91,10 @@ Meow.keyset({
     { "<Leader>gh", function() H.gitexec("log", "-p", "--", "%") end,         desc = "Show buffer history"                   },
     { "<Leader>gl", function() require("mini.git").show_at_cursor() end,      desc = "Show cursor info", mode = { "n", "x" } },
     { "<Leader>gs", function() require("mini.diff").do_hunks(0, "apply") end, desc = "State buffer hunks"                    },
+
+    -- utilities
+    { "<Leader>.", function() require("snacks.scratch").open() end,   desc = "Show scratch buffer" },
+    { "<Leader>>", function() require("snacks.scratch").select() end, desc = "Pick scratch buffer" },
 })
 
 -------------------------------------------

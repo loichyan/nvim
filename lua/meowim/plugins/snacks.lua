@@ -9,6 +9,7 @@ return {
             quickfile = { enabled = true },
             input = { enabled = true },
             words = { enabled = true, debounce = 300 },
+            scratch = { enabled = true },
         })
         vim.api.nvim_create_autocmd("User", {
             pattern = "MiniFilesActionRename",
