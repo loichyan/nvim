@@ -2,6 +2,11 @@
 return {
     "windwp/nvim-ts-autotag",
     event = "LazyFile",
-    config = function() require("nvim-ts-autotag").setup() end,
+    config = function()
+        ---@diagnostic disable-next-line: missing-fields
+        require("nvim-ts-autotag").setup({
+            per_filetype = { ["rust"] = { enable_close = false } },
+        })
+    end,
     dependencies = { "nvim-treesitter" },
 }
