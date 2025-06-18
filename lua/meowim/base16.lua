@@ -98,9 +98,9 @@ function Base16.colors_customizations(opts, colors)
         ["FloatTitle"]               = { fg = get("Title").fg, bg= palette.base01 },
 
         ["FlashBackdrop"]            = { fg = palette.base02 },
-        ["FlashLabel"]               = { fg = palette.base08 },
-        ["FlashCurrent"]             = { fg = palette.base0E },
-        ["FlashMatch"]               = { fg = palette.base0B },
+        ["FlashLabel"]               = { fg = palette.base01, bg = palette.base08 },
+        ["FlashCurrent"]             = { fg = palette.base01, bg = palette.base0E },
+        ["FlashMatch"]               = { fg = palette.base01, bg = palette.base0B },
 
         ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
         ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },

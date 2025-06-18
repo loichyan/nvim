@@ -1,22 +1,25 @@
 local config = function()
     ---@diagnostic disable:missing-fields
     require("flash").setup({
+        search = { multi_window = false },
+        highlight = { backdrop = false },
         modes = {
             char = {
-                enabled = false,
+                enabled = true,
                 autohide = true,
                 jump_labels = true,
                 multi_line = false,
                 jump = { autojump = true },
+                search = { wrap = false },
+                highlight = { backdrop = false },
             },
             search = {
                 enabled = true,
-                highlight = { backdrop = true },
                 search = { wrap = false },
+                highlight = { backdrop = false },
             },
             treesitter = {
-                highlight = { backdrop = true },
-                label = { style = "overlay" },
+                highlight = { backdrop = false },
             },
         },
         prompt = { enabled = false },
