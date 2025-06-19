@@ -1,8 +1,21 @@
+---Uses compact placehodler format. Namely, convert `{{ var }}` to `{{var}}`.
+---@type conform.LuaFormatterConfig
+local compact_placeholder = {
+    format = function(_, _, lines, callback)
+        local new_lines = {}
+        for _, line in ipairs(lines) do
+            line = line:gsub([[%{%{%s+([_%w]+)%s+%}%}]], "{{%1}}")
+            table.insert(new_lines, line)
+        end
+        callback(nil, new_lines)
+    end,
+}
+
 local config = function()
     local by_ft = {
         fish = { "fish_indent" },
         go = { "gofumpt" },
-        just = { "just" },
+        just = { "just", "compact_placeholder" },
         lua = { "stylua" },
         nix = { "nixfmt" },
         sh = { "shfmt" },
@@ -48,6 +61,8 @@ local config = function()
             dprint = {
                 prepend_args = { "--config", vim.fn.expand("~/.config/dprint/config.json") },
             },
+            ---@diagnostic disable-next-line: assign-type-mismatch
+            compact_placeholder = compact_placeholder,
         },
         formatters_by_ft = by_ft,
     })
