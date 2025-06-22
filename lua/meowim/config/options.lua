@@ -9,6 +9,7 @@ o.relativenumber = true -- Show relative numbers
 o.expandtab = true
 o.tabstop = 4
 o.shiftwidth = 4
+o.conceallevel = 2
 
 if vim.env.TMUX then
     g.clipboard = {
