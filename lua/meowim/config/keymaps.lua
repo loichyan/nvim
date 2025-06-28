@@ -100,9 +100,10 @@ Meow.keyset({
     { "<Leader>gc", "<Plug>(git-conflict-ours)",                              desc = "Accept current changes"  },
     { "<Leader>gi", "<Plug>(git-conflict-theirs)",                            desc = "Accept incoming changes" },
 
-    { "<Leader>gd", function() H.gitexec("diff", "HEAD", "--", "%") end,      desc = "Show buffer changes"                   },
-    { "<Leader>gh", function() H.pick("git_hunks")   end,                     desc = "Pick buffer hunks" },
-    { "<Leader>gH", function() H.pick("git_commits") end,                     desc = "Pick Git commits" },
+    { "<Leader>gd", function() require("mini.diff").toggle_overlay(0) end,    desc = "Show buffer changes overlay"           },
+    { "<Leader>gD", function() H.gitexec("diff", "HEAD", "--", "%") end,      desc = "Show buffer changes diff"              },
+    { "<Leader>gh", function() H.pick("git_hunks")   end,                     desc = "Pick buffer hunks"                     },
+    { "<Leader>gH", function() H.pick("git_commits") end,                     desc = "Pick Git commits"                      },
     { "<Leader>gl", function() require("mini.git").show_at_cursor() end,      desc = "Show cursor info", mode = { "n", "x" } },
     { "<Leader>gL", function() H.gitexec("log", "-p", "--", "%") end,         desc = "Show buffer history"                   },
     { "<Leader>gs", function() require("mini.diff").do_hunks(0, "apply") end, desc = "State buffer hunks"                    },
