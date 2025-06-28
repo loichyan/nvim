@@ -70,8 +70,6 @@ local Lspconfig = {
                 check = { command = "clippy" },
                 procMacro = { enable = true, attributes = { enable = true } },
                 typing = { autoClosingAngleBrackets = { enable = true } },
-                -- stylua: ignore
-                rustfmt = vim.fn.executable("rustfmt-nightly") == 1 and { overrideCommand = { "rustfmt-nightly" } } or nil,
                 imports = {
                     granularity = { enforce = true, group = "module" },
                     prefix = "self",

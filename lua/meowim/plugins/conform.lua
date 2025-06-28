@@ -18,6 +18,7 @@ local config = function()
         just = { "just", "compact_placeholder" },
         lua = { "stylua" },
         nix = { "nixfmt" },
+        rust = { "rustfmt" },
         sh = { "shfmt" },
     }
 
@@ -48,7 +49,8 @@ local config = function()
         by_ft[ft] = { "dprint" }
     end
 
-    require("conform").setup({
+    local conform = require("conform")
+    conform.setup({
         default_format_opts = {
             timeout_ms = 3000,
             async = false,
@@ -66,6 +68,12 @@ local config = function()
         },
         formatters_by_ft = by_ft,
     })
+    conform.formatters.rustfmt = function(_)
+        return {
+            command = vim.fn.executable("rustfmt-nightly") == 1 and "rustfmt-nightly" or "rustfmt",
+        }
+    end
+    -- conform.formatters.rustfmt
     vim.api.nvim_create_autocmd("BufWritePre", {
         desc = "Format on save",
         callback = function(ev)
