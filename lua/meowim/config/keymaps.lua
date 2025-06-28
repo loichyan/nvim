@@ -37,11 +37,19 @@ function H.toggle(key, global) require("meowim.utils").toggle(key, global) end
 
 function H.toggle_conceal() vim.opt_local.conceallevel = 2 - vim.opt_local.conceallevel end
 
+---Copies joined lines to system clipboard.
+function H.copy_joined()
+    local text = require("meowim.utils").get_visual_selection()
+    local joined = text:gsub("\n", " ")
+    vim.fn.setreg("+", joined)
+end
+
 -- stylua: ignore
 Meow.keyset({
     -- Common mappings
-    { "<Esc>", "<Cmd>noh<CR>",              desc = "Clear highlights"       },
-    { "<C-c>", function() H.clear_ui() end, desc = "Clear trivial UI items" },
+    { "<Esc>", "<Cmd>noh<CR>",                 desc = "Clear highlights"              },
+    { "<C-c>", function() H.clear_ui() end,    desc = "Clear trivial UI items"        },
+    { "gY",    function() H.copy_joined() end, desc = "Copy joined lines", mode = "x" },
 
     -- Toggles
     { "<LocalLeader>k", function() H.toggle("minicompletion_disable", false) end, desc = "Toggle completion"          },

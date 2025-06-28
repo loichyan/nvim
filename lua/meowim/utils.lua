@@ -151,4 +151,13 @@ function Utils.lighten(color, delta)
     ) --[[@as string]]
 end
 
+---Returns the text of visual selection.
+function Utils.get_visual_selection()
+    local orig_x = vim.fn.getreg("x")
+    vim.cmd([[silent! normal! "xy]])
+    local text = vim.fn.getreg("x")
+    vim.fn.setreg("x", orig_x)
+    return text
+end
+
 return Utils
