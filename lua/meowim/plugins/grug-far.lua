@@ -15,6 +15,24 @@ return {
                 gotoLocation  = { n = "o", i = "<C-o>" },
             },
         })
-        Meow.keyset({ { "<Leader>r", "<Cmd>GrugFar<CR>", desc = "Open GrugFar" } })
+
+        Meow.keyset({
+            {
+                "<Leader>r",
+                function()
+                    require("grug-far").open({
+                        prefills = {
+                            filesFilter = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":."),
+                        },
+                    })
+                end,
+                desc = "Search and replace in current buffer",
+            },
+            {
+                "<Leader>R",
+                function() require("grug-far").open() end,
+                desc = "Search and replace in workspace",
+            },
+        })
     end,
 }
