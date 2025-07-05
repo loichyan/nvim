@@ -22,29 +22,27 @@ local config = function()
         sh = { "shfmt" },
     }
 
+    -- Copied from <https://github.com/nvimtools/none-ls.nvim/blob/db2a48b79cfcdab8baa5d3f37f21c78b6705c62e/lua/null-ls/builtins/formatting/prettier.lua#L21>
     for _, ft in ipairs({
-        -- plugin-malva
-        "css",
-        "less",
-        "sass",
-        "scss",
-        -- plugin-biome
         "javascript",
         "javascriptreact",
         "typescript",
         "typescriptreact",
+        "vue",
+        "css",
+        "scss",
+        "less",
+        "html",
         "json",
         "jsonc",
-        -- plugin-pretty_{yaml,graphql}
         "yaml",
-        "graphql",
-        -- plugin-markup_fmt
-        "handlebars",
-        "html",
-        "jinja",
-        "vue",
-        -- plugin-markdown
         "markdown",
+        "markdown.mdx",
+        "graphql",
+        "handlebars",
+        "svelte",
+        "astro",
+        "htmlangular",
     }) do
         by_ft[ft] = { "dprint" }
     end
@@ -60,9 +58,6 @@ local config = function()
         formatters = {
             -- TODO: enable injected formatters
             -- injected = { options = { ignore_errors = true } },
-            dprint = {
-                prepend_args = { "--config", vim.fn.expand("~/.config/dprint/config.json") },
-            },
             ---@diagnostic disable-next-line: assign-type-mismatch
             compact_placeholder = compact_placeholder,
         },
