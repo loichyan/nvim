@@ -22,7 +22,7 @@ return {
                 function()
                     require("grug-far").open({
                         prefills = {
-                            filesFilter = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":."),
+                            paths = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":."),
                         },
                     })
                 end,
