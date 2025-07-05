@@ -102,9 +102,6 @@ function Base16.colors_customizations(opts, colors)
         ["FlashCurrent"]             = { fg = palette.base01, bg = palette.base0E },
         ["FlashMatch"]               = { fg = palette.base01, bg = palette.base0B },
 
-        ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
-        ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
-
         ["GitConflictCurrent"]       = { fg = palette.base05, bg = lighten(palette.base0D, -37) },
         ["GitConflictCurrentLabel"]  = { fg = palette.base05, bg = lighten(palette.base0D, -23) },
         ["GitConflictAncestor"]      = { fg = palette.base05, bg = lighten(palette.base0E, -37) },
@@ -118,6 +115,9 @@ function Base16.colors_customizations(opts, colors)
         ["MiniDiffOverChangeBuf"]  = { fg = palette.base05, bg = lighten(palette.base0B, -37) },
         ["MiniDiffOverContext"]    = { bg = palette.base01, fg = lighten(palette.base08, -23) },
         ["MiniDiffOverContextBuf"] = {},
+
+        ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
+        ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
     }
     for name, hl in pairs(overrides) do
         colors.groups[name] = hl
