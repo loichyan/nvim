@@ -1,2 +1,2 @@
 [default]
-extend-ignore-words-re = []
+extend-ignore-words-re = ["enew", "fo"]
