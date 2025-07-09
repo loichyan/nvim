@@ -3,12 +3,12 @@
 Meowim is a [mini.nvim](https://github.com/echasnovski/mini.nvim) powered launch point for your
 personal development environment.
 
-![showcase](https://github.com/user-attachments/assets/18deae4b-9ba2-4c03-83de-cc31b65e7cf0)
+[![showcase](https://github.com/user-attachments/assets/18deae4b-9ba2-4c03-83de-cc31b65e7cf0)](https://github.com/loichyan/dotfiles)
 
 <details>
 <summary>Information</summary>
 
-- font: [Rec Mono Duotone](https://www.recursive.design)
+- font: [0xProto](https://github.com/0xType/0xProto)
 - tmux: [tmux-base16](https://github.com/loichyan/tmux-base16)
 - Neovim: [Meowim](https://github.com/loichyan/Meowim)
 
@@ -19,7 +19,7 @@ configurations, feel free to fork your own!
 
 ## ♥️ Special Thanks
 
-- [mini.nvim](https://github.com/echasnovski/mini.nvim) for its significant contribution to the
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) for the fundamental contribution to the
   birth of this project.
 - [LazyVim](https://github.com/LazyVim/LazyVim) for providing many excellent configuration snippets
   used in this project.
