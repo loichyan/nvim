@@ -6,6 +6,8 @@ return {
         require("ts-comments").setup({
             lang = {
                 rust = {
+                    "// %s",
+                    "/* %s */",
                     doc_comment = "/// %s",
                 },
             },
