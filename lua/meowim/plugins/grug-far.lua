@@ -34,5 +34,10 @@ return {
                 desc = "Search and replace in workspace",
             },
         })
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = "grug-far",
+            command = "setlocal conceallevel=0",
+            desc = "Turn off 'conceallevel' when GrugFar is open",
+        })
     end,
 }
