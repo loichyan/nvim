@@ -32,5 +32,5 @@ return {
         })
         vim.lsp.config("*", { capabilities = completion.get_lsp_capabilities() })
     end,
-    dependencies = { "mini.snippets", "phoenix.nvim" },
+    dependencies = { "mini.snippets" },
 }
