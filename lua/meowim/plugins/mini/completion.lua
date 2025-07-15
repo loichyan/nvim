@@ -12,6 +12,7 @@ return {
         end
 
         vim.o.completeopt = "menuone,noinsert,fuzzy"
+        vim.o.infercase = false
         completion.setup({
             lsp_completion = {
                 -- 'completefunc' conflicts with `Ctrl+U` in insert mode
