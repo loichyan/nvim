@@ -15,12 +15,12 @@ if vim.env.TMUX then
     g.clipboard = {
         name = "tmux",
         copy = {
-            ["+"] = { "tmux", "load-buffer", "-w", "-" }, -- Copy to system clipboard
-            ["*"] = { "tmux", "load-buffer", "-" }, -- Copy to only tmux clipboard
+            ["+"] = { "tmux", "-Ldefault", "load-buffer", "-w", "-" }, -- Copy to system clipboard
+            ["*"] = { "tmux", "-Ldefault", "load-buffer", "-" }, -- Copy to only tmux clipboard
         },
         paste = {
-            ["+"] = { "tmux", "save-buffer", "-" },
-            ["*"] = { "tmux", "save-buffer", "-" },
+            ["+"] = { "tmux", "-Ldefault", "save-buffer", "-" },
+            ["*"] = { "tmux", "-Ldefault", "save-buffer", "-" },
         },
         cache_enabled = 0,
     }
