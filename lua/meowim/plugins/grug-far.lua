@@ -22,7 +22,7 @@ return {
                 function()
                     require("grug-far").open({
                         prefills = {
-                            paths = require("meowim.utils").buf_path_rel(),
+                            paths = vim.fn.expand("%"),
                         },
                     })
                 end,
