@@ -1,6 +1,6 @@
-------------------------------------
----------- COMMON KEYMAPS ----------
-------------------------------------
+----------------------
+--- COMMON KEYMAPS ---
+----------------------
 
 local H = {}
 
@@ -113,9 +113,9 @@ Meow.keyset({
     { "<Leader>>", function() require("snacks.scratch").select() end, desc = "Pick scratch buffer" },
 })
 
--------------------------------------------
----------- PICKERS & DIAGNOSTICS ----------
--------------------------------------------
+-----------------------------
+--- PICKERS & DIAGNOSTICS ---
+-----------------------------
 
 ---@param dir "forward"|"backward"
 ---@param fallback string
@@ -217,9 +217,9 @@ Meow.keyset({
     { "<Leader>fR", function() H.pick("registers") end,                      desc = "Pick registers"       },
 })
 
----------------------------------
----------- LSP KEYMAPS ----------
----------------------------------
+-------------------
+--- LSP KEYMAPS ---
+-------------------
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
