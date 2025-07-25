@@ -44,6 +44,15 @@ function H.copy_joined()
     vim.fn.setreg("+", joined)
 end
 
+---@param scope "cursor"|"buffer"
+function H.apply_hunk(scope)
+    if scope == "cursor" then
+        return require("mini.diff").operator("apply") .. "<Cmd>lua MiniDiff.textobject()<CR>"
+    else
+        require("mini.diff").do_hunks(0, "apply")
+    end
+end
+
 -- stylua: ignore
 Meow.keyset({
     -- Common mappings
@@ -106,7 +115,8 @@ Meow.keyset({
     { "<Leader>gH", function() H.pick("git_commits") end,                     desc = "Pick Git commits"                      },
     { "<Leader>gl", function() require("mini.git").show_at_cursor() end,      desc = "Show cursor info", mode = { "n", "x" } },
     { "<Leader>gL", function() H.gitexec("log", "-p", "--", "%") end,         desc = "Show buffer history"                   },
-    { "<Leader>gs", function() require("mini.diff").do_hunks(0, "apply") end, desc = "State buffer hunks"                    },
+    { "<Leader>gs", function() return H.apply_hunk("cursor") end,             desc = "State cursor hunks", expr = true       },
+    { "<Leader>gS", function() return H.apply_hunk("buffer") end,             desc = "State buffer hunks", expr = true       },
 
     -- Utilities
     { "<Leader>.", function() require("snacks.scratch").open() end,   desc = "Show scratch buffer" },
