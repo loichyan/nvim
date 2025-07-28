@@ -4,6 +4,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("grug-far").setup({
+      enabledEngines = { "ripgrep", "astgrep" },
       -- stylua: ignore
       keymaps = {
         replace       = { n = "<CR>", i = "<M-CR>" },
