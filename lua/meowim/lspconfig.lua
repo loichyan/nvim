@@ -38,8 +38,8 @@ local Lspconfig = {
 
   -- Web
   cssls = {},
-  tailwindcss = {},
-  eslint = {},
+  tailwindcss = { enable = false },
+  eslint = { enable = false },
   denols = {},
   ts_ls = {
     root_dir = function(...) require("lspconfig.util").root_pattern("package.json")(...) end,
