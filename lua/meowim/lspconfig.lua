@@ -78,9 +78,10 @@ local Lspconfig = {
       },
     },
     on_attach = function(_, bufnr)
+      -- stylua: ignore
       Meow.keymap(bufnr, {
-        { "<Leader>lm", "<Cmd>RustLsp expandMacro<CR>", desc = "Expand macro" },
-        { "<Leader>lo", "<Cmd>RustLsp openCargo<CR>", desc = "Open Cargo.toml" },
+        { "<Leader>lm", "<Cmd>RustLsp expandMacro<CR>", desc = "Expand macro"    },
+        { "<Leader>lo", "<Cmd>RustLsp openCargo<CR>",   desc = "Open Cargo.toml" },
       })
     end,
   },

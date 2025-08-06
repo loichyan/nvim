@@ -4,8 +4,8 @@ return {
   lazy = false,
   priority = 95,
   config = function()
-    local notify = require("mini.notify")
-    notify.setup()
-    vim.notify = notify.make_notify()
+    local mininotify = require("mini.notify")
+    mininotify.setup()
+    vim.notify = mininotify.make_notify()
   end,
 }

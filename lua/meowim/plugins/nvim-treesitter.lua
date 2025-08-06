@@ -1,4 +1,12 @@
-local config = function()
+---@type MeoSpec
+local Spec = {
+  "nvim-treesitter/nvim-treesitter",
+  checkout = "master",
+  build = function() vim.cmd("TSUpdate") end,
+  event = "LazyFile",
+}
+
+Spec.config = function()
   -- See <https://github.com/neovim/neovim/issues/32660>
   vim.g._ts_force_sync_parsing = true
 
@@ -35,11 +43,4 @@ local config = function()
   })
 end
 
----@type MeoSpec
-return {
-  "nvim-treesitter/nvim-treesitter",
-  checkout = "master",
-  build = function() vim.cmd("TSUpdate") end,
-  event = "LazyFile",
-  config = config,
-}
+return Spec

@@ -1,3 +1,6 @@
+---@type MeoSpec
+local Spec = { "stevearc/conform.nvim", event = "LazyFile" }
+
 ---Uses compact placehodler format. Namely, convert `{{ var }}` to `{{var}}`.
 ---@type conform.LuaFormatterConfig
 local compact_placeholder = {
@@ -11,7 +14,7 @@ local compact_placeholder = {
   end,
 }
 
-local config = function()
+Spec.config = function()
   local by_ft = {
     fish = { "fish_indent" },
     go = { "gofumpt" },
@@ -60,25 +63,28 @@ local config = function()
       -- injected = { options = { ignore_errors = true } },
       ---@diagnostic disable-next-line: assign-type-mismatch
       compact_placeholder = compact_placeholder,
+      -- Use the nightly formatter if possible
+      rustfmt = function(_)
+        return {
+          command = vim.fn.executable("rustfmt-nightly") == 1 and "rustfmt-nightly" or "rustfmt",
+        }
+      end,
     },
     formatters_by_ft = by_ft,
   })
-  conform.formatters.rustfmt = function(_)
-    return {
-      command = vim.fn.executable("rustfmt-nightly") == 1 and "rustfmt-nightly" or "rustfmt",
-    }
-  end
-  -- conform.formatters.rustfmt
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    desc = "Format on save",
-    callback = function(ev)
-      if not require("meowim.utils").is_toggle_on(ev.buf, "autoformat_disabled") then
-        require("mini.trailspace").trim()
-        require("conform").format()
-      end
-    end,
+
+  Meow.autocmd("meowim.plugins.conform", {
+    {
+      event = "BufWritePre",
+      desc = "Format on save",
+      callback = function(ev)
+        if not require("meowim.utils").is_toggle_on(ev.buf, "autoformat_disabled") then
+          require("mini.trailspace").trim()
+          require("conform").format()
+        end
+      end,
+    },
   })
 end
 
----@type MeoSpec
-return { "stevearc/conform.nvim", event = "LazyFile", config = config }
+return Spec

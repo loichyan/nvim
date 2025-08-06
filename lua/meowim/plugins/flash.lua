@@ -1,4 +1,7 @@
-local config = function()
+---@type MeoSpec
+local Spec = { "folke/flash.nvim", event = "LazyFile" }
+
+Spec.config = function()
   ---@diagnostic disable:missing-fields
   require("flash").setup({
     search = { multi_window = false },
@@ -53,5 +56,4 @@ local config = function()
   })
 end
 
----@type MeoSpec
-return { "folke/flash.nvim", event = "LazyFile", config = config }
+return Spec
