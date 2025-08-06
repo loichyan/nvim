@@ -25,7 +25,7 @@ local config = function()
     prompt = { enabled = false },
   })
 
-  Meow.keyset({
+  Meow.keymap({
     {
       "s",
       function() require("flash").jump({ search = { forward = true, wrap = false } }) end,

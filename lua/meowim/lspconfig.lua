@@ -78,7 +78,7 @@ local Lspconfig = {
       },
     },
     on_attach = function(_, bufnr)
-      Meow.keyset(bufnr, {
+      Meow.keymap(bufnr, {
         { "<Leader>lm", "<Cmd>RustLsp expandMacro<CR>", desc = "Expand macro" },
         { "<Leader>lo", "<Cmd>RustLsp openCargo<CR>", desc = "Open Cargo.toml" },
       })

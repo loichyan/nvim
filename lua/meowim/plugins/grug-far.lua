@@ -17,7 +17,7 @@ return {
       },
     })
 
-    Meow.keyset({
+    Meow.keymap({
       {
         "<Leader>r",
         function()
