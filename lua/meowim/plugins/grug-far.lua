@@ -1,5 +1,5 @@
 ---@type MeoSpec
-local Spec = { "MagicDuck/grug-far.nvim", event = "VeryLazy" }
+local Spec = { "MagicDuck/grug-far.nvim", event = "LazyFile" }
 
 ---@param scope "current"|"all"
 local open = function(scope)

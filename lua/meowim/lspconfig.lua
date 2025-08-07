@@ -88,6 +88,7 @@ local Lspconfig = {
 }
 
 -- Load workspace configurations
+Meow.load("neoconf.nvim")
 for name, config in pairs((require("neoconf").get("lspconfig") or {})) do
   if type(config) == "boolean" then config = { enable = config } end
   Lspconfig[name] = vim.tbl_deep_extend("force", Lspconfig[name] or {}, config)
