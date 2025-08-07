@@ -1,7 +1,7 @@
 # 😺 Meowim
 
-Meowim is a [mini.nvim](https://github.com/echasnovski/mini.nvim) powered launch point for your
-personal development environment.
+Meowim is a [mini.nvim](https://github.com/echasnovski/mini.nvim) powered launch
+point for your personal development environment.
 
 [![showcase](https://github.com/user-attachments/assets/18deae4b-9ba2-4c03-83de-cc31b65e7cf0)](https://github.com/loichyan/dotfiles)
 
@@ -14,15 +14,15 @@ personal development environment.
 
 </details>
 
-This repo is my fork of [Meowim](https://github.com/loichyan/Meowim), if you are interesting in the
-configurations, feel free to fork your own!
+This repo is my fork of [Meowim](https://github.com/loichyan/Meowim), if you are
+interesting in the configurations, feel free to fork your own!
 
 ## ♥️ Special Thanks
 
-- [mini.nvim](https://github.com/echasnovski/mini.nvim) for the fundamental contribution to the
-  birth of this project.
-- [LazyVim](https://github.com/LazyVim/LazyVim) for providing many excellent configuration snippets
-  used in this project.
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) for the fundamental
+  contribution to the birth of this project.
+- [LazyVim](https://github.com/LazyVim/LazyVim) for providing many excellent
+  configuration snippets used in this project.
 
 ## ⚖️ License
 
