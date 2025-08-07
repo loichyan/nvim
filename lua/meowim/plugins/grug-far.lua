@@ -4,7 +4,7 @@ local Spec = { "MagicDuck/grug-far.nvim", event = "VeryLazy" }
 ---@param scope "current"|"all"
 local open = function(scope)
   local paths
-  if scope == "current" then paths = { vim.fn.expand("%") } end
+  if scope == "current" then paths = vim.fn.expand("%") end
   require("grug-far").open({ prefills = { paths = paths } })
 end
 
