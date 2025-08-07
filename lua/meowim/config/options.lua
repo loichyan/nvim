@@ -9,6 +9,7 @@ o.clipboard = "unnamed"
 o.expandtab = true
 o.tabstop = 4
 o.shiftwidth = 4
+o.softtabstop = 4
 
 o.cmdheight = 0 -- Hide cmdline
 o.laststatus = 3 -- Show global statusline
@@ -28,7 +29,7 @@ if vim.env.TMUX then
     },
     cache_enabled = 0,
   }
-  o.clipboard = "unnamed" -- Use tmux's clipboard by default
+  o.clipboard = "unnamed" -- Use tmux's clipboard if possible
 else
   g.clipboard = false -- Otherwise disable the clipboard
 end
