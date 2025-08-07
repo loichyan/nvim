@@ -27,7 +27,7 @@ if vim.env.TMUX then
       ["+"] = { "tmux", "-Ldefault", "save-buffer", "-" },
       ["*"] = { "tmux", "-Ldefault", "save-buffer", "-" },
     },
-    cache_enabled = 0,
+    cache_enabled = 1,
   }
   o.clipboard = "unnamed" -- Use tmux's clipboard if possible
 else
