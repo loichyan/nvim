@@ -1,12 +1,6 @@
 ---@type MeoSpec
 local Spec = { "MagicDuck/grug-far.nvim", event = "LazyFile" }
-
----@param scope "current"|"all"
-local open = function(scope)
-  local paths
-  if scope == "current" then paths = vim.fn.expand("%") end
-  require("grug-far").open({ prefills = { paths = paths } })
-end
+local M = {}
 
 Spec.config = function()
   require("grug-far").setup({
@@ -31,12 +25,17 @@ Spec.config = function()
       command = "setlocal conceallevel=0",
     },
   })
-
-  -- stylua: ignore
-  Meow.keymap({
-    { "<Leader>r", function() open("current") end, desc = "Search and replace in current buffer" },
-    { "<Leader>R", function() open("all") end,     desc = "Search and replace in workspace"      },
-  })
 end
 
-return Spec
+---@param scope "buffer"|"workspace"
+function M.open(scope)
+  local path
+  if scope == "buffer" then
+    path = vim.fn.expand("%")
+    path = vim.uv.fs_stat(path) and path or nil
+  end
+  require("grug-far").open({ prefills = { paths = path } })
+end
+
+M[1] = Spec
+return M
