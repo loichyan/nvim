@@ -27,6 +27,7 @@ Spec.config = function()
   })
 end
 
+---Search and replace in current buffer or across workspace files.
 ---@param scope "buffer"|"workspace"
 function M.open(scope)
   local path
