@@ -1,4 +1,5 @@
 local Utils = {}
+local H = {}
 
 ---Returns the top level path if the specified directory is inside a repository.
 ---@param cwd string?
@@ -151,13 +152,65 @@ function Utils.lighten(color, delta)
   return require("mini.colors").modify_channel(color, "lightness", function(x) return x + delta end) --[[@as string]]
 end
 
----Returns the text of visual selection.
-function Utils.get_visual_selection()
-  local orig_x = vim.fn.getreg("x")
-  vim.cmd([[silent! normal! "xy]])
-  local text = vim.fn.getreg("x")
-  vim.fn.setreg("x", orig_x)
-  return text
+H.submode_keys = {
+  char = "v",
+  line = "V",
+  block = "\22",
+}
+
+---Returns the selected lines in visual or operator mode.
+---@param callback fun(contents:string[])
+---@return string?
+function Utils.do_operator(mode, callback)
+  -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/operators.lua>
+
+  if mode == nil then
+    Utils.__opfunc = function(m) Utils.do_operator(m, callback) end
+    vim.o.operatorfunc = "v:lua.require'meowim.utils'.__opfunc"
+    return "g@"
+  end
+
+  local submode, from, to
+  if mode == "visual" then
+    submode = vim.fn.mode()
+    from, to = "<", ">"
+    vim.cmd("normal! \27")
+  else
+    submode = H.submode_keys[mode]
+    from, to = "[", "]"
+  end
+
+  local copy_keys
+  if mode == "visual" and vim.o.selection == "exclusive" then
+    copy_keys = ("`" .. from .. submode) .. ("`" .. to) .. '"xy'
+  else
+    copy_keys = ("`" .. from) .. '"xy' .. (submode .. "`" .. to)
+  end
+
+  local orig_reginfo = vim.fn.getreginfo("x")
+  vim.cmd("silent keepjumps normal! " .. copy_keys)
+  local reginfo = vim.fn.getreginfo("x")
+  vim.fn.setreg("x", orig_reginfo)
+
+  callback(reginfo.regcontents)
+end
+
+---Returns a function to extract contents from commented lines.
+---@param cms? string
+---@return fun(line:string):string
+function Utils.uncommentor(cms)
+  -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/comment.lua>
+
+  if not cms then
+    local cur = vim.api.nvim_win_get_cursor(0)
+    cms = require("mini.comment").get_commentstring({ cur[1], cur[2] + 1 })
+  end
+  local l, r = cms:match("^(.-)%%s(.-)$")
+  l, r = vim.pesc(l), vim.pesc(r)
+
+  local regex = "^%s*" .. l .. "(.*)" .. r .. "%s-$"
+  local regex_trim = "^%s*" .. vim.trim(l) .. "(.*)" .. vim.trim(r) .. "%s-$"
+  return function(line) return line:match(regex) or line:match(regex_trim) or line end
 end
 
 return Utils

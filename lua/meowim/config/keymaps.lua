@@ -10,7 +10,10 @@ Meow.keymap({
   -- Common mappings
   { "<Esc>",               "<Cmd>noh<CR>",                                                                         desc = "Clear highlights"                  },
   { "<C-c>",               function() H.clear_ui() end,                                                            desc = "Clear trivial UI items"            },
-  { "gY",                  function() H.copy_joined() end, mode = "x",                                             desc = "Copy joined lines"                 },
+  { "gY",                  function() return H.smart_copy() end, expr = true,                                      desc = "Copy uncommented lines"            },
+  { "gY",                  function() H.smart_copy("visual") end, mode = "x",                                      desc = "Copy uncommented range"            },
+  { "gYJ",                 function() return H.smart_copy(nil, { join = true }) end, expr = true,                  desc = "Copy joined lines"                 },
+  { "gYJ",                 function() H.smart_copy("visual", { join = true }) end, mode = "x",                     desc = "Copy joined range"                 },
 
   { "<Leader>e",           function() H.plugins.mini.files.open("buffer") end,                                     desc = "Explore buffer directory"          },
   { "<Leader>E",           function() H.plugins.mini.files.open("workspace") end,                                  desc = "Explore workspace root"            },
@@ -27,7 +30,7 @@ Meow.keymap({
   { "<LocalLeader>f",      function() H.utils.toggle("autoformat_disabled", false) end,                            desc = "Toggle autoformat"                 },
   { "<LocalLeader>F",      function() H.utils.toggle("autoformat_disabled", true) end,                             desc = "Toggle autoformat globally"        },
   { "<LocalLeader>q",      function() require("quicker").toggle() end,                                             desc = "Toggle quickfix"                   },
-  { "<LocalLeader>v",      "<Cmd>lua vim.wo.conceallevel = 2 - vim.wo.conceallevel",                               desc = "Toggle conceallevel"               },
+  { "<LocalLeader>v",      "<Cmd>lua vim.wo.conceallevel = 2 - vim.wo.conceallevel<CR>",                           desc = "Toggle conceallevel"               },
 
   -- Buffers/Tabs/Windows
   { "<Leader>n",           "<Cmd>enew<CR>",                                                                        desc = "New buffer"                        },

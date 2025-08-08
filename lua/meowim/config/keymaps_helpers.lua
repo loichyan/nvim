@@ -13,11 +13,23 @@ function H.clear_ui()
   require("mini.snippets").session.stop()
 end
 
----Copies joined lines to system clipboard.
-function H.copy_joined()
-  local text = Meowim.utils.get_visual_selection()
-  local joined = text:gsub("\n", " ")
-  vim.fn.setreg("+", joined)
+---Copies uncomment text to clipboard.
+---@param mode? "visual"
+---@param opts? {join:boolean}
+function H.smart_copy(mode, opts)
+  return Meowim.utils.do_operator(mode, function(lines)
+    local iter, text = vim.iter(lines):map(Meowim.utils.uncommentor())
+    if (opts or {}).join then
+      text = iter
+        :map(function(l) return vim.trim(l) end)
+        :filter(function(l) return l ~= "" end)
+        :join(" ")
+    else
+      text = iter:join("\n")
+    end
+
+    vim.fn.setreg("+", text)
+  end)
 end
 
 function H.gitexec(...)
