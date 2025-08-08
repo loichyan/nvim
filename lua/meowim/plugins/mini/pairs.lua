@@ -4,17 +4,15 @@ local H = {}
 
 Spec.config = function()
   local minipairs = require("mini.pairs")
-  minipairs.setup({
-    modes = { insert = true, command = false, terminal = false },
-    mappings = {
-      [">"] = {
-        action = "close",
-        pair = "<>",
-        neigh_pattern = "[^\\].",
-        register = { cr = false },
-      },
-    },
-  })
+  minipairs.setup({ modes = { insert = true, command = false, terminal = false } })
+  local mappings = minipairs.config.mappings
+  mappings["'"].neigh_pattern = "[^%a&\\]." -- ignore lifetimes
+  mappings[">"] = {
+    action = "close",
+    pair = "<>",
+    neigh_pattern = "[^\\].",
+    register = { cr = false },
+  }
 
   H.orig_open = minipairs.open
   ---@diagnostic disable-next-line: duplicate-set-field
