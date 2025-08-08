@@ -12,8 +12,8 @@ Meow.keymap({
   { "<C-c>",               function() H.clear_ui() end,                                                            desc = "Clear trivial UI items"            },
   { "gY",                  function() return H.smart_copy() end, expr = true,                                      desc = "Copy uncommented lines"            },
   { "gY",                  function() H.smart_copy("visual") end, mode = "x",                                      desc = "Copy uncommented range"            },
-  { "gyJ",                 function() return H.smart_copy(nil, {join=true}) end, expr = true,                      desc = "Copy joined lines"                 },
-  { "gyJ",                 function() H.smart_copy("visual", {join=true}) end, mode = "x",                         desc = "Copy joined range"                 },
+  { "gYY",                 function() return H.smart_copy(nil, {join=true}) end, expr = true,                      desc = "Copy joined lines"                 },
+  { "gYY",                 function() H.smart_copy("visual", {join=true}) end, mode = "x",                         desc = "Copy joined range"                 },
 
   { "<Leader>e",           function() H.plugins.mini.files.open("buffer") end,                                     desc = "Explore buffer directory"          },
   { "<Leader>E",           function() H.plugins.mini.files.open("workspace") end,                                  desc = "Explore workspace root"            },
