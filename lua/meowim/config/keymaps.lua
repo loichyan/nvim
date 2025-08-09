@@ -10,10 +10,8 @@ Meow.keymap({
   -- Common mappings
   { "<Esc>",               "<Cmd>noh<CR>",                                                                         desc = "Clear highlights"                  },
   { "<C-c>",               function() H.clear_ui() end,                                                            desc = "Clear trivial UI items"            },
-  { "gY",                  function() return H.smart_copy() end, expr = true,                                      desc = "Copy uncommented lines"            },
-  { "gY",                  function() H.smart_copy("visual") end, mode = "x",                                      desc = "Copy uncommented range"            },
-  { "gYY",                 function() return H.smart_copy(nil, {join=true}) end, expr = true,                      desc = "Copy joined lines"                 },
-  { "gYY",                 function() H.smart_copy("visual", {join=true}) end, mode = "x",                         desc = "Copy joined range"                 },
+  { "gY",                  function() return H.smart_copy() end, expr = true, mode = nx,                           desc = "Copy docs/comments"                },
+  { "gYY",                 function() return H.smart_copy() .. "_" end, expr = true,                               desc = "Copy docs/comments"                },
 
   { "<Leader>e",           function() H.plugins.mini.files.open("buffer") end,                                     desc = "Explore buffer directory"          },
   { "<Leader>E",           function() H.plugins.mini.files.open("workspace") end,                                  desc = "Explore workspace root"            },
@@ -80,10 +78,10 @@ Meow.keymap({
   { "<Leader>gH",          function() H.pick("git_commits") end,                                                   desc = "Pick Git commits"                  },
   { "<Leader>gl",          function() require("mini.git").show_at_cursor() end, mode = nx,                         desc = "Show cursor info"                  },
   { "<Leader>gL",          function() H.gitexec("log", "-p", "--", "%") end,                                       desc = "Show buffer history"               },
-  { "<Leader>gs",          function() H.plugins.mini.diff.do_hunk("apply", "cursor") end,                          desc = "State cursor hunks"                },
-  { "<Leader>gS",          function() H.plugins.mini.diff.do_hunk("apply", "buffer") end,                          desc = "State buffer hunks"                },
-  { "<Leader>gx",          function() H.plugins.mini.diff.do_hunk("reset", "cursor") end,                          desc = "State cursor hunks"                },
-  { "<Leader>gX",          function() H.plugins.mini.diff.do_hunk("reset", "buffer") end,                          desc = "State buffer hunks"                },
+  { "<Leader>gs",          function() H.plugins.mini.diff.do_hunks("apply", "cursor") end,                         desc = "State cursor hunks"                },
+  { "<Leader>gS",          function() H.plugins.mini.diff.do_hunks("apply", "buffer") end,                         desc = "State buffer hunks"                },
+  { "<Leader>gx",          function() H.plugins.mini.diff.do_hunks("reset", "cursor") end,                         desc = "State cursor hunks"                },
+  { "<Leader>gX",          function() H.plugins.mini.diff.do_hunks("reset", "buffer") end,                         desc = "State buffer hunks"                },
 
   -- Diagnostics
   { "<C-l>",               function() vim.diagnostic.open_float() end,                                             desc = "Show current diagnostic"           },

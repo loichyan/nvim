@@ -160,32 +160,20 @@ H.submode_keys = {
 
 ---Returns the selected lines in visual or operator mode.
 ---@param callback fun(contents:string[])
+---@param mode? string
 ---@return string?
-function Utils.do_operator(mode, callback)
+function Utils.do_operator(callback, mode)
   -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/operators.lua>
 
   if mode == nil then
-    Utils.__opfunc = function(m) Utils.do_operator(m, callback) end
+    Utils.__opfunc = function(m) Utils.do_operator(callback, m) end
     vim.o.operatorfunc = "v:lua.require'meowim.utils'.__opfunc"
     return "g@"
   end
 
-  local submode, from, to
-  if mode == "visual" then
-    submode = vim.fn.mode()
-    from, to = "<", ">"
-    vim.cmd("normal! \27")
-  else
-    submode = H.submode_keys[mode]
-    from, to = "[", "]"
-  end
-
-  local copy_keys
-  if mode == "visual" and vim.o.selection == "exclusive" then
-    copy_keys = ("`" .. from .. submode) .. ("`" .. to) .. '"xy'
-  else
-    copy_keys = ("`" .. from) .. '"xy' .. (submode .. "`" .. to)
-  end
+  local submode = H.submode_keys[mode]
+  local from, to = "[", "]"
+  local copy_keys = ("`" .. from) .. '"xy' .. (submode .. "`" .. to)
 
   local orig_reginfo = vim.fn.getreginfo("x")
   vim.cmd("silent keepjumps normal! " .. copy_keys)
@@ -211,6 +199,21 @@ function Utils.uncommentor(cms)
   local regex = "^%s*" .. l .. "(.*)" .. r .. "%s-$"
   local regex_trim = "^%s*" .. vim.trim(l) .. "(.*)" .. vim.trim(r) .. "%s-$"
   return function(line) return line:match(regex) or line:match(regex_trim) or line end
+end
+
+---@param cmd string[]
+---@param opts? vim.SystemOpts
+---@param on_exit? fun(ok:boolean, out?:string)
+function Utils.try_system(cmd, opts, on_exit)
+  local ok, res = pcall(vim.system, cmd, opts, on_exit and function(res)
+    if res.code ~= 0 then
+      on_exit(false, res.stderr)
+    else
+      on_exit(true, res.stdout)
+    end
+  end)
+  ---@diagnostic disable-next-line: param-type-mismatch
+  if not ok and on_exit then on_exit(false, res) end
 end
 
 return Utils

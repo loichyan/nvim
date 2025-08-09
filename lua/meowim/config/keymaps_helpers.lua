@@ -14,21 +14,20 @@ function H.clear_ui()
 end
 
 ---Copies uncomment text to clipboard.
----@param mode? "visual"
----@param opts? {join:boolean}
-function H.smart_copy(mode, opts)
-  return Meowim.utils.do_operator(mode, function(lines)
-    local iter, text = vim.iter(lines):map(Meowim.utils.uncommentor())
-    if (opts or {}).join then
-      text = iter
-        :map(function(l) return vim.trim(l) end)
-        :filter(function(l) return l ~= "" end)
-        :join(" ")
-    else
-      text = iter:join("\n")
-    end
-
-    vim.fn.setreg("+", text)
+function H.smart_copy()
+  return Meowim.utils.do_operator(function(lines)
+    lines = vim.iter(lines):map(Meowim.utils.uncommentor()):totable()
+    Meowim.utils.try_system(
+      { "dprint", "fmt", "--stdin=md", "--config", vim.fn.expand("~/.dprint.md.json") },
+      { stdin = lines, text = true },
+      vim.schedule_wrap(function(ok, out)
+        if not ok then
+          Meow.notifyf("WARN", "failed to format yanked text: %s", out)
+          out = table.concat(lines, "\n")
+        end
+        vim.fn.setreg("+", out)
+      end)
+    )
   end)
 end
 
