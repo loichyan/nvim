@@ -214,6 +214,7 @@ function Utils.uncommentor(cms)
   return function(line) return line:match(regex) or line:match(regex_trim) or line end
 end
 
+---Calls `vim.system`, handling potential errors.
 ---@param cmd string[]
 ---@param opts? vim.SystemOpts
 ---@param on_exit? fun(ok:boolean, out?:string)
@@ -227,6 +228,23 @@ function Utils.try_system(cmd, opts, on_exit)
   end)
   ---@diagnostic disable-next-line: param-type-mismatch
   if not ok and on_exit then on_exit(false, res) end
+end
+
+---Executes the given command in a terminal, printing its output in a buffer.
+---@param cmd string[]
+---@param opts? table
+function Utils.show_term_output(cmd, opts)
+  local bufnr = vim.api.nvim_create_buf(false, true)
+  vim.bo[bufnr].filetype = "nofile"
+  local show_output = function()
+    vim.schedule(function()
+      -- Move to the first line of the output buffer
+      vim.api.nvim_win_set_buf(0, bufnr)
+      vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    end)
+  end
+  opts = vim.tbl_extend("keep", { term = true, on_exit = show_output }, opts or {})
+  vim.api.nvim_buf_call(bufnr, function() vim.fn.jobstart(cmd, opts) end)
 end
 
 return Utils

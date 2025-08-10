@@ -9,6 +9,7 @@ local nx = { "n", "x" }
 Meow.keymap({
   -- Common mappings
   { "<Esc>",               "<Cmd>noh<CR>",                                                                         desc = "Clear highlights"                  },
+  { "<Esc><Esc>",          "<C-\\><C-n>", mode = "t",                                                              desc = "Escape terminal mode"              },
   { "<C-c>",               function() H.clear_ui() end,                                                            desc = "Clear trivial UI items"            },
   { "gY",                  function() return H.smart_copy() end, expr = true, mode = nx,                           desc = "Copy docs/comments"                },
   { "gYY",                 function() return H.smart_copy() .. "_" end, expr = true,                               desc = "Copy docs/comments"                },

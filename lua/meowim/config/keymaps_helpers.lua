@@ -13,7 +13,7 @@ function H.clear_ui()
   require("mini.snippets").session.stop()
 end
 
----Copies uncomment text to clipboard.
+---Copies uncommented and formatted text to clipboard.
 function H.smart_copy()
   return Meowim.utils.do_operator(function(lines)
     lines = vim.iter(lines):map(Meowim.utils.uncommentor()):totable()
@@ -31,9 +31,14 @@ function H.smart_copy()
   end)
 end
 
-function H.git(...)
-  Meow.load("mini.git")
-  vim.cmd.Git(...)
+---@param subcmd string
+function H.git(subcmd, ...)
+  if subcmd == "diff" or subcmd == "log" then
+    vim.cmd.Gitraw(subcmd, ...)
+  else
+    Meow.load("mini.git")
+    vim.cmd.Git(subcmd, ...)
+  end
 end
 
 function H.git_show_buffer()
