@@ -14,9 +14,8 @@ Spec.config = function()
     register = { cr = false },
   }
 
-  H.orig_open = minipairs.open
   ---@diagnostic disable-next-line: duplicate-set-field
-  minipairs.open = H.smart_pairs
+  minipairs.open = Meowim.utils.wrap_fn(minipairs.open, H.smart_pairs)
 
   Meow.autocmd("meowim.plugins.mini.pairs", {
     {
@@ -30,10 +29,11 @@ end
 
 -- Credit: https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/lua/lazyvim/util/mini.lua#L97
 -- License: Apache-2.0
+---@param open function
 ---@param pair string
 ---@param neigh_pattern string
-function H.smart_pairs(pair, neigh_pattern)
-  if vim.fn.getcmdline() ~= "" then return H.orig_open(pair, neigh_pattern) end
+function H.smart_pairs(open, pair, neigh_pattern)
+  if vim.fn.getcmdline() ~= "" then return open(pair, neigh_pattern) end
 
   local op, cl = pair:sub(1, 1), pair:sub(2, 2)
   local line, cur = vim.api.nvim_get_current_line(), vim.api.nvim_win_get_cursor(0)
@@ -63,7 +63,7 @@ function H.smart_pairs(pair, neigh_pattern)
     end
   end
 
-  return H.orig_open(pair, neigh_pattern)
+  return open(pair, neigh_pattern)
 end
 
 ---Counts unlanced open or close characters.
