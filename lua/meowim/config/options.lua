@@ -19,6 +19,9 @@ o.relativenumber = true -- Show relative numbers
 
 if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
 
+-- TODO: a temporary workaround for <https://github.com/echasnovski/mini.nvim/issues/1932>
+vim.env["GIT_OPTIONAL_LOCKS"] = 0
+
 if vim.env.TMUX then
   g.clipboard = {
     name = "tmux",
