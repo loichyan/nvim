@@ -20,5 +20,14 @@ return {
       window     = { suffix = ""  },
       yank       = { suffix = ""  },
     })
+
+    local nxo = { "n", "x", "o" }
+    -- stylua: ignore
+    Meow.keymap({
+      { "[gc", function() require("mini.bracketed").comment("backward") end, mode = nxo, desc = "Comment backward" },
+      { "[gC", function() require("mini.bracketed").comment("first") end,    mode = nxo, desc = "Comment first"    },
+      { "]gc", function() require("mini.bracketed").comment("forward") end,  mode = nxo, desc = "Comment forward"  },
+      { "]gC", function() require("mini.bracketed").comment("last") end,     mode = nxo, desc = "Comment last"     },
+    })
   end,
 }
