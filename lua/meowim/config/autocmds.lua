@@ -50,17 +50,10 @@ Meow.autocmd("meowim.config.autocmds", {
   {
     event = "FileType",
     pattern = "gitcommit",
-    desc = "Start in insert mode when editing gitcommit",
+    desc = "Improve experience when editing gitcommit",
     callback = function(ev)
-      vim.cmd("startinsert")
       Meow.keymap(ev.buf, {
         { "<C-s>", "<Cmd>x<CR>", mode = { "n", "i" }, desc = "Finish editing" },
-      })
-      vim.api.nvim_create_autocmd("BufUnload", {
-        buffer = ev.buf,
-        once = true,
-        desc = "Stop insert mode after finished",
-        command = "stopinsert",
       })
     end,
   },
