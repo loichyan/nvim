@@ -268,7 +268,12 @@ function Utils.show_term_output(cmd, opts)
     end)
   end
   opts = vim.tbl_extend("keep", { term = true, on_exit = show_output }, opts or {})
-  vim.api.nvim_buf_call(bufnr, function() vim.fn.jobstart(cmd, opts) end)
+  vim.api.nvim_buf_call(bufnr, function()
+    local ok, err = pcall(vim.fn.jobstart, cmd, opts)
+    if not ok then
+      Meow.notifyf("ERROR", "failed to run command `%s1: %s", table.concat(cmd, " "), err)
+    end
+  end)
 end
 
 return Utils
