@@ -265,8 +265,11 @@ end
 function Utils.show_term_output(cmd, opts)
   local bufnr = vim.api.nvim_create_buf(false, true)
   vim.bo[bufnr].filetype = "nofile"
+
+  local on_exit = opts and opts.on_exit
   local show_output = function()
     vim.schedule(function()
+      if on_exit and on_exit() then return end
       -- Move to the first line of the output buffer
       vim.api.nvim_win_set_buf(0, bufnr)
       vim.api.nvim_win_set_cursor(0, { 1, 0 })

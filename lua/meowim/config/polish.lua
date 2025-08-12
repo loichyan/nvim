@@ -27,13 +27,16 @@ end, { nargs = "+", complete = "command" })
 ---Pipes raw output of git command to a scratch buffer.
 vim.api.nvim_create_user_command("Gitraw", function(ctx)
   local mods = ctx.mods ~= "" and ctx.mods or "tab"
-  vim.cmd(mods .. " split")
-
   local args = vim.tbl_map(vim.fn.expandcmd, ctx.fargs)
-  Meowim.utils.show_term_output({
-    "git",
-    "-c",
-    "core.pager=delta --paging=never",
-    unpack(args),
-  })
+  -- `gitraw` does two things:
+  -- 1. Disables paging of the delta pager.
+  -- 2. Adds a short sleep after git exits to resolve <https://github.com/neovim/neovim/issues/3030>.
+  -- So it eventually looks like this:
+  -- ```sh
+  -- git -c 'core.pager=delta --paging=never' "$@" && sleep 0.1
+  -- ```
+  Meowim.utils.show_term_output(
+    { "gitraw", unpack(args) },
+    { on_exit = function() vim.cmd(mods .. " split") end }
+  )
 end, { nargs = "+" })
