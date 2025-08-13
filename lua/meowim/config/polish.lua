@@ -41,3 +41,5 @@ vim.api.nvim_create_user_command("Gitraw", function(ctx)
     { on_exit = function() vim.cmd(mods .. " split") end }
   )
 end, { nargs = "+" })
+
+require("meowim.config.polish_cmdheight")
