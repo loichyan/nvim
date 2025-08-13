@@ -79,6 +79,29 @@ function H.git_commit(mode)
   end
 end
 
+function H.git_show_at_cursor()
+  local rev = vim.fn.expand("<cword>")
+  if H.is_git_commit(rev) then
+    vim.cmd.Gitraw("show", rev)
+  else
+    require("mini.git").show_at_cursor()
+  end
+end
+
+function H.pick_commits()
+  local source = {
+    preview = function(bufnr, item)
+      if type(item) ~= "string" then return end
+      Meowim.utils.show_term_output(bufnr, { "gitraw", "show", item:match("^(%S+)") })
+    end,
+    choose = function(item)
+      if type(item) ~= "string" then return end
+      vim.cmd.Gitraw("show", item:match("^(%S+)"))
+    end,
+  }
+  require("mini.extra").pickers.git_commits(nil, { source = source })
+end
+
 function H.is_git_commit(str)
   return str ~= "" and string.find(str, "^%x%x%x%x%x%x%x+$") ~= nil and string.lower(str) == str
 end

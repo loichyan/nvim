@@ -75,10 +75,10 @@ Meow.keymap({
   -- TODO: enable word diff if the 'diff' treesitter parser adds support it
   { "<Leader>gD",          function() H.git("diff", "HEAD~" .. vim.v.count) end,                                   desc = "Show workspace diffs"              },
   { "<Leader>gf",          function() H.pick("git_conflicts") end,                                                 desc = "Pick Git conflicts"                },
-  { "<Leader>gg",          function() require("mini.git").show_at_cursor() end, mode = nx,                         desc = "Show cursor info"                  },
+  { "<Leader>gg",          function() H.git_show_at_cursor() end, mode = nx,                                       desc = "Show cursor info"                  },
   { "<Leader>gh",          function() H.pick("git_hunks")   end,                                                   desc = "Pick buffer hunks"                 },
   { "<Leader>gH",          function() H.git("log", "-p", "--", "%") end,                                           desc = "Show buffer history"               },
-  { "<Leader>gl",          function() H.pick("git_commits") end,                                                   desc = "Pick workspace commits"            },
+  { "<Leader>gl",          function() H.pick_commits() end,                                                        desc = "Pick workspace commits"            },
   { "<Leader>gL",          function() H.git_show_buffer() end,                                                     desc = "Show buffer of revision"           },
   { "<Leader>gs",          function() H.pick("git_status") end,                                                    desc = "Pick Git status"                   },
   { "<Leader>gU",          function() H.git("reset", "-q", "--", "%") end,                                         desc = "Reset buffer index"                },

@@ -252,10 +252,11 @@ function Utils.try_system(cmd, opts, on_exit)
 end
 
 ---Executes the given command in a terminal, printing its output in a buffer.
+---@param bufnr? integer
 ---@param cmd string[]
 ---@param opts? table
-function Utils.show_term_output(cmd, opts)
-  local bufnr = vim.api.nvim_create_buf(false, true)
+function Utils.show_term_output(bufnr, cmd, opts)
+  bufnr = bufnr or vim.api.nvim_create_buf(false, true)
   vim.bo[bufnr].filetype = "nofile"
 
   local on_exit = opts and opts.on_exit

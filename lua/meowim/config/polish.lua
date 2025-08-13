@@ -36,6 +36,7 @@ vim.api.nvim_create_user_command("Gitraw", function(ctx)
   -- git -c 'core.pager=delta --paging=never' "$@" && sleep 0.1
   -- ```
   Meowim.utils.show_term_output(
+    nil,
     { "gitraw", unpack(args) },
     { on_exit = function() vim.cmd(mods .. " split") end }
   )
