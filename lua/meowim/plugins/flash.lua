@@ -17,7 +17,7 @@ Spec.config = function()
         highlight = { backdrop = false },
       },
       search = {
-        enabled = true,
+        enabled = false,
         search = { wrap = false },
         highlight = { backdrop = false },
       },
@@ -32,7 +32,14 @@ Spec.config = function()
     {
       "s",
       function() require("flash").jump({ search = { forward = true, wrap = false } }) end,
-      mode = { "n", "o", "x" },
+      desc = "Flash forward",
+    },
+    {
+      "s",
+      function()
+        require("flash").jump({ jump = { pos = "end" }, search = { forward = true, wrap = false } })
+      end,
+      mode = { "o", "x" },
       desc = "Flash forward",
     },
     {
