@@ -52,9 +52,7 @@ Meow.autocmd("meowim.config.autocmds", {
     pattern = "gitcommit",
     desc = "Improve experience when editing gitcommit",
     callback = function(ev)
-      Meow.keymap(ev.buf, {
-        { "<C-s>", "<Cmd>x<CR>", mode = { "n", "i" }, desc = "Finish editing" },
-      })
+      vim.keymap.set("n", "<C-y>", "<Cmd>x<CR>", { buffer = ev.buf, desc = "Confirm editing" })
     end,
   },
   -- See <https://stackoverflow.com/a/6728687>
