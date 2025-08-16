@@ -17,6 +17,8 @@ o.laststatus = 3 -- Show global statusline
 o.conceallevel = 2 -- Improve rendering for Markdown
 o.relativenumber = true -- Show relative numbers
 
+o.jumpoptions = "stack" -- More intuitive jumps
+
 if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
 
 if vim.env.TMUX then
