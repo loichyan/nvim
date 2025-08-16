@@ -47,14 +47,29 @@ local Lspconfig = {
   },
 
   -- Golang
-  gopls = {},
+  gopls = {
+    settings = {
+      gopls = {
+        usePlaceholders = true,
+      },
+    },
+  },
 
   -- Lua
   lua_ls = {
     settings = {
       Lua = {
-        workspace = { checkThirdParty = false },
         completion = { callSnippet = "Replace" },
+        diagnostics = {
+          -- Don't analyze whole workspace, as it can be very slow
+          workspaceDelay = -1,
+        },
+        workspace = {
+          -- Don't analyze 3rd party codb
+          checkThirdParty = false,
+          ignoreSubmodules = true,
+        },
+        telemetry = { enable = false },
       },
     },
   },

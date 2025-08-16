@@ -200,6 +200,7 @@ function Utils.do_operator(callback, mode)
   -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/operators.lua>
 
   if mode == nil then
+    ---@private
     Utils.__opfunc = function(m) Utils.do_operator(callback, m) end
     vim.o.operatorfunc = "v:lua.require'meowim.utils'.__opfunc"
     return "g@"
