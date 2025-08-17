@@ -5,7 +5,6 @@ local g, o = vim.g, vim.o
 g.mapleader = " "
 g.localleader = "\\"
 
-o.clipboard = "unnamed"
 o.expandtab = true
 o.tabstop = 4
 o.shiftwidth = 4
@@ -34,7 +33,8 @@ if vim.env.TMUX then
     },
     cache_enabled = 1,
   }
-  o.clipboard = "unnamed" -- Use tmux's clipboard if possible
+  o.clipboard = "unnamed"
 else
-  g.clipboard = false -- Otherwise disable the clipboard
+  g.clipboard = "osc52" -- Otherwise fallback to OSC52
+  o.clipboard = ""
 end
