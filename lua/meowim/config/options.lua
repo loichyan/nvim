@@ -1,6 +1,6 @@
 -- Options that must be set before loading plugins.
 
-local g, o = vim.g, vim.o
+local g, o, opt = vim.g, vim.o, vim.opt
 
 g.mapleader = " "
 g.localleader = "\\"
@@ -17,6 +17,7 @@ o.conceallevel = 2 -- Improve rendering for Markdown
 o.relativenumber = true -- Show relative numbers
 
 o.jumpoptions = "stack" -- More intuitive jumps
+opt.diffopt:append("algorithm:histogram", "inline:word") -- improve diff mode
 
 if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
 
