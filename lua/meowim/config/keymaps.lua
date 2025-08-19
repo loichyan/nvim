@@ -193,7 +193,7 @@ Meow.autocmd("meowim.config.keymaps", {
   },
 })
 
-if vim.env["TMUX"] ~= nil then return end
+if not vim.env["TMUX"] then return end
 local nt = { "n", "t" }
 local autoinsert = "<Cmd>autocmd BufEnter <buffer> startinsert<CR>"
 -- stylua: ignore

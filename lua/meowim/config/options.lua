@@ -21,7 +21,7 @@ opt.diffopt:append("algorithm:histogram", "inline:word") -- improve diff mode
 
 if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
 
-if vim.env.TMUX then
+if vim.env["TMUX"] then
   g.clipboard = {
     name = "tmux",
     copy = {
