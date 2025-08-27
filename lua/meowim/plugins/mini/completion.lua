@@ -2,7 +2,7 @@
 local Spec = {
   "mini.completion",
   event = "LazyFile",
-  dependencies = { "mini.snippets" },
+  dependencies = { "mini.snippets", "phoenix.nvim" },
 }
 local H = {}
 

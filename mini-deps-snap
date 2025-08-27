@@ -16,6 +16,7 @@ return {
   ["nvim-treesitter"] = "42fc28ba918343ebfd5565147a42a26580579482",
   ["nvim-treesitter-textobjects"] = "71385f191ec06ffc60e80e6b0c9a9d5daed4824c",
   ["nvim-ts-autotag"] = "a1d526af391f6aebb25a8795cbc05351ed3620b5",
+  ["phoenix.nvim"] = "6335fd2e9ab6e3689ba1c05294315eb650b03431",
   ["quicker.nvim"] = "51d3926f183c2d98fbc237cc237ae0926839af3a",
   rustaceanvim = "eb606eb3785f6c6e31ef675c32b706694b76923b",
   ["smart-splits.nvim"] = "52ee119752ee7e98a2a62f0f172926b5fbbc28a5",
