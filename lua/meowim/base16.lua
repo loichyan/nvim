@@ -94,34 +94,34 @@ function Base16.colors_customizations(opts, colors)
     colors.groups[name].bg = nil
   end
 
-    -- TODO: report inconsistent higroups to mini.base16
-    -- Highlight overrides
-    -- stylua: ignore
-    ---@type table<string,vim.api.keyset.highlight>
-    local overrides = {
-      ["FloatTitle"]               = { fg = get("Title").fg, bg= palette.base01 },
+  -- TODO: report inconsistent higroups to mini.base16
+  -- Highlight overrides
+  -- stylua: ignore
+  ---@type table<string,vim.api.keyset.highlight>
+  local overrides = {
+    ["FloatTitle"]               = { fg = get("Title").fg, bg= palette.base01 },
 
-      ["FlashBackdrop"]            = { fg = palette.base02 },
-      ["FlashLabel"]               = { fg = palette.base01, bg = palette.base08 },
-      ["FlashCurrent"]             = { fg = palette.base01, bg = palette.base0E },
-      ["FlashMatch"]               = { fg = palette.base01, bg = palette.base0B },
+    ["FlashBackdrop"]            = { fg = palette.base02 },
+    ["FlashLabel"]               = { fg = palette.base01, bg = palette.base08 },
+    ["FlashCurrent"]             = { fg = palette.base01, bg = palette.base0E },
+    ["FlashMatch"]               = { fg = palette.base01, bg = palette.base0B },
 
-      ["GitConflictCurrent"]       = { fg = palette.base05, bg = lighten(palette.base0D, -0.41) },
-      ["GitConflictCurrentLabel"]  = { fg = palette.base05, bg = lighten(palette.base0D, -0.31) },
-      ["GitConflictAncestor"]      = { fg = palette.base05, bg = lighten(palette.base0E, -0.41) },
-      ["GitConflictAncestorLabel"] = { fg = palette.base05, bg = lighten(palette.base0E, -0.31) },
-      ["GitConflictIncoming"]      = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
-      ["GitConflictIncomingLabel"] = { fg = palette.base05, bg = lighten(palette.base0B, -0.31) },
+    ["DiffAdd"]                  = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
+    ["DiffDelete"]               = { fg = palette.base05, bg = lighten(palette.base08, -0.41) },
+    ["DiffText"]                 = { fg = palette.base05, bg = lighten(palette.base0E, -0.41) },
+    ["DiffTextAdd"]              = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
+    ["DiffChange"]               = { bg = palette.base02                                      },
 
-      ["DiffAdd"]                  = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
-      ["DiffDelete"]               = { fg = palette.base05, bg = lighten(palette.base08, -0.41) },
-      ["DiffText"]                 = { fg = palette.base05, bg = lighten(palette.base0E, -0.41) },
-      ["DiffTextAdd"]              = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
-      ["DiffChange"]               = { bg = palette.base02                                      },
+    ["GitConflictCurrent"]       = { fg = palette.base05, bg = lighten(palette.base0D, -0.41) },
+    ["GitConflictCurrentLabel"]  = { fg = palette.base05, bg = lighten(palette.base0D, -0.31) },
+    ["GitConflictAncestor"]      = { fg = palette.base05, bg = lighten(palette.base0E, -0.41) },
+    ["GitConflictAncestorLabel"] = { fg = palette.base05, bg = lighten(palette.base0E, -0.31) },
+    ["GitConflictIncoming"]      = { fg = palette.base05, bg = lighten(palette.base0B, -0.41) },
+    ["GitConflictIncomingLabel"] = { fg = palette.base05, bg = lighten(palette.base0B, -0.31) },
 
-      ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
-      ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
-    }
+    ["MiniIndentscopeSymbol"]    = { fg = palette.base04 },
+    ["MiniIndentscopeSymbolOff"] = { fg = palette.base04 },
+  }
   for name, hl in pairs(overrides) do
     colors.groups[name] = hl
   end

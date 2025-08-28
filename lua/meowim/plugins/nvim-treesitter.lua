@@ -3,7 +3,7 @@ local Spec = {
   "nvim-treesitter/nvim-treesitter",
   checkout = "master",
   build = function() vim.cmd("TSUpdate") end,
-  event = "LazyFile",
+  event = "VeryLazy",
 }
 
 Spec.config = function()
