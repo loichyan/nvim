@@ -48,6 +48,8 @@ function H.ensure_installed()
 end
 
 function H.setup_parser(ev)
+  if ev.match == "dockerfile" then return end -- parser for dockerfile is too buggy
+
   local parser = vim.treesitter.language.get_lang(ev.match)
   if not H.is_available(parser) then return end
 
