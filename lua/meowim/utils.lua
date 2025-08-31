@@ -203,7 +203,7 @@ H.submode_keys = {
 ---@param mode? string
 ---@return string?
 function Utils.do_operator(callback, mode)
-  -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/operators.lua>
+  -- Adapted from <https://github.com/nvim-mini/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/operators.lua>
 
   if mode == nil then
     ---@private
@@ -228,7 +228,7 @@ end
 ---@param cms? string
 ---@return fun(line:string):string
 function Utils.uncommentor(cms)
-  -- Adapted from <https://github.com/echasnovski/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/comment.lua>
+  -- Adapted from <https://github.com/nvim-mini/mini.nvim/blob/c122e852517adaf7257688e435369c050da113b1/lua/mini/comment.lua>
 
   if not cms then
     local cur = vim.api.nvim_win_get_cursor(0)
