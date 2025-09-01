@@ -8,7 +8,7 @@ return {
   ["guess-indent.nvim"] = "84a4987ff36798c2fc1169cbaff67960aed9776f",
   ["lazydev.nvim"] = "2367a6c0a01eb9edb0464731cc0fb61ed9ab9d2c",
   ["live-preview.nvim"] = "5890c4f7cb81a432fd5f3b960167757f1b4d4702",
-  ["meow.nvim"] = "1915a45979edf06bec912bc63d8d248e12c25f0c",
+  ["meow.nvim"] = "8d14ac46640c7e2c174f9bbbc8e8373840fe56c9",
   ["mini.nvim"] = "ddb70da6ec6aa896cfde87350d1e8dffb57ddef0",
   ["neoconf.nvim"] = "987be783f7e4cb9273e0e9b21c220f3b722b1ec6",
   ["nvim-lint"] = "ee04d481d4e6089892c2fb2ad8924b1a053591e1",
