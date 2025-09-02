@@ -41,10 +41,7 @@ local Lspconfig = {
   tailwindcss = { enable = false },
   eslint = { enable = false },
   denols = {},
-  ts_ls = {
-    root_dir = function(...) require("lspconfig.util").root_pattern("package.json")(...) end,
-    single_file_support = false,
-  },
+  ts_ls = {},
 
   -- Golang
   gopls = {
