@@ -57,12 +57,8 @@ local Lspconfig = {
     settings = {
       Lua = {
         completion = { callSnippet = "Replace" },
-        diagnostics = {
-          -- Don't analyze whole workspace, as it can be very slow
-          workspaceDelay = -1,
-        },
         workspace = {
-          -- Don't analyze 3rd party codb
+          -- Don't analyze 3rd party library
           checkThirdParty = false,
           ignoreSubmodules = true,
         },
