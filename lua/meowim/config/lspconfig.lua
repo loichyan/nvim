@@ -5,21 +5,25 @@ local Lspconfig = {
   -- Common
   taplo = {},
   jsonls = {
-    settings = { json = { validate = { enable = true } } },
+    settings = {
+      ["json"] = { validate = { enable = true } },
+    },
     on_init = function(client)
       client:notify("workspace/didChangeConfiguration", {
         settings = {
-          json = { schemas = require("schemastore").json.schemas() },
+          ["json"] = { schemas = require("schemastore").json.schemas() },
         },
       })
     end,
   },
   yamlls = {
-    settings = { yaml = { validate = true, keyOrdering = false } },
+    settings = {
+      ["yaml"] = { validate = true, keyOrdering = false },
+    },
     on_init = function(client)
       client:notify("workspace/didChangeConfiguration", {
         settings = {
-          yaml = { schemas = require("schemastore").yaml.schemas() },
+          ["yaml"] = { schemas = require("schemastore").yaml.schemas() },
         },
       })
     end,
@@ -40,22 +44,26 @@ local Lspconfig = {
   cssls = {},
   tailwindcss = { enable = false },
   eslint = { enable = false },
-  denols = {},
+  denols = {
+    settings = {
+      ["deno"] = {
+        suggest = { completeFunctionCalls = true },
+      },
+    },
+  },
   ts_ls = {},
 
   -- Golang
   gopls = {
     settings = {
-      gopls = {
-        usePlaceholders = true,
-      },
+      ["gopls"] = { usePlaceholders = true },
     },
   },
 
   -- Lua
   lua_ls = {
     settings = {
-      Lua = {
+      ["Lua"] = {
         completion = { callSnippet = "Replace" },
         workspace = {
           -- Don't analyze 3rd party library
