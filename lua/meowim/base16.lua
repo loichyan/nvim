@@ -101,10 +101,9 @@ function Base16.colors_customizations(opts, colors)
   local overrides = {
     ["FloatTitle"]               = { fg = get("Title").fg, bg= p.base01 },
 
-    ["FlashBackdrop"]            = { fg = p.base02 },
-    ["FlashLabel"]               = { fg = p.base01, bg = p.base08 },
-    ["FlashCurrent"]             = { fg = p.base01, bg = p.base0E },
-    ["FlashMatch"]               = { fg = p.base01, bg = p.base0B },
+    ["LeapBackdrop"]             = {},
+    ["LeapLabel"]                = { fg = p.base01, bg = p.base08 },
+    ["LeapMatch"]                = { fg = p.base01, bg = p.base08 },
 
     ["DiffAdd"]                  = { fg = p.base05, bg = lighten(p.base0B, -0.41) },
     ["DiffDelete"]               = { fg = p.base05, bg = lighten(p.base08, -0.41) },
