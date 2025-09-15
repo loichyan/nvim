@@ -47,14 +47,14 @@ Spec.config = function()
     "astro",
     "htmlangular",
   }) do
-    by_ft[ft] = { "dprint" }
+    by_ft[ft] = { "prettierd" }
   end
 
   local conform = require("conform")
   conform.setup({
     default_format_opts = {
       timeout_ms = 3000,
-      async = false,
+      async = true,
       quiet = false,
       lsp_format = "fallback",
     },

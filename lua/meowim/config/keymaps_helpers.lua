@@ -17,11 +17,8 @@ end
 function H.smart_copy()
   return Meowim.utils.do_operator(function(lines)
     lines = vim.iter(lines):map(Meowim.utils.uncommentor()):totable()
-    -- `~/.dprint.md.json` is the global configuration for Markdown files.
-    -- In my use case, it tells dprint to disable text wrapping and use
-    -- asterisks for emphasis (this is the main reason I don't use prettier).
     Meowim.utils.try_system(
-      { "dprint", "fmt", "--stdin=md", "--config", vim.fn.expand("~/.dprint.md.json") },
+      { "prettierd", "--config-precedence=cli-override", "--prose-wrap=never", ".md" },
       { stdin = lines, text = true },
       vim.schedule_wrap(function(ok, out)
         if not ok then
