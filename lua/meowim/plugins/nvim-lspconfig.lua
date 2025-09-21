@@ -6,7 +6,8 @@ Spec.config = function()
     vim.lsp.config(name, config)
     if name ~= "rust_analyzer" and config.enable ~= false then vim.lsp.enable(name) end
   end
-  vim.lsp.config("*", { capabilities = require("mini.completion").get_lsp_capabilities() })
+  Meow.load("blink.cmp")
+  vim.lsp.config("*", { capabilities = require("blink-cmp").get_lsp_capabilities() })
 end
 
 return Spec
