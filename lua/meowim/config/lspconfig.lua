@@ -46,7 +46,7 @@ local Lspconfig = {
   eslint = { enable = false },
   denols = {
     settings = {
-      ["deno"] = {
+      ["typescript"] = {
         suggest = { completeFunctionCalls = true },
       },
     },
