@@ -1,7 +1,8 @@
+-- TODO: add to Meowim
 ---@type MeoSpec
 local Spec = {
   "saghen/blink.cmp",
-  checkout = "v1.7.0",
+  checkout = "v1.8.0",
   event = "LazyFile",
   dependencies = { "mini.snippets" },
 }
