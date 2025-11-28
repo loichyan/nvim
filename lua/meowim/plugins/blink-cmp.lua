@@ -107,12 +107,9 @@ function H.pair_cr()
 end
 
 function H.select_and_pair(cmp)
-  if cmp.is_active() and not cmp.get_selected_item_idx() then cmp.insert_next() end
-  vim.schedule(function()
-    cmp.hide()
-    local info = require("mini.pairs").config.mappings["("]
-    vim.api.nvim_feedkeys(require("mini.pairs").open(info.pair, info.neigh_pattern), "n", false)
-  end)
+  cmp.hide()
+  local info = require("mini.pairs").config.mappings["("]
+  vim.api.nvim_feedkeys(require("mini.pairs").open(info.pair, info.neigh_pattern), "n", false)
   return true
 end
 
