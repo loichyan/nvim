@@ -6,7 +6,9 @@ local Spec = {
 }
 
 Spec.config = function()
-  require("leap").setup({})
+  local leap = require("leap")
+  -- Keep current 'conceallevel'
+  leap.opts.vim_opts["wo.conceallevel"] = nil
 
   local treesitter_opts = { opts = require("leap.user").with_traversal_keys("O", "o") }
   local nox, ox = { "n", "o", "x" }, { "o", "x" }
