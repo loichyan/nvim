@@ -1,13 +1,13 @@
 ---@type MeoSpec
 local Spec = { "stevearc/conform.nvim", event = "LazyFile" }
 
----Uses compact placehodler format. Namely, convert `{{ var }}` to `{{var}}`.
+---Uses compact placeholder format. Namely, convert `{{ var }}` to `{{var}}`.
 ---@type conform.LuaFormatterConfig
 local compact_placeholder = {
   format = function(_, _, lines, callback)
     local new_lines = {}
     for _, line in ipairs(lines) do
-      line = line:gsub([[%{%{%s+([_%w]+)%s+%}%}]], "{{%1}}")
+      line = line:gsub("%{%{%s+([^}]+)%s+%}%}", "{{%1}}")
       table.insert(new_lines, line)
     end
     callback(nil, new_lines)
