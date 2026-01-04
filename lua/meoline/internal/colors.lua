@@ -1,0 +1,104 @@
+local Colors = {}
+local H = {}
+
+Colors.update = function(palette)
+  local hl = function(name) return H.get_hl(0, { name = name, create = false }) end
+
+  -- stylua: ignore
+  local defaults = {
+    ["white"]    = hl("Normal").fg,
+    ["red"]      = hl("Identifier").fg,
+    ["orange"]   = hl("Constant").fg,
+    ["yellow"]   = hl("Type").fg,
+    ["green"]    = hl("String").fg,
+    ["cyan"]     = hl("Special").fg,
+    ["blue"]     = hl("Function").fg,
+    ["magenta"]   = hl("Keyword").fg,
+
+    ["text"]     = hl("StatusLineNC").fg,
+    ["text2"]    = hl("StatusLine").fg,
+    ["overlay"]  = hl("WinBarNC").bg,
+    ["overlay2"] = hl("WinBar").bg,
+  }
+
+  H.palette = vim.tbl_extend("force", defaults, palette or {})
+  H.defined_higroups = {}
+end
+
+Colors.get = function(name)
+  if not Colors.higroups[name] then return name end
+  if not H.palette then Colors.update() end
+  if not H.defined_higroups[name] then
+    local hiname = "Meoline_" .. name
+    local opts = Colors.higroups[name]
+    opts.fg = opts.fg and H.palette[opts.fg] or "NONE"
+    opts.bg = opts.bg and H.palette[opts.bg] or "NONE"
+    H.set_hl(0, hiname, opts)
+    H.defined_higroups[name] = hiname
+  end
+  return H.defined_higroups[name]
+end
+
+-- stylua: ignore
+Colors.higroups = {
+  ["mode_normal"]     = {fg="white"},
+  ["mode_visual"]     = {fg="magenta"},
+  ["mode_insert"]     = {fg="blue"},
+  ["mode_replace"]    = {fg="cyan"},
+  ["mode_command"]    = {fg="red"},
+  ["mode_other"]      = {fg="overlay"},
+
+  ["stl_workspace"]   = {fg="orange",bold=true},
+  ["stl_gitinfo"]     = {fg="orange"},
+  ["stl_filename"]    = {fg="text"},
+  ["stl_fileinfo"]    = {fg="text2"},
+
+  ["stl_showcmd"]     = {fg="text"},
+  ["stl_searchcount"] = {fg="green"},
+  ["stl_recording"]   = {fg="blue"},
+  ["stl_bufinfo"]     = {fg="text2"},
+  ["stl_location"]    = {fg="yellow"},
+}
+
+-- stylua: ignore
+Colors.mode_higroups = {
+  -- normal
+  ["n"]   = "mode_normal",
+  -- visual
+  ["v"]   = "mode_visual",
+  ["V"]   = "mode_visual",
+  ["\22"] = "mode_visual",
+  ["s"]   = "mode_visual",
+  ["S"]   = "mode_visual",
+  ["\19"] = "mode_visual",
+  -- insert
+  ["i"]   = "mode_insert",
+  -- replace
+  ["R"]   = "mode_replace",
+  -- command
+  ["c"]   = "mode_command",
+  -- other
+  ["r"]   = "mode_other",
+  ["!"]   = "mode_other",
+  ["t"]   = "mode_other",
+}
+
+-- stylua: ignore
+Colors.diagnostic_sections = {
+  { vim.diagnostic.severity.ERROR, icon = "E", hl = "DiagnosticError" },
+  { vim.diagnostic.severity.WARN,  icon = "W", hl = "DiagnosticWarn"  },
+  { vim.diagnostic.severity.INFO,  icon = "I", hl = "DiagnosticInfo"  },
+  { vim.diagnostic.severity.HINT,  icon = "H", hl = "DiagnosticHint"  },
+}
+
+-- stylua: ignore
+Colors.diff_sections = {
+  { "add",    icon = "+", hl = "diffAdded"   },
+  { "change", icon = "~", hl = "diffChanged" },
+  { "delete", icon = "-", hl = "diffRemoved" },
+}
+
+H.get_hl = vim.api.nvim_get_hl
+H.set_hl = vim.api.nvim_set_hl
+
+return Colors
