@@ -101,12 +101,12 @@ Spec.config = function()
   })
 end
 
-function H.pair_cr()
+H.pair_cr = function()
   vim.api.nvim_feedkeys(require("mini.pairs").cr(), "n", false)
   return true
 end
 
-function H.select_and_pair(cmp)
+H.select_and_pair = function(cmp)
   cmp.hide()
   local info = require("mini.pairs").config.mappings["("]
   vim.api.nvim_feedkeys(require("mini.pairs").open(info.pair, info.neigh_pattern), "n", false)

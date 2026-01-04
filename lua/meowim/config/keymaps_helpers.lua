@@ -7,14 +7,14 @@ local H = {}
 H.plugins = Meowim.plugins
 H.utils = Meowim.utils
 
-function H.clear_ui()
+H.clear_ui = function()
   vim.cmd("noh")
   require("quicker").close()
   require("mini.snippets").session.stop()
 end
 
 ---Copies uncommented and formatted text to clipboard.
-function H.smart_copy()
+H.smart_copy = function()
   return Meowim.utils.do_operator(function(lines)
     lines = vim.iter(lines):map(Meowim.utils.uncommentor()):totable()
     Meowim.utils.try_system(
@@ -32,7 +32,7 @@ function H.smart_copy()
 end
 
 ---@param subcmd string
-function H.git(subcmd, ...)
+H.git = function(subcmd, ...)
   if subcmd == "diff" or subcmd == "log" then
     vim.cmd.Gitraw(subcmd, ...)
   else
@@ -41,7 +41,7 @@ function H.git(subcmd, ...)
   end
 end
 
-function H.git_show_buffer()
+H.git_show_buffer = function()
   local rev
   if vim.v.count > 0 then
     rev = "HEAD~" .. vim.v.count
@@ -57,7 +57,7 @@ function H.git_show_buffer()
 end
 
 ---@param mode "prompt"|"edit"|"amend"
-function H.git_commit(mode)
+H.git_commit = function(mode)
   if mode == "edit" then
     H.git("commit")
   elseif mode == "amend" then
@@ -76,7 +76,7 @@ function H.git_commit(mode)
   end
 end
 
-function H.git_show_at_cursor()
+H.git_show_at_cursor = function()
   local rev = vim.fn.expand("<cword>")
   if H.is_git_commit(rev) then
     vim.cmd.Gitraw("show", rev)
@@ -85,7 +85,7 @@ function H.git_show_at_cursor()
   end
 end
 
-function H.pick_commits()
+H.pick_commits = function()
   local source = {
     preview = function(bufnr, item)
       if type(item) ~= "string" then return end
@@ -99,7 +99,7 @@ function H.pick_commits()
   require("mini.extra").pickers.git_commits(nil, { source = source })
 end
 
-function H.is_git_commit(str)
+H.is_git_commit = function(str)
   return str ~= "" and string.find(str, "^%x%x%x%x%x%x%x+$") ~= nil and string.lower(str) == str
 end
 
@@ -108,7 +108,7 @@ end
 -----------------------------
 
 local last_virtualtext
-function H.toggle_virtual_text()
+H.toggle_virtual_text = function()
   local current = vim.diagnostic.config() or {}
   if current.virtual_lines then
     vim.diagnostic.config({
@@ -126,7 +126,7 @@ end
 
 ---@param dir "forward"|"backward"
 ---@param fallback string
-function H.jump_quickfix(dir, fallback)
+H.jump_quickfix = function(dir, fallback)
   if require("quicker").is_open() then
     require("mini.bracketed").quickfix(dir)
   else
@@ -137,21 +137,21 @@ end
 
 ---@param dir "forward"|"backward"|"first"|"last"
 ---@param severity vim.diagnostic.SeverityName?
-function H.jump_diagnostic(dir, severity)
+H.jump_diagnostic = function(dir, severity)
   require("mini.bracketed").diagnostic(dir, { float = false, severity = severity })
 end
 
 ---@param picker string
-function H.pick(picker, local_opts) require("mini.pick").registry[picker](local_opts) end
+H.pick = function(picker, local_opts) require("mini.pick").registry[picker](local_opts) end
 
-function H.pick_quickfix()
+H.pick_quickfix = function()
   require("quicker").close()
   require("mini.pick").registry.list({ scope = "quickfix" })
 end
 
 ---@param scope "current"|"all"
 ---@param severity vim.diagnostic.SeverityName?
-function H.pick_diagnostics(scope, severity)
+H.pick_diagnostics = function(scope, severity)
   require("mini.pick").registry.diagnostic({
     scope = scope,
     get_opts = { severity = severity },
@@ -159,14 +159,14 @@ function H.pick_diagnostics(scope, severity)
 end
 
 ---@param scope "current"|"all"
-function H.pick_lgrep(scope, grep_opts)
+H.pick_lgrep = function(scope, grep_opts)
   local globs = scope == "current" and { vim.fn.expand("%") } or nil
   grep_opts = vim.tbl_extend("force", { globs = globs }, grep_opts or {})
   require("mini.pick").registry.grep_live(grep_opts)
 end
 
 ---@param scope "current"|"all"
-function H.pick_word(scope, grep_opts)
+H.pick_word = function(scope, grep_opts)
   local globs = scope == "current" and { vim.fn.expand("%") } or nil
   local pattern = vim.fn.expand("<cword>")
   pattern = pattern ~= "" and pattern or Meowim.utils.prompt("Search word: ")
@@ -184,26 +184,26 @@ end
 -------------------
 
 ---@param scope "current"|"all"
-function H.lsp_implementation(scope)
+H.lsp_implementation = function(scope)
   vim.lsp.buf.implementation({
     on_list = scope == "current" and Meowim.utils.loclist_buf or nil,
   })
 end
 
 ---@param scope "current"|"all"
-function H.lsp_references(scope)
+H.lsp_references = function(scope)
   vim.lsp.buf.references({ includeDeclaration = false }, {
     on_list = scope == "current" and Meowim.utils.loclist_buf or nil,
   })
 end
 
-function H.lsp_definition()
+H.lsp_definition = function()
   vim.lsp.buf.definition({
     on_list = Meowim.utils.loclist_unique,
   })
 end
 
-function H.lsp_type_definition()
+H.lsp_type_definition = function()
   vim.lsp.buf.type_definition({
     on_list = Meowim.utils.loclist_unique,
   })

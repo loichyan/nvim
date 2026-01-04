@@ -1,6 +1,6 @@
 ---@type MeoSpec
 local Spec = { "MagicDuck/grug-far.nvim", event = "LazyFile" }
-local M = {}
+local M = { Spec }
 
 Spec.config = function()
   require("grug-far").setup({
@@ -29,7 +29,7 @@ end
 
 ---Search and replace in current buffer or across workspace files.
 ---@param scope "buffer"|"workspace"
-function M.open(scope)
+M.open = function(scope)
   local path
   if scope == "buffer" then
     path = vim.fn.expand("%")
@@ -38,5 +38,4 @@ function M.open(scope)
   require("grug-far").open({ prefills = { paths = path } })
 end
 
-M[1] = Spec
 return M
