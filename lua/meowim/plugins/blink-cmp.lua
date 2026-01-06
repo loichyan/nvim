@@ -93,6 +93,9 @@ Spec.config = function()
     sources = {
       default = { "path", "lsp", "snippets", "buffer" },
       min_keyword_length = 2,
+      providers = {
+        lsp = { fallbacks = {} },
+      },
     },
     -- keymaps
     keymap = keymap,
