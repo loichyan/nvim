@@ -58,6 +58,19 @@ Colors.higroups = {
   ["stl_recording"]   = {fg="blue"},
   ["stl_bufinfo"]     = {fg="text2"},
   ["stl_location"]    = {fg="yellow"},
+
+  ["tbl_active"]      = {fg="yellow",bold=true},
+  ["tbl_visible"]     = {fg="white"},
+  ["tbl_hidden"]      = {fg="text"},
+
+  ["tbl_activeinfo"]  = {fg="yellow"},
+  ["tbl_visibleinfo"] = {fg="white"},
+  ["tbl_hiddeninfo"]  = {fg="text"},
+
+  ["tbl_activepage"]  = {fg="overlay",bg="orange",bold=true},
+  ["tbl_hiddenpage"]  = {fg="text2",bg="overlay"},
+
+  ["tbl_trunc"]       = {fg="yellow"},
 }
 
 -- stylua: ignore

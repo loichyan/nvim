@@ -14,6 +14,11 @@ Meoline.setup = function(opts)
     vim.o.statusline = "%{%v:lua.require'meoline'.eval_statusline()%}"
   end
 
+  if opts.tabline ~= false then
+    Meoline.eval_tabline = require("meoline.internal.tabline").eval
+    vim.o.tabline = "%{%v:lua.require'meoline'.eval_tabline()%}"
+  end
+
   vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Update colors for Meoline",
     callback = function()
