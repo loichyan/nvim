@@ -1,4 +1,4 @@
-local Colors = require("meoline.internal.colors")
+local Theme = require("meoline.internal.theme")
 local Tabline = {}
 local H = {}
 
@@ -31,7 +31,7 @@ H.make_pagelist = function(tabpages)
 
   local active_page = vim.api.nvim_get_current_tabpage()
   for tabnr, tabpage in ipairs(tabpages) do
-    local hl = Colors.get(tabpage == active_page and "tbl_activepage" or "tbl_hiddenpage")
+    local hl = Theme.get_hl(tabpage == active_page and "tbl_activepage" or "tbl_hiddenpage")
     local label = tostring(tabnr)
     width = width + #label + 2
     H.stl_extend(pagelist, "%", tabpage, tabpage_on_click, "%#", hl, "# ", label, " %##%T")
@@ -89,7 +89,7 @@ H.make_buflist = function(bufs, maxwid)
 
   if start_idx ~= 1 then
     -- stylua: ignore
-    H.stl_extend(buflist, "%##%T", left_trunc, "#", Colors.get("tbl_trunc"), "%#", trunc_on_click, "%1")
+    H.stl_extend(buflist, "%##%T", left_trunc, "#", Theme.get_hl("tbl_trunc"), "%#", trunc_on_click, "%1")
   end
   H.list_reverse(buflist)
 
@@ -107,7 +107,7 @@ H.make_buflist = function(bufs, maxwid)
 
   if end_idx ~= #bufs then
     -- stylua: ignore
-    H.stl_extend(buflist, "%2", trunc_on_click, "%#", Colors.get("tbl_trunc"), "#", right_trunc, "%##%T")
+    H.stl_extend(buflist, "%2", trunc_on_click, "%#", Theme.get_hl("tbl_trunc"), "#", right_trunc, "%##%T")
   end
 
   return buflist
@@ -126,7 +126,7 @@ H.make_buftab = function(buf)
   local buftab, width = {}, 0
 
   local section_joint = function(hl, ...) -- append with higroup surround
-    H.stl_extend(buftab, "%#", Colors.get(hl), "#")
+    H.stl_extend(buftab, "%#", Theme.get_hl(hl), "#")
     for _, val in ipairs({ ... }) do
       if val then
         val = tostring(val)
@@ -154,7 +154,7 @@ H.make_buftab = function(buf)
   local label_hl = is_active and "tbl_active" or is_visible and "tbl_visible" or "tbl_hidden"
   section_joint(label_hl, "│")
 
-  local icon, icon_hl = H.get_icon("file", buf.name)
+  local icon, icon_hl = Theme.get_icon("file", buf.name)
   section(is_visible and icon_hl or label_hl, icon)
   section(label_hl, buf.label)
 
@@ -165,7 +165,7 @@ H.make_buftab = function(buf)
   -- buffer diagnostics --
   ------------------------
   local diaginfo = H.diagnostic_counts_per_buf[bufnr] or {}
-  for _, diag in ipairs(Colors.diagnostic_sections) do
+  for _, diag in ipairs(Theme.diagnostic_sections) do
     if (diaginfo[diag[1]] or 0) > 0 then
       section(is_visible and diag.hl or info_hl, diag.icon, diaginfo[diag[1]])
     end
@@ -280,7 +280,6 @@ H.dedup_labels = function(bufs)
 end
 
 H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
-H.get_icon = require("mini.icons").get
 H.strwidth = vim.api.nvim_strwidth
 
 H.stl_extend = function(dst, ...)

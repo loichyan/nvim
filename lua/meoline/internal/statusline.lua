@@ -1,4 +1,4 @@
-local Colors = require("meoline.internal.colors")
+local Theme = require("meoline.internal.theme")
 local Statusline = {}
 local H = {}
 
@@ -10,7 +10,7 @@ Statusline.eval = function()
   local stline = {}
 
   local section_joint = function(hl, ...) -- append with higroup surround
-    H.stl_extend(stline, "%#", Colors.get(hl), "#", ...)
+    H.stl_extend(stline, "%#", Theme.get_hl(hl), "#", ...)
     stline[#stline + 1] = "%##"
   end
   local section = function(hl, ...)
@@ -22,7 +22,7 @@ Statusline.eval = function()
   -- colored mode block --
   ------------------------
   local mode = vim.fn.mode()
-  local mode_hl = Colors.mode_higroups[mode]
+  local mode_hl = Theme.mode_higroups[mode]
   section_joint(mode_hl, "┃")
 
   ---------------------------
@@ -36,7 +36,7 @@ Statusline.eval = function()
   end
 
   local diaginfo = H.diagnostic_counts
-  for _, diag in ipairs(Colors.diagnostic_sections) do
+  for _, diag in ipairs(Theme.diagnostic_sections) do
     if (diaginfo[diag[1]] or 0) > 0 then section(diag.hl, diag.icon, diaginfo[diag[1]]) end
   end
 
@@ -68,7 +68,7 @@ Statusline.eval = function()
   end
 
   local diffinfo = vim.b[file_bufnr].minidiff_summary or {}
-  for _, diff in ipairs(Colors.diff_sections) do
+  for _, diff in ipairs(Theme.diff_sections) do
     if (diffinfo[diff[1]] or 0) > 0 then section(diff.hl, diff.icon, diffinfo[diff[1]]) end
   end
 
@@ -100,7 +100,7 @@ Statusline.eval = function()
   do
     local bo = vim.bo
     local filetype = bo.filetype
-    local icon = H.get_icon("filetype", filetype)
+    local icon = Theme.get_icon("filetype", filetype)
 
     if filetype == "" then
       section("stl_bufinfo", icon, " ", H.bytesize(bufsize))
@@ -165,7 +165,6 @@ end
 H.empty_or = function(a, b) return a ~= "" and a or b end
 H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
 H.fits_width = function(width) return vim.o.columns >= width end
-H.get_icon = require("mini.icons").get
 
 H.stl_extend = function(dst, ...)
   for _, val in ipairs({ ... }) do

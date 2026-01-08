@@ -22,7 +22,7 @@ Meoline.setup = function(opts)
   vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Update colors for Meoline",
     callback = function()
-      require("meoline.internal.colors").update(
+      require("meoline.internal.theme").update(
         type(opts.palette) == "function" and opts.palette() or opts.palette
       )
     end,
