@@ -1,4 +1,4 @@
-if vim.env["MEO_DISABLE_CACHE"] then return end
+if vim.env["MEO_DISABLE_CACHE"] then return false end
 
 local config_dir = vim.fn.stdpath("config")
 local token_path = config_dir .. "/cache_token"
