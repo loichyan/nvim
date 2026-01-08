@@ -76,12 +76,12 @@ Colors.higroups = {
   ["stl_workspace"]   = {fg="orange",bold=true},
   ["stl_gitinfo"]     = {fg="orange"},
   ["stl_filename"]    = {fg="text"},
-  ["stl_fileinfo"]    = {fg="text2"},
+  ["stl_fileinfo"]    = {fg="text"},
 
   ["stl_showcmd"]     = {fg="text"},
   ["stl_searchcount"] = {fg="green"},
   ["stl_recording"]   = {fg="blue"},
-  ["stl_bufinfo"]     = {fg="text2"},
+  ["stl_bufinfo"]     = {fg="text"},
   ["stl_location"]    = {fg="yellow"},
 
   ["tbl_active"]      = {fg="yellow",bold=true},
