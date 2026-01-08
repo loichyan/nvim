@@ -9,7 +9,7 @@ point for your personal development environment.
 This repo is my fork of [Meowim](https://github.com/loichyan/Meowim), if you are
 interesting in the configurations, feel free to fork your own!
 
-## ♥️ Special Thanks
+## ❤️ Special Thanks
 
 - [mini.nvim](https://github.com/nvim-mini/mini.nvim) for the fundamental
   contribution to the birth of this project.
