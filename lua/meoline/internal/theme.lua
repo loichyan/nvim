@@ -67,9 +67,9 @@ end
 -- stylua: ignore
 Colors.higroups = {
   ["mode_normal"]     = {fg="white"},
-  ["mode_visual"]     = {fg="magenta"},
+  ["mode_visual"]     = {fg="green"},
   ["mode_insert"]     = {fg="blue"},
-  ["mode_replace"]    = {fg="cyan"},
+  ["mode_replace"]    = {fg="magenta"},
   ["mode_command"]    = {fg="red"},
   ["mode_other"]      = {fg="overlay"},
 
