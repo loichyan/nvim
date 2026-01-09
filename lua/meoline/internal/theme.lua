@@ -1,6 +1,9 @@
 local Colors = {}
 local H = {}
 
+H.palette = nil -- palette to generate highlight groups
+H.defined_higroups = {} -- already generated higroups
+
 Colors.update = function(palette)
   local hl = function(name) return H.get_hl(0, { name = name, create = false }) end
 
@@ -27,12 +30,12 @@ end
 
 Colors.get_hl = function(name)
   if not Colors.higroups[name] then return name end
-  if not H.palette then Colors.update() end
   if not H.defined_higroups[name] then
     local hiname = "Meoline_" .. name
-    local opts = Colors.higroups[name]
+    local opts = vim.deepcopy(Colors.higroups[name] or {})
     opts.fg = opts.fg and H.palette[opts.fg] or "NONE"
     opts.bg = opts.bg and H.palette[opts.bg] or "NONE"
+    opts.force = true
     H.set_hl(0, hiname, opts)
     H.defined_higroups[name] = hiname
   end

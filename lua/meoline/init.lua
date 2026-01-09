@@ -19,13 +19,15 @@ Meoline.setup = function(opts)
     vim.o.tabline = "%{%v:lua.require'meoline'.eval_tabline()%}"
   end
 
+  local setup_colors = function()
+    local palette = type(opts.palette) == "function" and opts.palette() or opts.palette
+    require("meoline.internal.theme").update(palette)
+  end
+  setup_colors()
+
   vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Update colors for Meoline",
-    callback = function()
-      require("meoline.internal.theme").update(
-        type(opts.palette) == "function" and opts.palette() or opts.palette
-      )
-    end,
+    callback = setup_colors,
   })
 end
 
