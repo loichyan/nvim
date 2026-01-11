@@ -16,12 +16,12 @@ Colors.update = function(palette)
     ["green"]    = hl("String").fg,
     ["cyan"]     = hl("Special").fg,
     ["blue"]     = hl("Function").fg,
-    ["magenta"]   = hl("Keyword").fg,
+    ["magenta"]  = hl("Keyword").fg,
 
-    ["text"]     = hl("StatusLineNC").fg,
-    ["text2"]    = hl("StatusLine").fg,
-    ["overlay"]  = hl("WinBarNC").bg,
-    ["overlay2"] = hl("WinBar").bg,
+    ["text"]     = hl("StatusLine").fg,
+    ["text2"]    = hl("StatusLineNC").fg, -- dimmed text
+    ["overlay"]  = hl("WinBar").bg,
+    ["overlay2"] = hl("WinBarNC").bg, -- dimmed overlay
   }
 
   H.palette = vim.tbl_extend("force", defaults, palette or {})
@@ -96,7 +96,7 @@ Colors.higroups = {
   ["tbl_hiddeninfo"]  = {fg="text"},
 
   ["tbl_activepage"]  = {fg="overlay",bg="orange",bold=true},
-  ["tbl_hiddenpage"]  = {fg="text2",bg="overlay"},
+  ["tbl_hiddenpage"]  = {fg="text",bg="overlay"},
 
   ["tbl_trunc"]       = {fg="yellow"},
 }
