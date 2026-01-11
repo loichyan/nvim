@@ -31,12 +31,22 @@ H.smart_copy = function()
   end)
 end
 
+H.codediff = function(...)
+  Meow.load("codediff.nvim")
+  vim.cmd.CodeDiff(...)
+end
+
 ---@param subcmd string
 H.git = function(subcmd, arg1, ...)
   if subcmd == "diff" then -- git diff <rev>
-    return vim.cmd.Gitraw(subcmd, arg1, ...)
+    local args = { ... }
+    if args[#args] == "%" then
+      return H.codediff("file", arg1)
+    else
+      return H.codediff(arg1)
+    end
   elseif subcmd == "show" and not string.match(arg1, ":%%$") then -- git show <rev>
-    return vim.cmd.Gitraw(subcmd, arg1, ...)
+    return H.codediff(arg1 .. "~1", arg1)
   elseif subcmd == "show" then -- git show <rev>:%
     local rev = arg1:sub(1, #arg1 - 2)
     local path = vim.fn.expand("%:.") -- use relative path
@@ -98,10 +108,6 @@ end
 
 H.pick_git_commits = function()
   local source = {
-    preview = function(bufnr, item)
-      if type(item) ~= "string" then return end
-      Meowim.utils.show_term_output(bufnr, { "gitraw", "show", item:match("^(%S+)") })
-    end,
     choose = function(item)
       if type(item) ~= "string" then return end
       H.git("show", item:match("^(%S+)"))
