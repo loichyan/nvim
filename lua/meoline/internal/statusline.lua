@@ -92,7 +92,7 @@ Statusline.eval = function()
   ------------------------
   local bufnr = vim.api.nvim_get_current_buf()
   local curline, curcol, totaline = vim.fn.line("."), vim.fn.charcol("."), vim.fn.line("$")
-  local bufsize = vim.fn.line2byte(totaline + 1) - 1
+  local bufsize = math.max(vim.fn.line2byte(totaline + 1) - 1, 0)
 
   local lspinfo = H.lsp_clients[bufnr]
   if lspinfo and H.fits_width(80) then section("stl_bufinfo", "󰰎 ", lspinfo) end
