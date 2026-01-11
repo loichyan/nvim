@@ -32,13 +32,19 @@ H.smart_copy = function()
 end
 
 ---@param subcmd string
-H.git = function(subcmd, ...)
-  if subcmd == "diff" or subcmd == "log" then
-    vim.cmd.Gitraw(subcmd, ...)
-  else
-    Meow.load("mini.git")
-    vim.cmd.Git(subcmd, ...)
+H.git = function(subcmd, arg1, ...)
+  if subcmd == "diff" then -- git diff <rev>
+    return vim.cmd.Gitraw(subcmd, arg1, ...)
+  elseif subcmd == "show" and not string.match(arg1, ":%%$") then -- git show <rev>
+    return vim.cmd.Gitraw(subcmd, arg1, ...)
+  elseif subcmd == "show" then -- git show <rev>:%
+    local rev = arg1:sub(1, #arg1 - 2)
+    local path = vim.fn.expand("%:.") -- use relative path
+    arg1 = vim.fn.fnameescape(rev .. ":" .. path) -- escape to avoid expansion errors
   end
+
+  Meow.load("mini.git")
+  vim.cmd.Git(subcmd, arg1, ...)
 end
 
 H.git_show_buffer = function()
@@ -50,7 +56,6 @@ H.git_show_buffer = function()
     if not H.is_git_commit(rev) then
       rev = Meowim.utils.prompt("Show revision: ")
       if rev == "" then return end
-      rev = vim.fn.fnameescape(rev) -- escape to avoid expansion errors
     end
   end
   H.git("show", rev .. ":%")
@@ -79,13 +84,13 @@ end
 H.git_show_at_cursor = function()
   local rev = vim.fn.expand("<cword>")
   if H.is_git_commit(rev) then
-    vim.cmd.Gitraw("show", rev)
+    H.git("show", rev)
   else
     require("mini.git").show_at_cursor()
   end
 end
 
-H.pick_commits = function()
+H.pick_git_commits = function()
   local source = {
     preview = function(bufnr, item)
       if type(item) ~= "string" then return end
@@ -93,7 +98,7 @@ H.pick_commits = function()
     end,
     choose = function(item)
       if type(item) ~= "string" then return end
-      vim.cmd.Gitraw("show", item:match("^(%S+)"))
+      H.git("show", item:match("^(%S+)"))
     end,
   }
   require("mini.extra").pickers.git_commits(nil, { source = source })
@@ -136,21 +141,25 @@ H.jump_quickfix = function(dir, fallback)
 end
 
 ---@param dir "forward"|"backward"|"first"|"last"
----@param severity vim.diagnostic.SeverityName?
+---@param severity vim.diagnostic.Severity?
 H.jump_diagnostic = function(dir, severity)
   require("mini.bracketed").diagnostic(dir, { float = false, severity = severity })
 end
 
 ---@param picker string
-H.pick = function(picker, local_opts) require("mini.pick").registry[picker](local_opts) end
-
-H.pick_quickfix = function()
-  require("quicker").close()
-  require("mini.pick").registry.list({ scope = "quickfix" })
+H.pick = function(picker, local_opts)
+  if picker == "git_commits" then
+    H.pick_git_commits()
+  elseif picker == "list" then
+    require("quicker").close()
+    require("mini.pick").registry.list({ scope = "quickfix" })
+  else
+    require("mini.pick").registry[picker](local_opts)
+  end
 end
 
 ---@param scope "current"|"all"
----@param severity vim.diagnostic.SeverityName?
+---@param severity vim.diagnostic.Severity?
 H.pick_diagnostics = function(scope, severity)
   require("mini.pick").registry.diagnostic({
     scope = scope,

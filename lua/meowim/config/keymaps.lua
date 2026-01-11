@@ -80,7 +80,7 @@ Meow.keymap({
   { "<Leader>gg",          function() H.git_show_at_cursor() end, mode = nx,                                       desc = "Show cursor info"                  },
   { "<Leader>gh",          function() H.pick("git_hunks")   end,                                                   desc = "Pick buffer hunks"                 },
   { "<Leader>gH",          function() H.git("log", "-p", "--", "%") end,                                           desc = "Show buffer history"               },
-  { "<Leader>gl",          function() H.pick_commits() end,                                                        desc = "Pick workspace commits"            },
+  { "<Leader>gl",          function() H.pick("git_commits") end,                                                   desc = "Pick workspace commits"            },
   { "<Leader>gL",          function() H.git_show_buffer() end,                                                     desc = "Show buffer of revision"           },
   { "<Leader>gs",          function() H.pick("git_status") end,                                                    desc = "Pick Git status"                   },
   { "<Leader>gU",          function() H.git("reset", "-q", "--", "%") end,                                         desc = "Reset buffer index"                },
@@ -119,7 +119,7 @@ Meow.keymap({
   { "<Leader>lE",          function() H.pick_diagnostics("all",     "ERROR") end,                                  desc = "Pick workspace errors"             },
 
   -- Pickers
-  { "<C-q>",               function() H.pick_quickfix() end,                                                       desc = "Pick quickfix"                     },
+  { "<C-q>",               function() H.pick("list", {scope="quickfix"}) end,                                      desc = "Pick quickfix"                     },
   { "<Leader><Leader>",    function() H.pick("smart_files") end,                                                   desc = "Pick files"                        },
 
   { "<Leader>'",           function() H.pick("marks") end,                                                         desc = "Pick marks"                        },
