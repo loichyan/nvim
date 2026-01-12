@@ -18,9 +18,9 @@ Tabline.eval = function()
   end
 
   local bufs = H.list_bufs()
-  if #bufs > 0 then H.list_extend(tabline, H.make_buflist(bufs, maxwid)) end
+  if #bufs > 0 then H.list_concat(tabline, H.make_buflist(bufs, maxwid)) end
   tabline[#tabline + 1] = "%="
-  if pagelist then H.list_extend(tabline, pagelist) end
+  if pagelist then H.list_concat(tabline, pagelist) end
 
   return table.concat(tabline)
 end
@@ -34,7 +34,7 @@ H.make_pagelist = function(tabpages)
     local hl = Theme.get_hl(tabpage == active_page and "tbl_activepage" or "tbl_hiddenpage")
     local label = tostring(tabnr)
     width = width + #label + 2
-    H.stl_extend(pagelist, "%", tabpage, tabpage_on_click, "%#", hl, "# ", label, " %##%T")
+    H.list_extend(pagelist, "%", tabpage, tabpage_on_click, "%#", hl, "# ", label, " %##%T")
   end
 
   return pagelist, width
@@ -89,7 +89,7 @@ H.make_buflist = function(bufs, maxwid)
 
   if start_idx ~= 1 then
     -- stylua: ignore
-    H.stl_extend(buflist, "%##%T", left_trunc, "#", Theme.get_hl("tbl_trunc"), "%#", trunc_on_click, "%1")
+    H.list_extend(buflist, "%##%T", left_trunc, "#", Theme.get_hl("tbl_trunc"), "%#", trunc_on_click, "%1")
   end
   H.list_reverse(buflist)
 
@@ -102,12 +102,12 @@ H.make_buflist = function(bufs, maxwid)
       break
     end
     maxwid = maxwid - tabwid
-    H.list_extend(buflist, buftab)
+    H.list_concat(buflist, buftab)
   end
 
   if end_idx ~= #bufs then
     -- stylua: ignore
-    H.stl_extend(buflist, "%2", trunc_on_click, "%#", Theme.get_hl("tbl_trunc"), "#", right_trunc, "%##%T")
+    H.list_extend(buflist, "%2", trunc_on_click, "%#", Theme.get_hl("tbl_trunc"), "#", right_trunc, "%##%T")
   end
 
   return buflist
@@ -126,11 +126,11 @@ H.make_buftab = function(buf)
   local buftab, width = {}, 0
 
   local section_joint = function(hl, ...) -- append with higroup surround
-    H.stl_extend(buftab, "%#", Theme.get_hl(hl), "#")
+    H.list_extend(buftab, "%#", Theme.get_hl(hl), "#")
     for _, val in ipairs({ ... }) do
       if val then
         val = tostring(val)
-        buftab[#buftab + 1] = val
+        buftab[#buftab + 1] = H.escape(val)
         width = width + H.strwidth(val)
       end
     end
@@ -144,7 +144,7 @@ H.make_buftab = function(buf)
 
   -- make it clickable
   local bufnr = buf.id
-  H.stl_extend(buftab, "%", bufnr, buftab_on_click)
+  H.list_extend(buftab, "%", bufnr, buftab_on_click)
 
   -----------------------
   -- buffer identifier --
@@ -282,20 +282,13 @@ end
 H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
 H.strwidth = vim.api.nvim_strwidth
 
-H.stl_extend = function(dst, ...)
-  for _, val in ipairs({ ... }) do
-    if dst then dst[#dst + 1] = val end
-  end
-  return dst
-end
-
-H.list_extend = function(dst, src)
+H.list_extend = function(dst, ...) return H.list_concat(dst, { ... }) end
+H.list_concat = function(dst, src)
   for _, val in ipairs(src) do
     dst[#dst + 1] = val
   end
   return dst
 end
-
 H.list_reverse = function(dst)
   local n = #dst
   for i = 1, n / 2 do

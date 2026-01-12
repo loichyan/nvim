@@ -10,7 +10,13 @@ Statusline.eval = function()
   local stline = {}
 
   local section_joint = function(hl, ...) -- append with higroup surround
-    H.stl_extend(stline, "%#", Theme.get_hl(hl), "#", ...)
+    H.list_extend(stline, "%#", Theme.get_hl(hl), "#")
+    for _, val in ipairs({ ... }) do
+      if val then
+        val = tostring(val)
+        stline[#stline + 1] = H.escape(val)
+      end
+    end
     stline[#stline + 1] = "%##"
   end
   local section = function(hl, ...)
@@ -57,13 +63,13 @@ Statusline.eval = function()
       section("stl_filename", "[No Name]")
     elseif bo.buftype == "terminal" then -- show program name for terminals
       local basename = vim.fn.fnamemodify(bufname, ":t")
-      section("stl_filename", H.escape(basename))
+      section("stl_filename", basename)
     else -- show fullpath and attributes for other buffers
       local filename = vim.fn.fnamemodify(bufname, ":~:.")
       if not H.has_space(H.strwidth(filename), 0.25) then -- shorten path if too long
         filename = vim.fn.pathshorten(filename)
       end
-      section("stl_filename", H.escape(filename))
+      section("stl_filename", filename)
       if not bo.modifiable then section_joint("stl_fileinfo", "[-]") end
       if bo.readonly then section_joint("stl_fileinfo", "[RO]") end
     end
@@ -80,7 +86,7 @@ Statusline.eval = function()
   -- cmdline information --
   -------------------------
   if vim.o.cmdheight == 0 then
-    section("stl_showcmd", "%S")
+    H.list_extend(stline, " %#", Theme.get_hl("stl_showcmd"), "#%S%##")
 
     local current, total = H.searchcount()
     if current then section("stl_searchcount", " ", current, "/", total) end
@@ -125,7 +131,7 @@ Statusline.eval = function()
     "|",
     curline == 1 and "Top"
       or curline == totaline and "Bot"
-      or string.format("%2d%%%%", curline / totaline * 100)
+      or string.format("%2d%%", curline / totaline * 100)
   )
 
   ------------------------
@@ -163,10 +169,12 @@ H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
 H.has_space = function(len, percent) return (len / vim.o.columns) <= percent end
 H.strwidth = vim.api.nvim_strwidth
 
-H.stl_extend = function(dst, ...)
-  for _, val in ipairs({ ... }) do
-    if dst then dst[#dst + 1] = val end
+H.list_extend = function(dst, ...) return H.list_concat(dst, { ... }) end
+H.list_concat = function(dst, src)
+  for _, val in ipairs(src) do
+    dst[#dst + 1] = val
   end
+  return dst
 end
 
 --------------------------------------------------------------------------------
