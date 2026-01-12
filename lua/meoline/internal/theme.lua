@@ -9,6 +9,10 @@ Colors.update = function(palette)
 
   -- stylua: ignore
   local defaults = {
+    ["text"]     = hl("StatusLine").fg,
+    ["text2"]    = hl("StatusLineNC").fg,
+    ["overlay"]  = hl("CursorLine").bg,
+
     ["white"]    = hl("Normal").fg,
     ["red"]      = hl("Identifier").fg,
     ["orange"]   = hl("Constant").fg,
@@ -17,11 +21,6 @@ Colors.update = function(palette)
     ["cyan"]     = hl("Special").fg,
     ["blue"]     = hl("Function").fg,
     ["magenta"]  = hl("Keyword").fg,
-
-    ["text"]     = hl("StatusLine").fg,
-    ["text2"]    = hl("StatusLineNC").fg, -- dimmed text
-    ["overlay"]  = hl("WinBar").bg,
-    ["overlay2"] = hl("WinBarNC").bg, -- dimmed overlay
   }
 
   H.palette = vim.tbl_extend("force", defaults, palette or {})
@@ -55,7 +54,7 @@ H.make_get_icon = function()
   if ok then
     return function(category, name)
       if category == "filetype" then
-        return devicons.get_icon_by_filetype(name, nil, { default = true })
+        return devicons.get_icon_by_filetype(name, { default = true })
       elseif category == "file" then
         return devicons.get_icon(name, nil, { default = true })
       else
