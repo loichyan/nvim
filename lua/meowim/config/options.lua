@@ -18,7 +18,8 @@ o.conceallevel = 2 -- Improve rendering for Markdown
 o.relativenumber = true -- Show relative numbers
 
 o.jumpoptions = "stack" -- More intuitive jumps
-opt.diffopt:append("algorithm:histogram", "inline:word") -- improve diff mode
+opt.diffopt:append("algorithm:histogram", "inline:word") -- Improve diff mode
+opt.shortmess:append("A") -- Suppress swapfile warnings
 
 if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
 
