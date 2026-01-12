@@ -60,7 +60,9 @@ Statusline.eval = function()
       section("stl_filename", H.escape(basename))
     else -- show fullpath and attributes for other buffers
       local filename = vim.fn.fnamemodify(bufname, ":~:.")
-      if not H.fits_width(100) then filename = vim.fn.pathshorten(filename) end
+      if not H.has_space(H.strwidth(filename), 0.25) then -- shorten path if too long
+        filename = vim.fn.pathshorten(filename)
+      end
       section("stl_filename", H.escape(filename))
       if not bo.modifiable then section_joint("stl_fileinfo", "[-]") end
       if bo.readonly then section_joint("stl_fileinfo", "[RO]") end
@@ -92,32 +94,26 @@ Statusline.eval = function()
   ------------------------
   local bufnr = vim.api.nvim_get_current_buf()
   local curline, curcol, totaline = vim.fn.line("."), vim.fn.charcol("."), vim.fn.line("$")
-  local bufsize = math.max(vim.fn.line2byte(totaline + 1) - 1, 0)
 
   local lspinfo = H.lsp_clients[bufnr]
-  if lspinfo and H.fits_width(80) then section("stl_bufinfo", "󰰎 ", lspinfo) end
+  if lspinfo and H.has_space(#lspinfo, 0.03) then section("stl_bufinfo", "󰰎 ", lspinfo) end
 
   do
     local bo = vim.bo
     local filetype = bo.filetype
     local icon = Theme.get_icon("filetype", filetype)
 
+    local encoding = H.empty_or(bo.fileencoding, vim.o.encoding)
+    local format = H.empty_or(bo.fileformat, vim.o.fileformat)
+    local bufsize = H.bytesize(math.max(vim.fn.line2byte(totaline + 1) - 1, 0))
+
     if filetype == "" then
-      section("stl_bufinfo", icon, " ", H.bytesize(bufsize))
-    elseif H.fits_width(100) and bo.buftype == "" then -- show metadata of normal buffer
-      section(
-        "stl_bufinfo",
-        icon,
-        " ",
-        filetype,
-        " ",
-        H.empty_or(bo.fileencoding, vim.o.encoding),
-        "[",
-        H.empty_or(bo.fileformat, vim.o.fileformat),
-        "]",
-        " ",
-        H.bytesize(bufsize)
-      )
+      section("stl_bufinfo", icon, " ", bufsize)
+    elseif
+      bo.buftype == "" -- show metadata of regular buffer
+      and H.has_space(#encoding + #format + #bufsize, 0.15) -- not show if no space
+    then
+      section("stl_bufinfo", icon, " ", filetype, " ", encoding, "[", format, "]", " ", bufsize)
     else -- show only filetype for others
       section("stl_bufinfo", icon, " ", filetype)
     end
@@ -164,7 +160,8 @@ end
 
 H.empty_or = function(a, b) return a ~= "" and a or b end
 H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
-H.fits_width = function(width) return vim.o.columns >= width end
+H.has_space = function(len, percent) return (len / vim.o.columns) <= percent end
+H.strwidth = vim.api.nvim_strwidth
 
 H.stl_extend = function(dst, ...)
   for _, val in ipairs({ ... }) do
