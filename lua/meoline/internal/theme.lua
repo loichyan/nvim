@@ -69,6 +69,7 @@ end
 
 -- stylua: ignore
 Colors.higroups = {
+  -- statusline
   ["mode_normal"]     = {fg="white"},
   ["mode_visual"]     = {fg="green"},
   ["mode_insert"]     = {fg="blue"},
@@ -87,6 +88,7 @@ Colors.higroups = {
   ["stl_bufinfo"]     = {fg="text"},
   ["stl_location"]    = {fg="yellow"},
 
+  -- tabline
   ["tbl_active"]      = {fg="yellow",bold=true},
   ["tbl_visible"]     = {fg="white"},
   ["tbl_hidden"]      = {fg="text"},

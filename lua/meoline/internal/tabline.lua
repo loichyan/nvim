@@ -310,9 +310,11 @@ end
 
 H.augroup = vim.api.nvim_create_augroup("meoline.tabline", { clear = true })
 
----@param opts vim.api.keyset.create_autocmd
+---@param opts vim.api.keyset.create_autocmd|{debounce:integer}
 H.autocmd = function(event, opts)
+  if opts.debounce then opts.callback = H.debounce(opts.debounce, opts.callback) end
   opts.group = H.augroup
+  opts.debounce = nil
   vim.api.nvim_create_autocmd(event, opts)
 end
 
@@ -320,13 +322,14 @@ H.debounce = function(ms, f)
   local timer = vim.uv.new_timer() ---@cast timer -nil
   return function(a1, a2, a3)
     timer:stop()
-    timer:start(ms, 0, function() f(a1, a2, a3) end)
+    timer:start(ms, 0, vim.schedule_wrap(function() f(a1, a2, a3) end))
   end
 end
 
 H.diagnostic_counts_per_buf = {}
 H.autocmd("DiagnosticChanged", {
-  callback = H.debounce(150, function()
+  debounce = 150,
+  callback = function()
     local counts_per_buf = {}
     H.diagnostic_counts_per_buf = counts_per_buf
 
@@ -337,7 +340,7 @@ H.autocmd("DiagnosticChanged", {
     end
 
     vim.schedule(function() vim.cmd("redrawtabline") end)
-  end),
+  end,
 })
 
 -- Track listed buffers

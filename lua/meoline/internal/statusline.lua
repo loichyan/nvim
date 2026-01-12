@@ -175,9 +175,11 @@ end
 
 H.augroup = vim.api.nvim_create_augroup("meoline.statusline", { clear = true })
 
----@param opts vim.api.keyset.create_autocmd
+---@param opts vim.api.keyset.create_autocmd|{debounce:integer}
 H.autocmd = function(event, opts)
+  if opts.debounce then opts.callback = H.debounce(opts.debounce, opts.callback) end
   opts.group = H.augroup
+  opts.debounce = nil
   vim.api.nvim_create_autocmd(event, opts)
 end
 
@@ -185,20 +187,21 @@ H.debounce = function(ms, f)
   local timer = vim.uv.new_timer() ---@cast timer -nil
   return function(a1, a2, a3)
     timer:stop()
-    timer:start(ms, 0, function() f(a1, a2, a3) end)
+    timer:start(ms, 0, vim.schedule_wrap(function() f(a1, a2, a3) end))
   end
 end
 
 H.diagnostic_counts = {} -- per severity
 H.autocmd("DiagnosticChanged", {
-  callback = H.debounce(150, function()
+  debounce = 150,
+  callback = function()
     local counts = {}
     H.diagnostic_counts = counts
     for _, diag in ipairs(vim.diagnostic.get()) do
       counts[diag.severity] = (counts[diag.severity] or 0) + 1
     end
     vim.schedule(function() vim.cmd("redrawstatus") end)
-  end),
+  end,
 })
 
 H.lsp_clients = {} -- per buffer
