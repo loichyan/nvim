@@ -159,9 +159,9 @@ local nt = { "n", "t" }
 local autoinsert = "<Cmd>autocmd BufEnter <buffer> startinsert<CR>"
 -- stylua: ignore
 Meow.keymap({
-  { "<M-\\>",              "<Cmd>vert term<CR>" .. autoinsert, mode = nt,                                         desc = "Split vertical terminal"            },
-  { "<M-->",               "<Cmd>hor  term<CR>" .. autoinsert, mode = nt ,                                        desc = "Split horizontal terminal"          },
-  { "<M-n>",               "<Cmd>tab  term<CR>" .. autoinsert, mode = nt ,                                        desc = "New tab terminal"                   },
-  { "<M-,>",               "<Cmd>tabprevious<CR>", mode = nt ,                                                    desc = "Tab previous"                       },
-  { "<M-.>",               "<Cmd>tabnext<CR>", mode = nt ,                                                        desc = "Tab next"                           },
+  { "<M-\\>",              "<Cmd>vert term<CR>" .. autoinsert, mode = nt,                                          desc = "Split vertical terminal"           },
+  { "<M-->",               "<Cmd>hor  term<CR>" .. autoinsert, mode = nt ,                                         desc = "Split horizontal terminal"         },
+  { "<M-n>",               "<Cmd>tab  term<CR>" .. autoinsert, mode = nt ,                                         desc = "New tab terminal"                  },
+  { "<M-,>",               "<Cmd>tabprevious<CR>", mode = nt ,                                                     desc = "Tab previous"                      },
+  { "<M-.>",               "<Cmd>tabnext<CR>", mode = nt ,                                                         desc = "Tab next"                          },
 })
