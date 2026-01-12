@@ -2,8 +2,9 @@ local Meoline = {}
 
 ---@class MeolineOptions
 ---@field statusline? boolean
----@field tabline? boolean
----@field palette? table<string,string>|fun():table<string,string>
+---@field tabline?    boolean
+---@field winbar?     boolean
+---@field palette?    table<string,string>|fun():table<string,string>
 
 ---@param opts? MeolineOptions
 Meoline.setup = function(opts)
@@ -17,6 +18,12 @@ Meoline.setup = function(opts)
   if opts.tabline ~= false then
     Meoline.eval_tabline = require("meoline.internal.tabline").eval
     vim.o.tabline = "%{%v:lua.require'meoline'.eval_tabline()%}"
+  end
+
+  if opts.winbar ~= false then
+    -- Use `update_winbar` to actually set winbar
+    Meoline.eval_winbar = require("meoline.internal.winbar").eval
+    Meoline.update_winbar = require("meoline.internal.winbar").update
   end
 
   local setup_colors = function()

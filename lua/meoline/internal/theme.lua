@@ -100,6 +100,14 @@ Colors.higroups = {
   ["tbl_hiddenpage"]  = {fg="text",bg="overlay"},
 
   ["tbl_trunc"]       = {fg="yellow"},
+
+  -- winbar
+  ["wbr_active"]  = {fg="white"},
+  ["wbr_visible"] = {fg="text"},
+  ["wbr_hidden"]  = {fg="text2"},
+
+  ["wbr_separator"]   = {fg="text"},
+  ["wbr_trunc"]       = {fg="text"},
 }
 
 -- stylua: ignore
