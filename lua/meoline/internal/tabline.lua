@@ -237,7 +237,7 @@ H.list_bufs = function()
     end
     H.dedup_labels(bufs)
   end
-  return H.listed_bufs
+  return vim.tbl_filter(function(buf) return vim.api.nvim_buf_is_valid(buf.id) end, H.listed_bufs)
 end
 
 H.next_idx = 1
