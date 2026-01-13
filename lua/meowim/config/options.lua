@@ -21,7 +21,17 @@ o.jumpoptions = "stack" -- More intuitive jumps
 opt.diffopt:append("algorithm:histogram", "inline:word") -- Improve diff mode
 opt.shortmess:append("A") -- Suppress swapfile warnings
 
-if vim.fn.has("nvim-0.12") == 1 then require("vim._extui").enable({ enable = true }) end
+if vim.fn.has("nvim-0.12") == 1 then
+  opt.fillchars:append({
+    fold = " ",
+    foldclose = "",
+    foldinner = " ",
+    foldopen = "",
+    foldsep = " ",
+  })
+  o.statuscolumn = "%s%l%C "
+  o.foldcolumn = "1"
+end
 
 if vim.env["TMUX"] then
   g.clipboard = {
