@@ -1,6 +1,6 @@
 local Theme = require("meoline.internal.theme")
 local Statusline = {}
-local H = {}
+local H = setmetatable({}, { __index = require("meoline.internal.utils") })
 
 --------------------------------------------------------------------------------
 -- Main statusline -------------------------------------------------------------
@@ -164,43 +164,15 @@ H.bytesize = function(size)
   end
 end
 
-H.empty_or = function(a, b) return a ~= "" and a or b end
-H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
-H.has_space = function(len, percent) return (len / vim.o.columns) <= percent end
-H.strwidth = vim.api.nvim_strwidth
-
-H.list_extend = function(dst, ...) return H.list_concat(dst, { ... }) end
-H.list_concat = function(dst, src)
-  for _, val in ipairs(src) do
-    dst[#dst + 1] = val
-  end
-  return dst
-end
-
 --------------------------------------------------------------------------------
 -- Autocommands ----------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-H.augroup = vim.api.nvim_create_augroup("meoline.statusline", { clear = true })
-
----@param opts vim.api.keyset.create_autocmd|{debounce:integer}
-H.autocmd = function(event, opts)
-  if opts.debounce then opts.callback = H.debounce(opts.debounce, opts.callback) end
-  opts.group = H.augroup
-  opts.debounce = nil
-  vim.api.nvim_create_autocmd(event, opts)
-end
-
-H.debounce = function(ms, f)
-  local timer = vim.uv.new_timer() ---@cast timer -nil
-  return function(a1, a2, a3)
-    timer:stop()
-    timer:start(ms, 0, vim.schedule_wrap(function() f(a1, a2, a3) end))
-  end
-end
+H.autocmd = H.make_autocmd("meoline.statusline")
 
 H.diagnostic_counts = {} -- per severity
-H.autocmd("DiagnosticChanged", {
+H.autocmd({
+  event = "DiagnosticChanged",
   debounce = 150,
   callback = function()
     local counts = {}
@@ -213,7 +185,8 @@ H.autocmd("DiagnosticChanged", {
 })
 
 H.lsp_clients = {} -- per buffer
-H.autocmd({ "LspAttach", "LspDetach" }, {
+H.autocmd({
+  event = { "LspAttach", "LspDetach" },
   group = H.augroup,
   callback = function(ev)
     local count = #vim.lsp.get_clients({ bufnr = ev.buf })
@@ -225,13 +198,15 @@ H.autocmd({ "LspAttach", "LspDetach" }, {
 H.root = vim.fn.getcwd()
 H.gitinfo = nil
 H.gitinfo_per_root = {}
-H.autocmd("DirChanged", {
+H.autocmd({
+  event = "DirChanged",
   callback = function(ev)
     H.root = ev.file
     H.gitinfo = H.gitinfo_per_root[ev.file]
   end,
 })
-H.autocmd("User", {
+H.autocmd({
+  event = "User",
   pattern = "MiniGitUpdated",
   callback = function(ev)
     local git = vim.b[ev.buf].minigit_summary or {}

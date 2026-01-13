@@ -1,6 +1,13 @@
 local Theme = require("meoline.internal.theme")
 local Tabline = {}
-local H = {}
+local H = setmetatable({}, { __index = require("meoline.internal.utils") })
+
+---@class __meoline_tabline_buftab
+---@field id integer
+---@field name string
+---@field label string
+---@field is_active boolean
+---@field is_visible boolean
 
 --------------------------------------------------------------------------------
 -- Main tabline ----------------------------------------------------------------
@@ -45,7 +52,7 @@ H.anchor_bufnr = {}
 -- Show buffers starting from the anchor, regardless of which buffer is active.
 H.force_anchor = false
 
----@param bufs __meoline_buftab[]
+---@param bufs __meoline_tabline_buftab[]
 H.make_buflist = function(bufs, maxwid)
   local trunc_on_click = "@v:lua.require'meoline.internal.tabline'.trunc_on_click@"
   local left_trunc, right_trunc = " 󰄽 ", " 󰄾 "
@@ -112,13 +119,6 @@ H.make_buflist = function(bufs, maxwid)
 
   return buflist
 end
-
----@class __meoline_buftab
----@field id integer
----@field name string
----@field label string
----@field is_active boolean
----@field is_visible boolean
 
 ---@param buf __meoline_buftab
 H.make_buftab = function(buf)
@@ -279,48 +279,15 @@ H.dedup_labels = function(bufs)
   end
 end
 
-H.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
-H.strwidth = vim.api.nvim_strwidth
-
-H.list_extend = function(dst, ...) return H.list_concat(dst, { ... }) end
-H.list_concat = function(dst, src)
-  for _, val in ipairs(src) do
-    dst[#dst + 1] = val
-  end
-  return dst
-end
-H.list_reverse = function(dst)
-  local n = #dst
-  for i = 1, n / 2 do
-    dst[i], dst[n - i + 1] = dst[n - i + 1], dst[i]
-  end
-  return dst
-end
-
 --------------------------------------------------------------------------------
 -- Autocommands ----------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-H.augroup = vim.api.nvim_create_augroup("meoline.tabline", { clear = true })
-
----@param opts vim.api.keyset.create_autocmd|{debounce:integer}
-H.autocmd = function(event, opts)
-  if opts.debounce then opts.callback = H.debounce(opts.debounce, opts.callback) end
-  opts.group = H.augroup
-  opts.debounce = nil
-  vim.api.nvim_create_autocmd(event, opts)
-end
-
-H.debounce = function(ms, f)
-  local timer = vim.uv.new_timer() ---@cast timer -nil
-  return function(a1, a2, a3)
-    timer:stop()
-    timer:start(ms, 0, vim.schedule_wrap(function() f(a1, a2, a3) end))
-  end
-end
+H.autocmd = H.make_autocmd("meoline.tabline")
 
 H.diagnostic_counts_per_buf = {}
-H.autocmd("DiagnosticChanged", {
+H.autocmd({
+  event = "DiagnosticChanged",
   debounce = 150,
   callback = function()
     local counts_per_buf = {}
@@ -337,14 +304,17 @@ H.autocmd("DiagnosticChanged", {
 })
 
 -- Track listed buffers
-H.autocmd({ "BufAdd", "BufDelete" }, {
+H.autocmd({
+  event = { "BufAdd", "BufDelete" },
   callback = function() H.listed_bufs = nil end,
 })
-H.autocmd("OptionSet", {
+H.autocmd({
+  event = "OptionSet",
   pattern = "buflisted",
   callback = function() H.listed_bufs = nil end,
 })
-H.autocmd("BufEnter", {
+H.autocmd({
+  event = "BufEnter",
   callback = function()
     if vim.bo.buflisted then H.force_anchor = false end
   end,
