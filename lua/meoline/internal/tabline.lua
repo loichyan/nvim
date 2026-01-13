@@ -184,8 +184,8 @@ Tabline.tabpage_on_click = function(tabpage, _, button)
     vim.api.nvim_set_current_tabpage(tabpage)
   elseif button == "r" then
     vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(tabpage))
-    vim.schedule(function() vim.cmd("redrawtabline") end)
   end
+  H.redraw_tabline()
 end
 
 Tabline.buftab_on_click = function(bufnr, _, button)
@@ -193,8 +193,8 @@ Tabline.buftab_on_click = function(bufnr, _, button)
     vim.api.nvim_win_set_buf(0, bufnr)
   elseif button == "r" then
     require("meoline.config").buf_delete(bufnr)
-    vim.schedule(function() vim.cmd("redrawtabline") end)
   end
+  H.redraw_tabline()
 end
 
 Tabline.trunc_on_click = function(dir, _, button)
@@ -214,7 +214,7 @@ Tabline.trunc_on_click = function(dir, _, button)
     error("invalid argument")
   end
   H.force_anchor = true
-  vim.schedule(function() vim.cmd("redrawtabline") end)
+  H.redraw_tabline()
 end
 
 --------------------------------------------------------------------------------
@@ -299,7 +299,7 @@ H.autocmd({
       buf_counts[diag.severity] = (buf_counts[diag.severity] or 0) + 1
     end
 
-    vim.schedule(function() vim.cmd("redrawtabline") end)
+    H.redraw_tabline()
   end,
 })
 

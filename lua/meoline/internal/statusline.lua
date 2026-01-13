@@ -180,7 +180,7 @@ H.autocmd({
     for _, diag in ipairs(vim.diagnostic.get()) do
       counts[diag.severity] = (counts[diag.severity] or 0) + 1
     end
-    vim.schedule(function() vim.cmd("redrawstatus") end)
+    H.redraw_statusline()
   end,
 })
 
@@ -191,7 +191,7 @@ H.autocmd({
   callback = function(ev)
     local count = #vim.lsp.get_clients({ bufnr = ev.buf })
     H.lsp_clients[ev.buf] = count > 0 and string.rep("+", count) or nil
-    vim.schedule(function() vim.cmd("redrawstatus") end)
+    H.redraw_statusline()
   end,
 })
 

@@ -43,6 +43,10 @@ Utils.empty_or = function(a, b) return a ~= "" and a or b end
 Utils.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
 Utils.has_space = function(len, percent) return (len / vim.o.columns) <= percent end
 Utils.strwidth = vim.api.nvim_strwidth
+
+Utils.redraw_tabline = vim.schedule_wrap(function() vim.api.nvim__redraw({ tabline = true }) end)
+Utils.redraw_statusline = vim.schedule_wrap(function() vim.api.nvim__redraw({ statusline = true }) end)
+Utils.redraw_winbar = vim.schedule_wrap(function() vim.api.nvim__redraw({ winbar = true }) end)
 -- stylua: ignore end
 
 return Utils
