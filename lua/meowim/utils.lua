@@ -1,6 +1,17 @@
 local Utils = {}
 local H = {}
 
+---@class meowim.utils.cached_colorscheme.options
+---The name to identify this colorscheme.
+---@field name string
+---A token to identify the latest cache.
+---@field cache_token? string
+---A list of runtime files used to determine whether to update the cache.
+---@field watch_paths? string[]
+---The function used to setup the colorscheme. An optional colorscheme object
+---obtained from MiniColors can be returned to generate highlight groups.
+---@field setup fun():table?
+
 ---Wraps the given function with a new one.
 ---@param old function
 ---@param new function
@@ -128,17 +139,6 @@ Utils.loclist_unique = function(opts)
   Utils.loclist_or_jump(opts)
 end
 
----@class meowim.utils.cached_colorscheme.options
----The name to identify this colorscheme.
----@field name string
----A token to identify the latest cache.
----@field cache_token? string
----A list of runtime files used to determine whether to update the cache.
----@field watch_paths? string[]
----The function used to setup the colorscheme. An optional colorscheme object
----obtained from MiniColors can be returned to generate highlight groups.
----@field setup fun():table?
-
 ---@param opts meowim.utils.cached_colorscheme.options
 Utils.cached_colorscheme = function(opts)
   local cache_dir = vim.fn.stdpath("cache") .. "/colors/"
@@ -256,32 +256,6 @@ Utils.try_system = function(cmd, opts, on_exit)
   end)
   ---@diagnostic disable-next-line: param-type-mismatch
   if not ok and on_exit then on_exit(false, res) end
-end
-
----Executes the given command in a terminal, printing its output in a buffer.
----@param bufnr? integer
----@param cmd string[]
----@param opts? table
-Utils.show_term_output = function(bufnr, cmd, opts)
-  bufnr = bufnr or vim.api.nvim_create_buf(false, true)
-  vim.bo[bufnr].filetype = "nofile"
-
-  local on_exit = opts and opts.on_exit
-  local show_output = function()
-    vim.schedule(function()
-      if on_exit and on_exit() then return end
-      -- Move to the first line of the output buffer
-      vim.api.nvim_win_set_buf(0, bufnr)
-      vim.api.nvim_win_set_cursor(0, { 1, 0 })
-    end)
-  end
-  opts = vim.tbl_extend("keep", { term = true, on_exit = show_output }, opts or {})
-  vim.api.nvim_buf_call(bufnr, function()
-    local ok, err = pcall(vim.fn.jobstart, cmd, opts)
-    if not ok then
-      Meow.notifyf("ERROR", "failed to run command `%s1: %s", table.concat(cmd, " "), err)
-    end
-  end)
 end
 
 return Utils
