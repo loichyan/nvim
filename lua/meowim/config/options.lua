@@ -21,6 +21,9 @@ o.jumpoptions = "stack" -- More intuitive jumps
 opt.diffopt:append("algorithm:histogram", "inline:word") -- Improve diff mode
 opt.shortmess:append("A") -- Suppress swapfile warnings
 
+o.foldexpr = "v:lua.Meowim.utils.foldexpr()"
+o.foldlevel = 99
+o.foldmethod = "expr"
 if vim.fn.has("nvim-0.12") == 1 then
   opt.fillchars:append({
     fold = " ",
