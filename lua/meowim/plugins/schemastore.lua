@@ -1,2 +1,2 @@
 ---@type MeoSpec
-return { "b0o/SchemaStore.nvim", lazy = true }
+return { 'b0o/SchemaStore.nvim', lazy = true }

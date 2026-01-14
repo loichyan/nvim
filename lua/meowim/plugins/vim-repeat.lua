@@ -1,1 +1,1 @@
-return { "tpope/vim-repeat", lazy = true }
+return { 'tpope/vim-repeat', lazy = true }

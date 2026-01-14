@@ -20,30 +20,30 @@ Utils.wrap_fn = function(old, new)
 end
 
 ---Asks user for a input.
----@param opts? {mode:"str"|"char"}
+---@param opts? {mode:'str'|'char'}
 Utils.prompt = function(prompt, opts)
-  local mode = (opts or {}).mode or "str"
+  local mode = (opts or {}).mode or 'str'
 
   local ok, msg
-  if mode == "str" then
-    vim.cmd("echohl Question")
+  if mode == 'str' then
+    vim.cmd('echohl Question')
     ok, msg = pcall(vim.fn.input, prompt)
-    vim.cmd("echohl None | redraw")
+    vim.cmd('echohl None | redraw')
   else
     vim.schedule(function()
-      vim.cmd("echo '' | redraw")
-      vim.api.nvim_echo({ { prompt, "Question" } }, false, {})
+      vim.cmd('echo "" | redraw')
+      vim.api.nvim_echo({ { prompt, 'Question' } }, false, {})
     end)
     ok, msg = pcall(vim.fn.getcharstr)
-    vim.cmd("echo '' | redraw")
+    vim.cmd('echo "" | redraw')
   end
 
-  return ok and msg or ""
+  return ok and msg or ''
 end
 
 ---Closes current window if possible, otherwise current buffer.
 Utils.try_close = function()
-  if not pcall(vim.cmd.close) then require("mini.bufremove").delete() end
+  if not pcall(vim.cmd.close) then require('mini.bufremove').delete() end
 end
 
 ---Returns the top level path if the specified directory is inside a repository.
@@ -51,8 +51,8 @@ end
 ---@return string?
 Utils.get_git_repo = function(cwd)
   cwd = cwd or vim.fn.getcwd()
-  local repo = vim.fs.find({ ".git" }, { path = cwd, upward = true })[1]
-  return repo and vim.fn.fnamemodify(repo, ":h") or nil
+  local repo = vim.fs.find({ '.git' }, { path = cwd, upward = true })[1]
+  return repo and vim.fn.fnamemodify(repo, ':h') or nil
 end
 
 ---Returns the state of a toggler of current buffer.
@@ -67,10 +67,10 @@ end
 ---Toggles the specified option, returning the newly set state. The default is
 ---always false.
 ---@param key string
----@param scope? "buffer"|"global"
+---@param scope? 'buffer'|'global'
 ---@return boolean
 Utils.toggle = function(key, scope)
-  if scope == "global" then
+  if scope == 'global' then
     vim.g[key] = not vim.g[key]
     return vim.g[key]
   else
@@ -86,8 +86,8 @@ end
 Utils.loclist_or_jump = function(opts)
   if #opts.items > 1 then
     ---@diagnostic disable-next-line: param-type-mismatch
-    vim.fn.setqflist({}, " ", opts)
-    vim.cmd("copen | cfirst")
+    vim.fn.setqflist({}, ' ', opts)
+    vim.cmd('copen | cfirst')
     return
   end
 
@@ -101,7 +101,7 @@ Utils.loclist_or_jump = function(opts)
   vim.api.nvim_win_set_buf(0, buf_id)
   vim.api.nvim_win_set_cursor(0, { loc.lnum, loc.col - 1 })
   -- Open folds under the cursor
-  return vim.cmd("normal! zv")
+  return vim.cmd('normal! zv')
 end
 
 ---Lists only items of current buffer.
@@ -141,24 +141,24 @@ end
 
 ---@param opts meowim.utils.cached_colorscheme.options
 Utils.cached_colorscheme = function(opts)
-  local cache_dir = vim.fn.stdpath("cache") .. "/colors/"
-  local cache_path = cache_dir .. opts.name .. ".lua"
-  local cache_token_path = cache_dir .. opts.name .. "_cache"
+  local cache_dir = vim.fn.stdpath('cache') .. '/colors/'
+  local cache_path = cache_dir .. opts.name .. '.lua'
+  local cache_token_path = cache_dir .. opts.name .. '_cache'
 
-  local cache_token = opts.cache_token or ""
+  local cache_token = opts.cache_token or ''
   if opts.watch_paths then
     for _, path in ipairs(opts.watch_paths) do
       local realpath = vim.api.nvim_get_runtime_file(path, false)[1]
-      if not realpath then error("cannot find runtime file: " .. path) end
+      if not realpath then error('cannot find runtime file: ' .. path) end
       local timestamp = assert(vim.uv.fs_stat(realpath)).mtime.nsec
-      cache_token = cache_token .. " " .. timestamp
+      cache_token = cache_token .. ' ' .. timestamp
     end
   end
 
   -- Try to load from cache.
-  if cache_token ~= "" then
-    local cache_token_file, _ = io.open(cache_token_path, "r")
-    if cache_token_file and cache_token_file:read("*a") == cache_token then
+  if cache_token ~= '' then
+    local cache_token_file, _ = io.open(cache_token_path, 'r')
+    if cache_token_file and cache_token_file:read('*a') == cache_token then
       dofile(cache_path)
       return
     end
@@ -166,14 +166,14 @@ Utils.cached_colorscheme = function(opts)
 
   -- Cache not found or expired, compile the colorscheme.
   -- 1) Setup mini.base16 and apply customizations.
-  local colors = opts.setup() or require("mini.colors").get_colorscheme()
+  local colors = opts.setup() or require('mini.colors').get_colorscheme()
   -- Defer cache rebuilding to speed up startup
-  if cache_token ~= "" then
+  if cache_token ~= '' then
     vim.schedule(function()
       -- 2) Write the compiled colorscheme into the cached module.
       colors:write({ compress = true, directory = cache_dir, name = opts.name })
       -- 3) Save cache tokens
-      assert(assert(io.open(cache_token_path, "w")):write(cache_token))
+      assert(assert(io.open(cache_token_path, 'w')):write(cache_token))
     end)
   end
 end
@@ -183,7 +183,7 @@ end
 ---@param delta number
 ---@return string
 Utils.lighten = function(color, delta)
-  return require("mini.colors").modify_channel(color, "lightness", function(x)
+  return require('mini.colors').modify_channel(color, 'lightness', function(x)
     if math.abs(delta) < 1 then
       return x + delta * x
     else
@@ -193,9 +193,9 @@ Utils.lighten = function(color, delta)
 end
 
 H.submode_keys = {
-  char = "v",
-  line = "V",
-  block = "\22",
+  char = 'v',
+  line = 'V',
+  block = '\22',
 }
 
 ---Returns the selected lines in visual or operator mode.
@@ -208,18 +208,18 @@ Utils.do_operator = function(callback, mode)
   if mode == nil then
     ---@private
     Utils.__opfunc = function(m) Utils.do_operator(callback, m) end
-    vim.o.operatorfunc = "v:lua.require'meowim.utils'.__opfunc"
-    return "g@"
+    vim.o.operatorfunc = 'v:lua.Meowim.utils.__opfunc'
+    return 'g@'
   end
 
   local submode = H.submode_keys[mode]
-  local from, to = "[", "]"
-  local copy_keys = ("`" .. from) .. '"xy' .. (submode .. "`" .. to)
+  local from, to = '[', ']'
+  local copy_keys = ('`' .. from) .. '"xy' .. (submode .. '`' .. to)
 
-  local orig_reginfo = vim.fn.getreginfo("x")
-  vim.cmd("silent keepjumps normal! " .. copy_keys)
-  local reginfo = vim.fn.getreginfo("x")
-  vim.fn.setreg("x", orig_reginfo)
+  local orig_reginfo = vim.fn.getreginfo('x')
+  vim.cmd('silent keepjumps normal! ' .. copy_keys)
+  local reginfo = vim.fn.getreginfo('x')
+  vim.fn.setreg('x', orig_reginfo)
 
   callback(reginfo.regcontents)
 end
@@ -232,13 +232,13 @@ Utils.uncommentor = function(cms)
 
   if not cms then
     local cur = vim.api.nvim_win_get_cursor(0)
-    cms = require("mini.comment").get_commentstring({ cur[1], cur[2] + 1 })
+    cms = require('mini.comment').get_commentstring({ cur[1], cur[2] + 1 })
   end
-  local l, r = cms:match("^(.-)%%s(.-)$")
+  local l, r = cms:match('^(.-)%%s(.-)$')
   l, r = vim.pesc(l), vim.pesc(r)
 
-  local regex = "^%s*" .. l .. "(.*)" .. r .. "%s-$"
-  local regex_trim = "^%s*" .. vim.trim(l) .. "(.*)" .. vim.trim(r) .. "%s-$"
+  local regex = '^%s*' .. l .. '(.*)' .. r .. '%s-$'
+  local regex_trim = '^%s*' .. vim.trim(l) .. '(.*)' .. vim.trim(r) .. '%s-$'
   return function(line) return line:match(regex) or line:match(regex_trim) or line end
 end
 
@@ -260,11 +260,11 @@ end
 
 Utils.foldexpr = function(lnum)
   H.enable_lsp_expr = {}
-  vim.api.nvim_create_autocmd("LspAttach", {
-    desc = "Track LSP foldexpr",
+  vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'Track LSP foldexpr',
     callback = function(ev)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      if not client or not client:supports_method("textDocument/foldingRange") then return end
+      if not client or not client:supports_method('textDocument/foldingRange') then return end
       H.enable_lsp_expr[ev.buf] = true
     end,
   })

@@ -1,6 +1,6 @@
-local Theme = require("meoline.internal.theme")
+local Theme = require('meoline.internal.theme')
 local Tabline = {}
-local H = setmetatable({}, { __index = require("meoline.internal.utils") })
+local H = setmetatable({}, { __index = require('meoline.internal.utils') })
 
 ---@class __meoline_tabline_buftab
 ---@field id integer
@@ -26,7 +26,7 @@ Tabline.eval = function()
 
   local bufs = H.list_bufs()
   if #bufs > 0 then H.list_concat(tabline, H.make_buflist(bufs, maxwid)) end
-  tabline[#tabline + 1] = "%="
+  tabline[#tabline + 1] = '%='
   if pagelist then H.list_concat(tabline, pagelist) end
 
   return table.concat(tabline)
@@ -38,10 +38,10 @@ H.make_pagelist = function(tabpages)
 
   local active_page = vim.api.nvim_get_current_tabpage()
   for tabnr, tabpage in ipairs(tabpages) do
-    local hl = Theme.get_hl(tabpage == active_page and "tbl_activepage" or "tbl_hiddenpage")
+    local hl = Theme.get_hl(tabpage == active_page and 'tbl_activepage' or 'tbl_hiddenpage')
     local label = tostring(tabnr)
     width = width + #label + 2
-    H.list_extend(pagelist, "%", tabpage, tabpage_on_click, "%#", hl, "# ", label, " %##%T")
+    H.list_extend(pagelist, '%', tabpage, tabpage_on_click, '%#', hl, '# ', label, ' %##%T')
   end
 
   return pagelist, width
@@ -55,7 +55,7 @@ H.force_anchor = false
 ---@param bufs __meoline_tabline_buftab[]
 H.make_buflist = function(bufs, maxwid)
   local trunc_on_click = "@v:lua.require'meoline.internal.tabline'.trunc_on_click@"
-  local left_trunc, right_trunc = " 󰄽 ", " 󰄾 "
+  local left_trunc, right_trunc = ' 󰄽 ', ' 󰄾 '
   maxwid = maxwid - 6 -- leave some space for truncate characters
 
   local buflist = {}
@@ -96,7 +96,7 @@ H.make_buflist = function(bufs, maxwid)
 
   if start_idx ~= 1 then
     -- stylua: ignore
-    H.list_extend(buflist, "%##%T", left_trunc, "#", Theme.get_hl("tbl_trunc"), "%#", trunc_on_click, "%1")
+    H.list_extend(buflist, '%##%T', left_trunc, '#', Theme.get_hl('tbl_trunc'), '%#', trunc_on_click, '%1')
   end
   H.list_reverse(buflist)
 
@@ -114,19 +114,19 @@ H.make_buflist = function(bufs, maxwid)
 
   if end_idx ~= #bufs then
     -- stylua: ignore
-    H.list_extend(buflist, "%2", trunc_on_click, "%#", Theme.get_hl("tbl_trunc"), "#", right_trunc, "%##%T")
+    H.list_extend(buflist, '%2', trunc_on_click, '%#', Theme.get_hl('tbl_trunc'), '#', right_trunc, '%##%T')
   end
 
   return buflist
 end
 
----@param buf __meoline_buftab
+---@param buf __meoline_tabline_buftab
 H.make_buftab = function(buf)
   local buftab_on_click = "@v:lua.require'meoline.internal.tabline'.buftab_on_click@"
   local buftab, width = {}, 0
 
   local section_joint = function(hl, ...) -- append with higroup surround
-    H.list_extend(buftab, "%#", Theme.get_hl(hl), "#")
+    H.list_extend(buftab, '%#', Theme.get_hl(hl), '#')
     for _, val in ipairs({ ... }) do
       if val then
         val = tostring(val)
@@ -134,32 +134,32 @@ H.make_buftab = function(buf)
         width = width + H.strwidth(val)
       end
     end
-    buftab[#buftab + 1] = "%##"
+    buftab[#buftab + 1] = '%##'
   end
   local section = function(hl, ...)
-    buftab[#buftab + 1] = " "
+    buftab[#buftab + 1] = ' '
     width = width + 1
     section_joint(hl, ...)
   end
 
   -- make it clickable
   local bufnr = buf.id
-  H.list_extend(buftab, "%", bufnr, buftab_on_click)
+  H.list_extend(buftab, '%', bufnr, buftab_on_click)
 
   -----------------------
   -- buffer identifier --
   -----------------------
   local is_active, is_visible = buf.is_active, buf.is_visible
 
-  local label_hl = is_active and "tbl_active" or is_visible and "tbl_visible" or "tbl_hidden"
-  section_joint(label_hl, "│")
+  local label_hl = is_active and 'tbl_active' or is_visible and 'tbl_visible' or 'tbl_hidden'
+  section_joint(label_hl, '│')
 
-  local icon, icon_hl = Theme.get_icon("file", buf.name)
+  local icon, icon_hl = Theme.get_icon('file', buf.name)
   section(is_visible and icon_hl or label_hl, icon)
   section(label_hl, buf.label)
 
-  local info_hl = label_hl .. "info"
-  if vim.bo[bufnr].modified then section_joint(info_hl, "[+]") end
+  local info_hl = label_hl .. 'info'
+  if vim.bo[bufnr].modified then section_joint(info_hl, '[+]') end
 
   ------------------------
   -- buffer diagnostics --
@@ -171,7 +171,7 @@ H.make_buftab = function(buf)
     end
   end
 
-  buftab[#buftab + 1] = "%T " -- end of clickable label
+  buftab[#buftab + 1] = '%T ' -- end of clickable label
   return buftab, width + 1
 end
 
@@ -180,25 +180,25 @@ end
 --------------------------------------------------------------------------------
 
 Tabline.tabpage_on_click = function(tabpage, _, button)
-  if button == "l" then
+  if button == 'l' then
     vim.api.nvim_set_current_tabpage(tabpage)
-  elseif button == "r" then
+  elseif button == 'r' then
     vim.cmd.tabclose(vim.api.nvim_tabpage_get_number(tabpage))
   end
   H.redraw_tabline()
 end
 
 Tabline.buftab_on_click = function(bufnr, _, button)
-  if button == "l" then
+  if button == 'l' then
     vim.api.nvim_win_set_buf(0, bufnr)
-  elseif button == "r" then
-    require("meoline.config").buf_delete(bufnr)
+  elseif button == 'r' then
+    require('meoline.config').buf_delete(bufnr)
   end
   H.redraw_tabline()
 end
 
 Tabline.trunc_on_click = function(dir, _, button)
-  if button ~= "l" then return end
+  if button ~= 'l' then return end
 
   local active_page, bufs = vim.api.nvim_get_current_tabpage(), H.list_bufs()
   local anchor_bufnr, anchor_idx = H.anchor_bufnr[active_page], 1
@@ -211,7 +211,7 @@ Tabline.trunc_on_click = function(dir, _, button)
   elseif dir == 2 then -- right
     H.anchor_bufnr[active_page] = bufs[anchor_idx + 1].id
   else
-    error("invalid argument")
+    error('invalid argument')
   end
   H.force_anchor = true
   H.redraw_tabline()
@@ -230,8 +230,8 @@ H.list_bufs = function()
         local path = vim.api.nvim_buf_get_name(bufnr)
         table.insert(bufs, {
           id = bufnr,
-          name = path ~= "" and vim.fn.fnamemodify(path, ":~:.") or "",
-          label = path ~= "" and vim.fn.fnamemodify(path, ":t") or "*",
+          name = path ~= '' and vim.fn.fnamemodify(path, ':~:.') or '',
+          label = path ~= '' and vim.fn.fnamemodify(path, ':t') or '*',
         })
       end
     end
@@ -242,7 +242,7 @@ end
 
 H.next_idx = 1
 H.assigned_idx = {}
-H.path_sep = vim.fn.has("win32") == 1 and "\\" or "/"
+H.path_sep = vim.fn.has('win32') == 1 and '\\' or '/'
 
 ---@param bufs __meoline_buftab[]
 H.dedup_labels = function(bufs)
@@ -259,16 +259,16 @@ H.dedup_labels = function(bufs)
       local did_extend = false
       for _, buf in ipairs(group) do
         local new_label
-        if buf.name == "" then
+        if buf.name == '' then
           -- Suffix unnamed buffer with an unique index
           if not H.assigned_idx[buf.id] then
             H.assigned_idx[buf.id] = H.next_idx
             H.next_idx = H.next_idx + 1
           end
-          new_label = string.format("%s(%d)", buf.label, H.assigned_idx[buf.id])
+          new_label = string.format('%s(%d)', buf.label, H.assigned_idx[buf.id])
         else
           -- Extend label by one component
-          local pattern = string.format("[^%s]+%s%s$", H.path_sep, H.path_sep, H.escape(label))
+          local pattern = string.format('[^%s]+%s%s$', H.path_sep, H.path_sep, H.escape(label))
           new_label = string.match(buf.name, pattern) or label
         end
         did_extend = did_extend or buf.label ~= new_label
@@ -283,11 +283,11 @@ end
 -- Autocommands ----------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-H.autocmd = H.make_autocmd("meoline.tabline")
+H.autocmd = H.make_autocmd('meoline.tabline')
 
 H.diagnostic_counts_per_buf = {}
 H.autocmd({
-  event = "DiagnosticChanged",
+  event = 'DiagnosticChanged',
   debounce = 150,
   callback = function()
     local counts_per_buf = {}
@@ -305,16 +305,16 @@ H.autocmd({
 
 -- Track listed buffers
 H.autocmd({
-  event = { "BufAdd", "BufDelete" },
+  event = { 'BufAdd', 'BufDelete' },
   callback = function() H.listed_bufs = nil end,
 })
 H.autocmd({
-  event = "OptionSet",
-  pattern = "buflisted",
+  event = 'OptionSet',
+  pattern = 'buflisted',
   callback = function() H.listed_bufs = nil end,
 })
 H.autocmd({
-  event = "BufEnter",
+  event = 'BufEnter',
   callback = function()
     if vim.bo.buflisted then H.force_anchor = false end
   end,

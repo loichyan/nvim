@@ -1,9 +1,9 @@
 ---@type MeoSpec
-local Spec = { "mrcjkb/rustaceanvim", event = "LazyFile" }
+local Spec = { 'mrcjkb/rustaceanvim', event = 'LazyFile' }
 
 Spec.config = function()
-  Meow.load("nvim-lspconfig")
-  local lspconfig = vim.lsp.config["rust_analyzer"]
+  Meow.load('nvim-lspconfig')
+  local lspconfig = vim.lsp.config['rust_analyzer']
   vim.g.rustaceanvim = {
     server = {
       auto_attach = true,

@@ -1,4 +1,4 @@
----@module "lspconfig"
+---@module 'lspconfig'
 ---@type lspconfig.Config|table<string,vim.lsp.Config|{enable:boolean}>
 ---@diagnostic disable-next-line:missing-fields
 local Lspconfig = {
@@ -6,24 +6,24 @@ local Lspconfig = {
   taplo = {},
   jsonls = {
     settings = {
-      ["json"] = { validate = { enable = true } },
+      ['json'] = { validate = { enable = true } },
     },
     on_init = function(client)
-      client:notify("workspace/didChangeConfiguration", {
+      client:notify('workspace/didChangeConfiguration', {
         settings = {
-          ["json"] = { schemas = require("schemastore").json.schemas() },
+          ['json'] = { schemas = require('schemastore').json.schemas() },
         },
       })
     end,
   },
   yamlls = {
     settings = {
-      ["yaml"] = { validate = true, keyOrdering = false },
+      ['yaml'] = { validate = true, keyOrdering = false },
     },
     on_init = function(client)
-      client:notify("workspace/didChangeConfiguration", {
+      client:notify('workspace/didChangeConfiguration', {
         settings = {
-          ["yaml"] = { schemas = require("schemastore").yaml.schemas() },
+          ['yaml'] = { schemas = require('schemastore').yaml.schemas() },
         },
       })
     end,
@@ -38,7 +38,7 @@ local Lspconfig = {
   ruff = {},
 
   -- C/C++
-  clangd = { cmd = { "clangd", "--offset-encoding=utf-16" } },
+  clangd = { cmd = { 'clangd', '--offset-encoding=utf-16' } },
 
   -- Web
   cssls = {},
@@ -46,7 +46,7 @@ local Lspconfig = {
   eslint = { enable = false },
   denols = {
     settings = {
-      ["typescript"] = {
+      ['typescript'] = {
         suggest = { completeFunctionCalls = true },
       },
     },
@@ -56,15 +56,15 @@ local Lspconfig = {
   -- Golang
   gopls = {
     settings = {
-      ["gopls"] = { usePlaceholders = true },
+      ['gopls'] = { usePlaceholders = true },
     },
   },
 
   -- Lua
   lua_ls = {
     settings = {
-      ["Lua"] = {
-        completion = { callSnippet = "Replace" },
+      ['Lua'] = {
+        completion = { callSnippet = 'Replace' },
         workspace = {
           -- Don't analyze 3rd party library
           checkThirdParty = false,
@@ -81,14 +81,14 @@ local Lspconfig = {
   -- Rust
   rust_analyzer = {
     settings = {
-      ["rust-analyzer"] = {
+      ['rust-analyzer'] = {
         cachePriming = { enable = false },
-        check = { command = "clippy" },
+        check = { command = 'clippy' },
         procMacro = { enable = true, attributes = { enable = true } },
         typing = { autoClosingAngleBrackets = { enable = true } },
         imports = {
-          granularity = { enforce = true, group = "module" },
-          prefix = "self",
+          granularity = { enforce = true, group = 'module' },
+          prefix = 'self',
         },
         buildScripts = { rebuildOnSave = true },
       },
@@ -96,18 +96,18 @@ local Lspconfig = {
     on_attach = function(_, bufnr)
       -- stylua: ignore
       Meow.keymap(bufnr, {
-        { "<Leader>lm", "<Cmd>RustLsp expandMacro<CR>", desc = "Expand macro"    },
-        { "<Leader>lo", "<Cmd>RustLsp openCargo<CR>",   desc = "Open Cargo.toml" },
+        { '<Leader>lm', '<Cmd>RustLsp expandMacro<CR>', desc = 'Expand macro'    },
+        { '<Leader>lo', '<Cmd>RustLsp openCargo<CR>',   desc = 'Open Cargo.toml' },
       })
     end,
   },
 }
 
 -- Load workspace configurations
-Meow.load("neoconf.nvim")
-for name, config in pairs((require("neoconf").get("lspconfig") or {})) do
-  if type(config) == "boolean" then config = { enable = config } end
-  Lspconfig[name] = vim.tbl_deep_extend("force", Lspconfig[name] or {}, config)
+Meow.load('neoconf.nvim')
+for name, config in pairs((require('neoconf').get('lspconfig') or {})) do
+  if type(config) == 'boolean' then config = { enable = config } end
+  Lspconfig[name] = vim.tbl_deep_extend('force', Lspconfig[name] or {}, config)
 end
 
 return Lspconfig

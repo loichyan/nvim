@@ -39,8 +39,8 @@ Utils.list_reverse = function(dst)
 end
 
 -- stylua: ignore start
-Utils.empty_or = function(a, b) return a ~= "" and a or b end
-Utils.escape = function(s) return string.gsub(s, "%%", "%%%%"), nil end
+Utils.empty_or = function(a, b) return a ~= '' and a or b end
+Utils.escape = function(s) return string.gsub(s, '%%', '%%%%'), nil end
 Utils.has_space = function(len, percent) return (len / vim.o.columns) <= percent end
 Utils.strwidth = vim.api.nvim_strwidth
 

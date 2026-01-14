@@ -1,8 +1,8 @@
 ---@type MeoSpec
-local Spec = { "folke/neoconf.nvim", event = "LazyFile" }
+local Spec = { 'folke/neoconf.nvim', event = 'LazyFile' }
 
 Spec.config = function()
-  require("neoconf").setup({
+  require('neoconf').setup({
     plugins = { lspconfig = { enabled = false } },
   })
 end
