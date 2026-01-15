@@ -13,15 +13,17 @@ local H = setmetatable({}, { __index = require('meoline.internal.utils') })
 --------------------------------------------------------------------------------
 
 Winbar.eval = function(winnr)
+  winnr = winnr or vim.api.nvim_get_current_win()
   if not vim.api.nvim_win_is_valid(winnr) then return end
-  local items = H.items_per_win[winnr]
-  if not items then return '%=' end
+
+  local items, bufnr = H.items_per_win[winnr], vim.api.nvim_win_get_buf(winnr)
+  if not items or not vim.api.nvim_buf_is_valid(bufnr) then return '%=' end
 
   local item_on_click = "@v:lua.require'meoline.internal.winbar'.item_on_click.w" .. winnr .. '@'
   local trunc_char, separator = '  ', '󰥭'
 
   local winbar, maxwid = {}, vim.api.nvim_win_get_width(winnr)
-  maxwid = math.min(maxwid, 80) -- prevent winbar being to long
+  maxwid = math.min(maxwid, H.get_textwidth(bufnr) or 80) -- prevent winbar being to long
   maxwid = maxwid - 3 -- leave some space for truncate character
 
   local is_win_active = winnr == tonumber(vim.g.actual_curwin)
@@ -66,8 +68,7 @@ H.items_per_win = {}
 ---@param winnr integer
 ---@param items? MeolineWinbarItem[]
 Winbar.update = function(winnr, items)
-  local bar = "%{%v:lua.require'meoline'.eval_winbar(" .. winnr .. ')%}'
-  local wo = vim.wo[winnr]
+  local wo, bar = vim.wo[winnr], "%{%v:lua.require'meoline'.eval_winbar()%}"
   if not items and wo.winbar ~= '' then
     wo.winbar = ''
   elseif items and wo.winbar ~= bar then
@@ -91,5 +92,16 @@ Winbar.item_on_click = setmetatable({}, {
     end
   end,
 })
+
+--------------------------------------------------------------------------------
+-- Helper Functions ------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+H.get_textwidth = function(bufnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then return end
+  local textwidth = vim.bo[bufnr].textwidth
+  if textwidth == 0 then textwidth = vim.bo[bufnr].wrapmargin end
+  return textwidth ~= 0 and textwidth or 0
+end
 
 return Winbar
