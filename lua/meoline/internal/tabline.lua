@@ -305,7 +305,7 @@ H.autocmd({
 
 -- Track listed buffers
 H.autocmd({
-  event = { 'BufAdd', 'BufDelete' },
+  event = { 'BufAdd', 'BufDelete', 'BufFilePost' },
   callback = function() H.listed_bufs = nil end,
 })
 H.autocmd({
