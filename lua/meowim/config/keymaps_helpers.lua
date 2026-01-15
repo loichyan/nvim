@@ -12,6 +12,15 @@ H.clear_ui = function()
   vim.cmd('noh | redrawstatus')
 end
 
+---@param dir 'forward'|'backward'
+---@param pair string
+H.jump_pair = function(dir, pair)
+  local left = pair:sub(1, 1)
+  local right = pair:sub(2, 2)
+  local flag = dir == 'backward' and 'bW' or 'W'
+  vim.fn.searchpair('\\M' .. left, '', '\\M' .. right, flag)
+end
+
 ---Copies uncommented and formatted text to clipboard.
 H.smart_copy = function()
   return Meowim.utils.do_operator(function(lines)
