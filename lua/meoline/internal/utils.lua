@@ -4,6 +4,8 @@ local Utils = {}
 ---@field event     string|string[]
 ---@field debounce? integer
 
+Utils.path_sep = vim.fn.has('win32') == 1 and '\\' or '/'
+
 ---@return fun(opts:__meoline_utils_autocmd)
 Utils.make_autocmd = function(group)
   local augroup = vim.api.nvim_create_augroup(group, { clear = true })

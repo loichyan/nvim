@@ -243,7 +243,6 @@ end
 
 H.next_idx = 1
 H.assigned_idx = {}
-H.path_sep = vim.fn.has('win32') == 1 and '\\' or '/'
 
 ---@param bufs __meoline_buftab[]
 H.dedup_labels = function(bufs)

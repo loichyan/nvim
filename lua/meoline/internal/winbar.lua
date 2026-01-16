@@ -1,3 +1,4 @@
+local Config = require('meoline.config')
 local Theme = require('meoline.internal.theme')
 local H = setmetatable({}, { __index = require('meoline.internal.utils') })
 local Winbar = {}
@@ -62,22 +63,6 @@ Winbar.eval = function(winnr)
   return table.concat(winbar)
 end
 
----@type table<integer,MeolineWinbarItem[]>
-H.items_per_win = {}
-
----@param winnr integer
----@param items? MeolineWinbarItem[]
-Winbar.update = function(winnr, items)
-  local wo, bar = vim.wo[winnr], "%{%v:lua.require'meoline'.eval_winbar()%}"
-  if not items and wo.winbar ~= '' then
-    wo.winbar = ''
-  elseif items and wo.winbar ~= bar then
-    wo.winbar = bar
-  end
-  H.items_per_win[winnr] = items
-  H.redraw_winbar()
-end
-
 --------------------------------------------------------------------------------
 -- Callback Functions ----------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -94,14 +79,52 @@ Winbar.item_on_click = setmetatable({}, {
 })
 
 --------------------------------------------------------------------------------
--- Helper Functions ------------------------------------------------------------
+-- Helper functions ------------------------------------------------------------
 --------------------------------------------------------------------------------
+
+---@type table<integer,MeolineWinbarItem[]>
+H.items_per_win = {}
+H.update_winbar = function()
+  local winnr = vim.api.nvim_get_current_win()
+  if not vim.api.nvim_win_is_valid(winnr) then return end
+  if vim.api.nvim_win_get_config(winnr).relative ~= '' then return end -- ignore floatings
+
+  local bufnr = vim.api.nvim_win_get_buf(winnr)
+  if not vim.api.nvim_buf_is_valid(bufnr) then return end
+
+  local items = Config.winbar_items(bufnr)
+  local wo, bar = vim.wo[winnr], "%{%v:lua.require'meoline'.eval_winbar()%}"
+  if not items and wo.winbar ~= '' then
+    wo.winbar = ''
+  elseif items and wo.winbar ~= bar then
+    wo.winbar = bar
+  end
+
+  H.items_per_win[winnr] = items
+  H.redraw_winbar()
+end
 
 H.get_textwidth = function(bufnr)
   if not vim.api.nvim_buf_is_valid(bufnr) then return end
   local textwidth = vim.bo[bufnr].textwidth
   if textwidth == 0 then textwidth = vim.bo[bufnr].wrapmargin end
-  return textwidth ~= 0 and textwidth or 0
+  return textwidth ~= 0 and textwidth or nil
 end
+
+--------------------------------------------------------------------------------
+-- Autocommands ----------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+H.autocmd = H.make_autocmd('meoline.winbar')
+
+H.autocmd({
+  event = { 'BufReadPost', 'BufFilePost', 'BufWritePost' },
+  callback = H.update_winbar,
+})
+H.autocmd({
+  event = 'CursorMoved',
+  debounce = 150,
+  callback = vim.schedule_wrap(H.update_winbar),
+})
 
 return Winbar

@@ -21,9 +21,8 @@ Meoline.setup = function(opts)
   end
 
   if opts.winbar ~= false then
-    -- Use `update_winbar` to actually set winbar
+    -- 'winbar' is actually set per window by autocommands
     Meoline.eval_winbar = require('meoline.internal.winbar').eval
-    Meoline.update_winbar = require('meoline.internal.winbar').update
   end
 
   local setup_colors = function()
