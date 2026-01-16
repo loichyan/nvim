@@ -51,6 +51,7 @@ Spec.config = function()
     ['<Left>']    = { 'select_prev', 'fallback' },
   }
 
+  H.get_icon = require('mini.icons').get
   local draw_with_miniicon = {
     components = {
       kind_icon = {
@@ -108,7 +109,5 @@ H.select_and_pair = function(cmp)
   vim.api.nvim_feedkeys(require('mini.pairs').open(info.pair, info.neigh_pattern), 'n', false)
   return true
 end
-
-H.get_icon = require('mini.icons').get
 
 return Spec
