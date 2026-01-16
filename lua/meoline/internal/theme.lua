@@ -41,31 +41,6 @@ Colors.get_hl = function(name)
   return H.defined_higroups[name]
 end
 
-Colors.get_icon = function(category, name)
-  Colors.get_icon = H.make_get_icon()
-  return Colors.get_icon(category, name)
-end
-
-H.make_get_icon = function()
-  local ok, miniicons = pcall(require, 'mini.icons')
-  if ok then return miniicons.get end
-
-  local ok, devicons = pcall(require, 'nvim-web-devicons')
-  if ok then
-    return function(category, name)
-      if category == 'filetype' then
-        return devicons.get_icon_by_filetype(name, { default = true })
-      elseif category == 'file' then
-        return devicons.get_icon(name, nil, { default = true })
-      else
-        error('unknown category: ' .. category)
-      end
-    end
-  end
-
-  return function() return '󰈔', 'None' end
-end
-
 -- stylua: ignore
 Colors.higroups = {
   -- statusline

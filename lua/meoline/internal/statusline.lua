@@ -1,6 +1,7 @@
+local Config = require('meoline.config')
 local Theme = require('meoline.internal.theme')
-local Statusline = {}
 local H = setmetatable({}, { __index = require('meoline.internal.utils') })
+local Statusline = {}
 
 --------------------------------------------------------------------------------
 -- Main statusline -------------------------------------------------------------
@@ -107,7 +108,7 @@ Statusline.eval = function()
   do
     local bo = vim.bo
     local filetype = bo.filetype
-    local icon = Theme.get_icon('filetype', filetype)
+    local icon = Config.icon_get('filetype', filetype)
 
     local encoding = H.empty_or(bo.fileencoding, vim.o.encoding)
     local format = H.empty_or(bo.fileformat, vim.o.fileformat)

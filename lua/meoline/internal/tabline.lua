@@ -1,6 +1,7 @@
+local Config = require('meoline.config')
 local Theme = require('meoline.internal.theme')
-local Tabline = {}
 local H = setmetatable({}, { __index = require('meoline.internal.utils') })
+local Tabline = {}
 
 ---@class __meoline_tabline_buftab
 ---@field id integer
@@ -154,7 +155,7 @@ H.make_buftab = function(buf)
   local label_hl = is_active and 'tbl_active' or is_visible and 'tbl_visible' or 'tbl_hidden'
   section_joint(label_hl, '│')
 
-  local icon, icon_hl = Theme.get_icon('file', buf.name)
+  local icon, icon_hl = Config.icon_get('file', buf.name)
   section(is_visible and icon_hl or label_hl, icon)
   section(label_hl, buf.label)
 

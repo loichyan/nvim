@@ -1,6 +1,6 @@
 local Theme = require('meoline.internal.theme')
-local Winbar = {}
 local H = setmetatable({}, { __index = require('meoline.internal.utils') })
+local Winbar = {}
 
 ---@class MeolineWinbarItem
 ---@field text       string  -- text to display
@@ -46,11 +46,11 @@ Winbar.eval = function(winnr)
 
     local is_item_active = i == #items
     local text_hl = is_item_active and active_symbol_hl or visible_symbol_hl
-    local icon_hl = is_item_active and item.icon_hl or nil
+    local icon_hl = is_item_active and item.icon_hl or text_hl
 
     winbar[#winbar + 1] = ' %T'
     H.list_extend(winbar, '%##', H.escape(item.text), '#', text_hl, ' %#')
-    if icon then H.list_extend(winbar, '%##', H.escape(icon), '#', icon_hl or '', ' %#') end -- prepend icon if provided
+    if icon then H.list_extend(winbar, '%##', H.escape(icon), '#', icon_hl, ' %#') end -- prepend icon if provided
     H.list_extend(winbar, item_on_click, i, '%') -- make item clickable
 
     if i > 1 then H.list_extend(winbar, '%##', separator, '%##') end -- not add separator for the leftmost item
