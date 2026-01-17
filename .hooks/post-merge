@@ -1,0 +1,2 @@
+#!/bin/sh
+rm -f cache_token # expire current cache token
