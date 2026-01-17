@@ -88,8 +88,8 @@ Base16.colors_customizations = function(opts, colors)
   local hipatter_colors = {
     ['Fixme'] = p.base08,
     ['Hack']  = p.base0E,
-    ['Note']  = p.base0D,
-    ['Todo']  = p.base09,
+    ['Note']  = p.base0B,
+    ['Todo']  = p.base0C,
   }
   for name, color in pairs(hipatter_colors) do
     colors.groups['MiniHipatterns' .. name] = { fg = color, bold = true }
