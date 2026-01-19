@@ -34,7 +34,13 @@ local Lspconfig = {
   bashls = {},
 
   -- Python
-  basedpyright = {},
+  basedpyright = {
+    settings = {
+      ['basedpyright'] = {
+        analysis = { typeCheckingMode = 'standard' },
+      },
+    },
+  },
   ruff = {},
 
   -- C/C++
