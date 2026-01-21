@@ -10,16 +10,17 @@ o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4
 
-o.cmdheight = 0 -- Hide cmdline
-o.showcmdloc = 'statusline' -- Display command messages in statusline
-o.laststatus = 3 -- Show global statusline
-o.showtabline = 2 -- Always show tabline
-o.conceallevel = 2 -- Improve rendering for Markdown
-o.relativenumber = true -- Show relative numbers
+o.cmdheight = 0 -- hide cmdline
+o.showcmdloc = 'statusline' -- display command messages in statusline
+o.laststatus = 3 -- show global statusline
+o.showtabline = 2 -- always show tabline
+o.conceallevel = 2 -- improve rendering for Markdown
+o.relativenumber = true -- show relative numbers
+o.jumpoptions = 'stack' -- more intuitive jumps
 
-o.jumpoptions = 'stack' -- More intuitive jumps
-opt.diffopt:append('algorithm:histogram', 'inline:word') -- Improve diff mode
-opt.shortmess:append('A') -- Suppress swapfile warnings
+opt.diffopt:append('algorithm:histogram', 'inline:word') -- improve diff mode
+opt.listchars = { nbsp = '⎵', tab = '› ' } -- better listchars
+opt.shortmess:append('A') -- suppress swapfile warnings
 
 o.foldexpr = 'v:lua.Meowim.utils.foldexpr()'
 o.foldlevel = 99
