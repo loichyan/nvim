@@ -36,21 +36,15 @@ if vim.fn.has('nvim-0.12') == 1 then
   o.foldcolumn = '1'
 end
 
-if vim.env['TMUX'] then
+if vim.env['TMUX'] then -- use tmux's buffers if possible
   g.clipboard = {
     name = 'tmux',
-    copy = {
-      ['+'] = { 'tmux', '-Ldefault', 'load-buffer', '-w', '-' }, -- Copy to system clipboard
-      ['*'] = { 'tmux', '-Ldefault', 'load-buffer', '-' }, -- Copy to only tmux clipboard
-    },
-    paste = {
-      ['+'] = { 'tmux', '-Ldefault', 'save-buffer', '-' },
-      ['*'] = { 'tmux', '-Ldefault', 'save-buffer', '-' },
-    },
+    copy = { ['+'] = { 'tmuxcpy', '-w' }, ['*'] = { 'tmuxcpy' } },
+    paste = { ['+'] = { 'tmuxpst' }, ['*'] = { 'tmuxpst' } },
     cache_enabled = 1,
   }
   o.clipboard = 'unnamed'
-else
-  g.clipboard = 'osc52' -- Otherwise fallback to OSC52
+else -- otherwise fallback to OSC52
+  g.clipboard = 'osc52'
   o.clipboard = ''
 end
