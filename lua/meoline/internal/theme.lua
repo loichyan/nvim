@@ -45,8 +45,8 @@ end
 Colors.higroups = {
   -- statusline
   ['mode_normal']     = {fg='white'},
-  ['mode_visual']     = {fg='green'},
-  ['mode_insert']     = {fg='blue'},
+  ['mode_visual']     = {fg='yellow'},
+  ['mode_insert']     = {fg='green'},
   ['mode_replace']    = {fg='magenta'},
   ['mode_command']    = {fg='red'},
   ['mode_other']      = {fg='overlay'},
