@@ -8,6 +8,7 @@ Meow.keymap({
   { '<Esc>',               '<Cmd>noh<CR>',                                                               desc = 'Clear highlights'                  },
   { '<Esc><Esc>',          '<C-\\><C-n>', mode = 't',                                                    desc = 'Escape terminal mode'              },
   { '<C-c>',               function() H.clear_ui() end,                                                  desc = 'Clear trivial UI items'            },
+  { 'gw',                  function() H.hlcword() end,                                                   desc = 'Highlight <cword>'                 },
   { 'gY',                  function() return H.smart_copy() end, expr = true, mode = nx,                 desc = 'Copy docs/comments'                },
   { 'gYY',                 function() return H.smart_copy() .. '_' end, expr = true,                     desc = 'Copy docs/comments'                },
 
