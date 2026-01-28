@@ -25,6 +25,7 @@ opt.shortmess:append('A') -- suppress swapfile warnings
 o.foldexpr = 'v:lua.Meowim.utils.foldexpr()'
 o.foldmethod = 'expr'
 o.foldlevel = 99
+
 if vim.fn.has('nvim-0.12') == 1 then
   opt.fillchars:append({
     fold = ' ',
