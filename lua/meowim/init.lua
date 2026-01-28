@@ -10,7 +10,7 @@ Meowim.setup = function()
   -- Load configurations, reporting error if failed.
   local load = function(mod)
     local ok, err = pcall(require, mod)
-    if not ok then Meow.notifyf('ERROR', "failed to load '%s': %s", mod, err) end
+    if not ok then Meow.notifyf('ERROR', 'failed to load "%s": %s', mod, err) end
   end
 
   -- Load options and colorscheme on startup anyway.
