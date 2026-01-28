@@ -86,6 +86,7 @@ Base16.colors_customizations = function(opts, colors)
 
   -- stylua: ignore
   local hipatter_colors = {
+    ['Debug'] = p.base09,
     ['Fixme'] = p.base08,
     ['Hack']  = p.base0E,
     ['Note']  = p.base0B,
