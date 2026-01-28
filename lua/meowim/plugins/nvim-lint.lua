@@ -14,8 +14,7 @@ Spec.config = function()
     {
       event = { 'BufReadPost', 'BufWritePost', 'InsertLeave' },
       desc = 'Lint current buffer',
-      -- stylua: ignore
-      callback = require('snacks').util.debounce(function() require('lint').try_lint() end, { ms = 150 }),
+      callback = Meow.debounce(150, vim.schedule_wrap(function() require('lint').try_lint() end)),
     },
   })
 end
