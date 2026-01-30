@@ -8,7 +8,6 @@ Spec.config = function()
     -- stylua: ignore
     highlighters = {
       hex_color = minihipat.gen_highlighter.hex_color(),
-      debug = H.hitodo({ 'DEBUG' }, 'D', 'MiniHipatternsDebug'),
       fixme = H.hitodo({ 'FIXME' }, 'F', 'MiniHipatternsFixme'),
       hack  = H.hitodo({ 'HACK'  }, 'H', 'MiniHipatternsHack'),
       todo  = H.hitodo({ 'TODO'  }, 'T', 'MiniHipatternsTodo'),
