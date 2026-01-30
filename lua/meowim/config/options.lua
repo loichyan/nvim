@@ -22,6 +22,11 @@ opt.diffopt:append('algorithm:histogram', 'inline:word') -- improve diff mode
 opt.listchars = { nbsp = '⎵', tab = '› ' } -- better listchars
 opt.shortmess:append('A') -- suppress swapfile warnings
 
+-- Enable mode shapes, "Cursor" highlight, and blinking, see `:h 'guicursor'`.
+o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50'
+  .. ',a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor'
+  .. ',sm:block-blinkwait175-blinkoff150-blinkon175'
+
 o.foldexpr = 'v:lua.Meowim.utils.foldexpr()'
 o.foldmethod = 'expr'
 o.foldlevel = 99
