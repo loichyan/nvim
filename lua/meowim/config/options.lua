@@ -51,7 +51,7 @@ if vim.env['TMUX'] then -- use tmux's buffers if possible
     cache_enabled = 1,
   }
   o.clipboard = 'unnamed'
-else -- otherwise fallback to OSC52
+else -- otherwise, fallback to OSC52
   g.clipboard = 'osc52'
   o.clipboard = ''
 end

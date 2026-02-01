@@ -28,6 +28,7 @@ local Lspconfig = {
       })
     end,
   },
+  harper_ls = {},
   typos_lsp = {},
 
   -- Scripting

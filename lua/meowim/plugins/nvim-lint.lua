@@ -4,9 +4,9 @@ local Spec = { 'mfussenegger/nvim-lint', event = 'LazyFile' }
 Spec.config = function()
   local lint = require('lint')
   lint.linters_by_ft = {
-    text = { 'vale' },
-    markdown = { 'vale' },
-    rst = { 'vale' },
+    -- text = { 'vale' },
+    -- markdown = { 'vale' },
+    -- rst = { 'vale' },
     dockerfile = { 'hadolint' },
   }
 
