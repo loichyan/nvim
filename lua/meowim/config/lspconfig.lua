@@ -28,8 +28,12 @@ local Lspconfig = {
       })
     end,
   },
-  harper_ls = {},
-  typos_lsp = {},
+  harper_ls = {
+    settings = { ['harper-ls'] = { diagnosticSeverity = 'information' } },
+  },
+  typos_lsp = {
+    init_options = { diagnosticSeverity = 'information' },
+  },
 
   -- Scripting
   bashls = {},
