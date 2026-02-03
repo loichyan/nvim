@@ -38,7 +38,7 @@ H.smart_copy = function()
           Meow.notifyf('WARN', 'failed to format yanked text: %s', out)
           out = table.concat(lines, '\n')
         end
-        vim.fn.setreg('+', out)
+        vim.fn.setreg('*', out)
       end)
     )
   end)
