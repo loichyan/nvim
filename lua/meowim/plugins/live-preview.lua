@@ -10,7 +10,7 @@ return {
           'n',
           '<Leader>lp',
           '<Cmd>LivePreview start<CR>',
-          { buffer = ev.buf, desc = 'LivePreview' }
+          { buffer = ev.buf, desc = 'LivePreview', silent = true }
         )
       end,
     })
