@@ -29,7 +29,14 @@ local Lspconfig = {
     end,
   },
   harper_ls = {
-    settings = { ['harper-ls'] = { diagnosticSeverity = 'information' } },
+    settings = {
+      ['harper-ls'] = {
+        diagnosticSeverity = 'information',
+        linters = {
+          SpellCheck = false, -- typos is good enough
+        },
+      },
+    },
   },
   typos_lsp = {
     init_options = { diagnosticSeverity = 'information' },
