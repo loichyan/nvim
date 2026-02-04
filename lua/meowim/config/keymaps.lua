@@ -83,8 +83,6 @@ Meow.keymap({
   { '<Leader>gd',          function() H.git('diff', 'HEAD~' .. vim.v.count, '--', '%') end,              desc = 'Diff buffer against HEAD~'         },
   { '<Leader>gD',          function() H.git('diff', 'HEAD~' .. vim.v.count) end,                         desc = 'Diff workspace against HEAD~'      },
   { '<Leader>gg',          function() H.codediff() end,                                                  desc = 'CodeDiff'                          },
-  { '<Leader>gg',          function() H.codediff() end,                                                  desc = 'CodeDiff'                          },
-  { '<Leader>gg',          function() H.codediff() end,                                                  desc = 'CodeDiff'                          },
   { '<Leader>gh',          function() H.pick('git_hunks')   end,                                         desc = 'Pick workspace hunks'              },
   { '<Leader>gl',          function() H.git('log', '-p', '--', '%') end,                                 desc = 'Show buffer logs'                  },
   { '<Leader>gL',          function() H.pick('git_commits') end,                                         desc = 'Pick workspace logs'               },
