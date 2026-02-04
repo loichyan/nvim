@@ -1,6 +1,6 @@
 return {
   ["SchemaStore.nvim"] = "9b6a3ab14cecc7da9f3aa4fa0ae2a7390748aca5",
-  ["blink.cmp"] = "b137f63d89d0285ca76eed12e1923220e0aff8c1",
+  ["blink.cmp"] = "bc54f81b6d92f91dac06c77c3ffccec5291e98cd",
   ["codediff.nvim"] = "8dc25e4aae6c2570d764ca3877f617d36fb5a73d",
   ["conform.nvim"] = "c2526f1cde528a66e086ab1668e996d162c75f4f",
   ["friendly-snippets"] = "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
