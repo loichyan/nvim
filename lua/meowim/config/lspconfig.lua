@@ -33,6 +33,7 @@ local Lspconfig = {
       ['harper-ls'] = {
         diagnosticSeverity = 'information',
         linters = {
+          SentenceCapitalization = false, -- stylish
           SpellCheck = false, -- typos is good enough
         },
       },
