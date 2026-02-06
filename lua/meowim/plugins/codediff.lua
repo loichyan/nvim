@@ -41,7 +41,7 @@ Spec.config = function()
         diff_put         = 'dp',
       },
       explorer = {
-        select           = 'o',
+        select           = '<CR>',
         hover            = 'K',
         refresh          = 'R',
         toggle_view_mode = 'i',
@@ -49,6 +49,10 @@ Spec.config = function()
         stage_all        = 'S',
         unstage_all      = 'U',
         restore          = 'X',
+      },
+      history = {
+        select           = "<CR>",
+        toggle_view_mode = "i",
       },
       conflict = {
         accept_incoming  = 'c2',
