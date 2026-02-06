@@ -37,4 +37,9 @@ vim.api.nvim_create_user_command('Cat', function(ctx)
   vim.api.nvim_win_set_buf(0, bufnr)
 end, { nargs = '+', complete = 'command' })
 
+vim.api.nvim_create_user_command('MiniTest', function()
+  if _G.MiniTest == nil then require('mini.test').setup() end
+  MiniTest.run_file()
+end, {})
+
 require('meowim.config.polish_cmdheight')
