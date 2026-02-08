@@ -39,7 +39,11 @@ end, { nargs = '+', complete = 'command' })
 
 vim.api.nvim_create_user_command('MiniTest', function()
   if _G.MiniTest == nil then require('mini.test').setup() end
-  MiniTest.run_file()
+  MiniTest.run_file(nil, {
+    execute = {
+      reporter = MiniTest.gen_reporter.buffer({ window = function() vim.cmd('vsplit') end }),
+    },
+  })
 end, {})
 
 require('meowim.config.polish_cmdheight')
