@@ -36,6 +36,7 @@ local Lspconfig = {
           SentenceCapitalization = false,
           SpellCheck = false, -- typos is good enough
           SplitWords = false,
+          ToDoHyphen = false,
         },
       },
     },
