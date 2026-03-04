@@ -34,6 +34,7 @@ local Lspconfig = {
         diagnosticSeverity = 'information',
         linters = {
           SentenceCapitalization = false,
+          Spaces = false,
           SpellCheck = false, -- typos is good enough
           SplitWords = false,
           ToDoHyphen = false,
