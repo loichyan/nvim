@@ -4,7 +4,7 @@ return {
   ["codediff.nvim"] = "783258e587bd1bc2bba4d617d648e7424d594107",
   ["conform.nvim"] = "e969e302bced7ffb9a0a0323629f31feb0ca35a6",
   ["friendly-snippets"] = "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
-  ["git-conflict.nvim"] = "a1badcd070d176172940eb55d9d59029dad1c5a6",
+  ["git-conflict.nvim"] = "51d9885d41cdb3f692f78ff96c326d89ba68f9f2",
   ["grug-far.nvim"] = "275dbedc96e61a6b8d1dfb28ba51586ddd233dcf",
   ["guess-indent.nvim"] = "84a4987ff36798c2fc1169cbaff67960aed9776f",
   ["lazydev.nvim"] = "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
