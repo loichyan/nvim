@@ -28,20 +28,20 @@ local Lspconfig = {
       })
     end,
   },
-  harper_ls = {
-    settings = {
-      ['harper-ls'] = {
-        diagnosticSeverity = 'information',
-        linters = {
-          SentenceCapitalization = false,
-          Spaces = false,
-          SpellCheck = false, -- typos is good enough
-          SplitWords = false,
-          ToDoHyphen = false,
-        },
-      },
-    },
-  },
+  -- harper_ls = {
+  --   settings = {
+  --     ['harper-ls'] = {
+  --       diagnosticSeverity = 'information',
+  --       linters = {
+  --         SentenceCapitalization = false,
+  --         Spaces = false,
+  --         SpellCheck = false, -- typos is good enough
+  --         SplitWords = false,
+  --         ToDoHyphen = false,
+  --       },
+  --     },
+  --   },
+  -- },
   typos_lsp = {
     init_options = { diagnosticSeverity = 'information' },
   },
