@@ -2,7 +2,8 @@
 local Spec = {
   'saghen/blink.cmp',
   event = 'LazyFile',
-  dependencies = { 'mini.snippets' },
+  build = function() require('blink.cmp').build():wait(60000) end,
+  dependencies = { { 'saghen/blink.lib' }, 'mini.snippets' },
 }
 local H = {}
 
@@ -80,7 +81,6 @@ Spec.config = function()
     -- Completion
     fuzzy = {
       implementation = 'prefer_rust_with_warning',
-      prebuilt_binaries = { force_version = 'v1.10.*' },
       sorts = { 'exact', 'score', 'sort_text', 'kind' },
     },
     snippets = { preset = 'mini_snippets' },
