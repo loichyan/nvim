@@ -101,17 +101,6 @@ Spec.config = function()
     cmdline = { enabled = true, keymap = cmdline_keymap },
     term = { enabled = false },
   })
-
-  -- HACK: ensure blink.cmp's completion menu is closed
-  -- FIXME: remove me when the upstream fixes this issue
-  Meow.autocmd('meowim.plugins.blink-cmp', {
-    {
-      event = 'InsertLeave',
-      callback = function()
-        if require('blink.cmp').is_visible() then require('blink.cmp').hide() end
-      end,
-    },
-  })
 end
 
 H.pair_cr = function()
