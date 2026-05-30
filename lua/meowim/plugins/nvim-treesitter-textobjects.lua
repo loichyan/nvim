@@ -1,7 +1,6 @@
 ---@type MeoSpec
 local Spec = {
   'nvim-treesitter/nvim-treesitter-textobjects',
-  checkout = 'main',
   event = 'LazyFile',
 }
 

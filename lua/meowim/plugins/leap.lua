@@ -1,7 +1,6 @@
 ---@type MeoSpec
 local Spec = {
-  'ggandor/leap.nvim',
-  source = 'https://codeberg.org/andyg/leap.nvim',
+  'https://codeberg.org/andyg/leap.nvim',
   event = 'LazyFile',
   dependencies = { 'vim-repeat' },
 }

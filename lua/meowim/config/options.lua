@@ -4,6 +4,7 @@ local g, o, opt = vim.g, vim.o, vim.opt
 
 g.mapleader = ' '
 g.localleader = '\\'
+Meow.load('mini.basics') -- load options set by mini.basics before our customization
 
 o.expandtab = true
 o.tabstop = 4
@@ -19,6 +20,13 @@ o.conceallevel = 2 -- improve rendering for Markdown
 o.relativenumber = true -- show relative numbers
 o.jumpoptions = 'stack' -- more intuitive jumps
 
+opt.fillchars:append({
+  fold = ' ',
+  foldclose = '',
+  foldinner = ' ',
+  foldopen = '',
+  foldsep = ' ',
+})
 opt.diffopt:append('algorithm:histogram', 'inline:word') -- improve diff mode
 opt.listchars = { nbsp = '⎵', tab = '› ' } -- better listchars
 opt.shortmess:append('A') -- suppress swapfile warnings
@@ -31,18 +39,8 @@ o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50'
 o.foldexpr = 'v:lua.Meowim.utils.foldexpr()'
 o.foldmethod = 'expr'
 o.foldlevel = 99
-
-if vim.fn.has('nvim-0.12') == 1 then
-  opt.fillchars:append({
-    fold = ' ',
-    foldclose = '',
-    foldinner = ' ',
-    foldopen = '',
-    foldsep = ' ',
-  })
-  o.statuscolumn = '%s%l%C '
-  o.foldcolumn = '1'
-end
+o.foldcolumn = '1'
+o.statuscolumn = '%s%l%C '
 
 if vim.env['TMUX'] then -- use tmux's buffers if possible
   g.clipboard = {
