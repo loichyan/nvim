@@ -7,6 +7,9 @@ Spec.config = function()
   minipick.setup({
     -- stylua: ignore
     mappings = {
+      caret_left    = '<C-b>',
+      caret_right   = '<C-f>',
+
       choose        = '<CR>',
       choose_marked = '<M-CR>',
       refine        = '<C-Space>',
@@ -14,8 +17,8 @@ Spec.config = function()
 
       scroll_left   = '<C-h>',
       scroll_right  = '<C-l>',
-      scroll_down   = '<C-f>',
-      scroll_up     = '<C-b>',
+      scroll_down   = '<C-j>',
+      scroll_up     = '<C-k>',
 
       stop          = '<Esc>',
 
