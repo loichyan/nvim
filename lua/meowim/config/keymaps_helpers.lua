@@ -160,8 +160,7 @@ H.jump_quickfix = function(dir, fallback)
   if require('quicker').is_open() then
     require('mini.bracketed').quickfix(dir)
   else
-    fallback = vim.api.nvim_replace_termcodes(fallback, true, false, true)
-    vim.api.nvim_feedkeys(fallback, 'n', false)
+    vim.api.nvim_feedkeys(vim.keycode(fallback), 'n', false)
   end
 end
 

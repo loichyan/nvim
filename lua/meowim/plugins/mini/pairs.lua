@@ -43,7 +43,7 @@ H.smart_pairs = function(open, pair, neigh_pattern)
 
   -- Handle triple quotes
   if op == cl and line:sub(col - 1, col) == op:rep(2) then
-    return op .. '\n' .. op:rep(3) .. vim.api.nvim_replace_termcodes('<Up>', true, true, true)
+    return op .. '\n' .. op:rep(3) .. vim.keycode('<Up>')
   end
 
   -- Disable quotes in string literals
