@@ -44,6 +44,25 @@ H.smart_copy = function()
   end)
 end
 
+---Copies buffer path and line number(s) to the '*' register.
+---@param expand 'relative'|'absolute'
+H.copy_path = function(expand)
+  local path = expand == 'absolute' and vim.fn.expand('%:p:~') or vim.fn.expand('%:.')
+  if path == '' then path = vim.fn.expand('%:t') end
+  local mode = vim.fn.mode()
+  local str
+  if mode == 'v' or mode == 'V' or mode == '\22' then
+    vim.cmd('silent normal! \x1b')
+    local s = vim.fn.line("'<")
+    local e = vim.fn.line("'>")
+    if s > e then s, e = e, s end
+    str = string.format('%s:%d-%d', path, s, e)
+  else
+    str = string.format('%s:%d', path, vim.fn.line('.'))
+  end
+  vim.fn.setreg('*', str)
+end
+
 H.codediff = function(...)
   Meow.load('codediff.nvim')
   vim.cmd.CodeDiff(...)

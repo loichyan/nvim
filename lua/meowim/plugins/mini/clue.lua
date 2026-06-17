@@ -22,6 +22,8 @@ Spec.config = function()
       { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
       { mode = 'x', keys = '<Leader>l', desc = '+LSP' },
       { mode = 'n', keys = '<Leader>q', desc = '+Sessions' },
+      { mode = 'n', keys = '<Leader>y', desc = '+Copy' },
+      { mode = 'x', keys = '<Leader>y', desc = '+Copy' },
     },
     triggers = {
       -- builtin_completion

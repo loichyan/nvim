@@ -9,8 +9,6 @@ Meow.keymap({
   { '<Esc><Esc>',          '<C-\\><C-n>', mode = 't',                                                    desc = 'Escape terminal mode'              },
   { '<C-c>',               function() H.clear_ui() end,                                                  desc = 'Clear trivial UI items'            },
   { 'gw',                  function() H.hlcword() end,                                                   desc = 'Highlight <cword>'                 },
-  { 'gY',                  function() return H.smart_copy() end, expr = true, mode = nx,                 desc = 'Copy docs/comments'                },
-  { 'gYY',                 function() return H.smart_copy() .. '_' end, expr = true,                     desc = 'Copy docs/comments'                },
 
   { '[{',                  function() H.jump_pair('backward', '{}') end, mode = nxo,                     desc = "Unmatched '{'"                     },
   { ']}',                  function() H.jump_pair('forward',  '{}') end, mode = nxo,                     desc = "Unmatched '}'"                     },
@@ -19,6 +17,7 @@ Meow.keymap({
   { '[(',                  function() H.jump_pair('backward', '()') end, mode = nxo,                     desc = "Unmatched '('"                     },
   { '])',                  function() H.jump_pair('forward',  '()') end, mode = nxo,                     desc = "Unmatched ')'"                     },
 
+  -- Common
   { '<Leader>e',           function() H.plugins.mini.files.open('buffer') end,                           desc = 'Explore buffer directory'          },
   { '<Leader>E',           function() H.plugins.mini.files.open('workspace') end,                        desc = 'Explore workspace root'            },
 
@@ -27,6 +26,15 @@ Meow.keymap({
 
   { '<Leader>r',           function() H.plugins['grug-far'].open('buffer') end,                          desc = 'Search/replace current buffer'     },
   { '<Leader>R',           function() H.plugins['grug-far'].open('workspace') end,                       desc = 'Search/replace workspace files'    },
+
+  -- Copy
+  { 'gY',                  function() return H.smart_copy() end, expr = true, mode = nx,                 desc = 'Copy docs/comments'                },
+  { 'gYY',                 function() return H.smart_copy() .. '_' end, expr = true,                     desc = 'Copy docs/comments'                },
+
+  { '<Leader>yp',          function() H.copy_path('relative') end, mode = nx,                            desc = 'Copy buffer path and lnum'         },
+  { '<Leader>yP',          function() H.copy_path('absolute') end, mode = nx,                            desc = 'Copy buffer path and lnum'         },
+  { '<Leader>yy',          function() return H.smart_copy() end, expr = true, mode = nx,                 desc = 'Copy docs/comments'                },
+  { '<Leader>yY',          function() return H.smart_copy() .. '_' end, expr = true,                     desc = 'Copy line docs/comments'           },
 
   -- Toggles
   { '<LocalLeader>d',      function() H.toggle_virtual_text() end,                                       desc = 'Toggle virtual text'               },
