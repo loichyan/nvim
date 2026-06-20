@@ -19,6 +19,8 @@ o.showtabline = 2 -- always show tabline
 o.conceallevel = 2 -- improve rendering for Markdown
 o.relativenumber = true -- show relative numbers
 o.jumpoptions = 'stack' -- more intuitive jumps
+o.linebreak = true -- break at word boundary
+o.breakindent = true -- keep indent for wrapped lines
 
 opt.fillchars:append({
   fold = ' ',
