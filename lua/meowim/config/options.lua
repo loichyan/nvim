@@ -30,6 +30,7 @@ opt.fillchars:append({
 opt.diffopt:append('algorithm:histogram', 'inline:word') -- improve diff mode
 opt.listchars = { nbsp = '⎵', tab = '› ' } -- better listchars
 opt.shortmess:append('A') -- suppress swapfile warnings
+opt.formatoptions:remove('t')
 
 -- Enable mode shapes, "Cursor" highlight, and blinking, see `:h 'guicursor'`.
 o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50'
