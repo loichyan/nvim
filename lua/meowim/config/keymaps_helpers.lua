@@ -55,7 +55,9 @@ H.copy_path = function(expand)
     vim.cmd('silent normal! \x1b')
     local s = vim.fn.line("'<")
     local e = vim.fn.line("'>")
-    if s > e then s, e = e, s end
+    if s > e then
+      s, e = e, s
+    end
     str = string.format('%s:%d-%d', path, s, e)
   else
     str = string.format('%s:%d', path, vim.fn.line('.'))
@@ -96,7 +98,7 @@ H.git_show_buffer = function()
   else
     rev = vim.fn.expand('<cword>')
     if not H.is_git_commit(rev) then
-      rev = Meowim.utils.prompt('Show revision: ')
+      rev = Meowim.utils.prompt('Show revision:')
       if rev == '' then return end
     end
   end
@@ -112,12 +114,12 @@ end
 ---@param mode 'edit'|'prompt'|'amend'
 H.git_commit = function(mode)
   if mode == 'prompt' then
-    local msg = Meowim.utils.prompt('Commit message: ')
+    local msg = Meowim.utils.prompt('Commit message:')
     if msg == '' then return end
     msg = vim.fn.fnameescape(msg) -- escape to avoid expansion errors
     H.git('commit', '-m', msg)
   elseif mode == 'amend' then
-    local msg = Meowim.utils.prompt('Edit message? (y/N) ', { mode = 'char' })
+    local msg = Meowim.utils.prompt('Edit message? (y/N)', { mode = 'char' })
     msg = msg:lower()
     if msg == 'y' then
       H.git('commit', '--amend')
@@ -216,7 +218,8 @@ end
 H.pick_word = function(scope, grep_opts)
   local globs = scope == 'current' and { vim.fn.expand('%') } or nil
   local pattern = vim.fn.expand('<cword>')
-  pattern = pattern ~= '' and pattern or Meowim.utils.prompt('Search word: ')
+  pattern = pattern ~= '' and pattern or Meowim.utils.prompt('Search word:')
+  if pattern == '' then return end
 
   local default_grep_opts = { pattern = pattern, globs = globs, tool = 'rg' }
   grep_opts = vim.tbl_extend('force', default_grep_opts, grep_opts or {})

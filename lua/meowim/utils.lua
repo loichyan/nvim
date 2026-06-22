@@ -20,25 +20,29 @@ Utils.wrap_fn = function(old, new)
 end
 
 ---Asks user for a input.
----@param opts? {mode:'str'|'char'}
+---@param opts? {mode:'str'|'char',scope:string}
 Utils.prompt = function(prompt, opts)
-  local mode = (opts or {}).mode or 'str'
+  opts = opts or {}
 
-  local ok, msg
-  if mode == 'str' then
-    vim.cmd('echohl Question')
-    ok, msg = pcall(vim.fn.input, prompt)
-    vim.cmd('echohl None | redraw')
-  else
-    vim.schedule(function()
-      vim.cmd('echo "" | redraw')
-      vim.api.nvim_echo({ { prompt, 'Question' } }, false, {})
-    end)
-    ok, msg = pcall(vim.fn.getcharstr)
-    vim.cmd('echo "" | redraw')
+  local handlers = {}
+  if opts.mode == 'char' then
+    handlers.key = function(state, key)
+      if key == '\27' then
+        state.status = 'cancel'
+      elseif key ~= nil then
+        state.input = key
+        state.status = 'accept'
+      end
+    end
   end
 
-  return ok and msg or ''
+  local input = require('mini.input').get({
+    prompt = prompt,
+    scope = opts.scope or 'editor',
+    handlers = handlers,
+  })
+
+  if true then return input or '' end
 end
 
 ---Closes current window if possible, otherwise current buffer.
