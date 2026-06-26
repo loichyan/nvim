@@ -15,6 +15,9 @@ Spec.config = function()
       refine        = '<C-Space>',
       refine_marked = '<M-Space>',
 
+      mark          = '<C-o>',
+      mark_all      = '<C-a>',
+
       scroll_left   = '<C-h>',
       scroll_right  = '<C-l>',
       scroll_down   = '<C-j>',
