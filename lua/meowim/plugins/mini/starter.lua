@@ -20,6 +20,7 @@ Spec.config = function()
 
   ministarter.setup({
     evaluate_single = true,
+    header = H.header,
     -- stylua: ignore
     items = {
       { section = 'Actions', name = 'New Buffer',      action = 'enew'                                                     },
@@ -38,6 +39,14 @@ Spec.config = function()
       ministarter.gen_hook.aligning('center', 'center'),
     },
   })
+end
+
+H.header = function()
+  -- TODO: report to mini.starter
+  local username = vim.F.npcall(function() return vim.loop.os_get_passwd()['username'] end)
+    or vim.env['USER']
+    or 'USER'
+  return 'Hello, ' .. username
 end
 
 H.footer = function()
