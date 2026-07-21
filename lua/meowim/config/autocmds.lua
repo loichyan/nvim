@@ -50,6 +50,7 @@ Meow.autocmd('meowim.config.autocmds', {
     desc = 'Configure rulers',
     callback = function(ev)
       local ft, opt_local = ev.match, vim.opt_local
+      opt_local.formatoptions:remove('t') -- dont auto wrap on ruler
       if vim.bo.buftype ~= '' or trivial_files[ft] then return end
       opt_local.textwidth = rulers[ft] or rulers['*']
     end,
