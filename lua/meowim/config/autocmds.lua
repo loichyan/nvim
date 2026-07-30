@@ -67,6 +67,13 @@ Meow.autocmd('meowim.config.autocmds', {
 
   {
     event = 'FileType',
+    pattern = 'markdown',
+    desc = 'Tweak document review experience',
+    callback = function() vim.opt_local.wrap = true end,
+  },
+
+  {
+    event = 'FileType',
     pattern = 'help',
     desc = 'Improve experience when reading :help',
     callback = function(ev)
